@@ -10,7 +10,7 @@ public class safe_sql {
         Connection conn = null;
         conn = DriverManager.getConnection(URL, USER, PASSWORD);
         Statement stmt = conn.createStatement();
-        String user = "root ' or 1=1 #'";
+        String user = "root '";
 //        String sql = "select Host,User from mysql.user where User = '" + user + "'";
         String sql = "select Host,User from mysql.user where User = ?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
