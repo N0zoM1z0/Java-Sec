@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <!-- Web 应用的名称 -->
+    <display-name>FitnessManagement</display-name>
+
+    <!-- Welcome 文件配置 -->
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file> <!-- 默认访问的文件 -->
+    </welcome-file-list>
+
+    <!-- 用户管理 Servlet -->
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>controller.UserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/UserServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- 健身计划管理 Servlet -->
+    <servlet>
+        <servlet-name>PlanServlet</servlet-name>
+        <servlet-class>controller.PlanServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PlanServlet</servlet-name>
+        <url-pattern>/PlanServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- ActivityDataServlet -->
+    <servlet>
+        <servlet-name>ActivityDataServlet</servlet-name>
+        <servlet-class>controller.ActivityDataServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ActivityDataServlet</servlet-name>
+        <url-pattern>/ActivityDataServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- 数据统计和管理 Servlet -->
+    <servlet>
+        <servlet-name>DataServlet</servlet-name>
+        <servlet-class>controller.DataServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DataServlet</servlet-name>
+        <url-pattern>/DataServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- 社交互动 Servlet -->
+    <servlet>
+        <servlet-name>SocialServlet</servlet-name>
+        <servlet-class>controller.SocialServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SocialServlet</servlet-name>
+        <url-pattern>/SocialServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserCoachServlet</servlet-name>
+        <servlet-class>controller.UserCoachServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserCoachServlet</servlet-name>
+        <url-pattern>/UserCoachServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CoachServlet</servlet-name>
+        <servlet-class>controller.CoachServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CoachServlet</servlet-name>
+        <url-pattern>/CoachServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Session 超时时间 -->
+    <session-config>
+        <session-timeout>30</session-timeout> <!-- 单位：分钟 -->
+    </session-config>
+
+</web-app>
