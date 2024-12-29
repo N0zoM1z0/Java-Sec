@@ -1,0 +1,64 @@
+➜  SerializationDumper-master git:(main) ✗ hexdump -C ser.bin 
+00000000  ac ed 00 05 73 72 00 0f  70 61 63 6b 61 67 65 31  |....sr..package1|
+00000010  2e 50 65 72 73 6f 6e 60  32 45 e9 90 39 b0 bc 03  |.Person`2E..9...|
+00000020  00 02 49 00 03 61 67 65  4c 00 04 6e 61 6d 65 74  |..I..ageL..namet|
+00000030  00 12 4c 6a 61 76 61 2f  6c 61 6e 67 2f 53 74 72  |..Ljava/lang/Str|
+00000040  69 6e 67 3b 78 70 00 00  00 01 74 00 04 6e 61 6d  |ing;xp....t..nam|
+00000050  65 74 00 10 54 68 69 73  20 69 73 20 61 20 4f 62  |et..This is a Ob|
+00000060  6a 65 63 74 78                                    |jectx|
+00000065
+➜  SerializationDumper-master git:(main) ✗ java -jar SerializationDumper.jar -r ser.bin
+
+STREAM_MAGIC - 0xac ed
+STREAM_VERSION - 0x00 05
+Contents
+  TC_OBJECT - 0x73
+    TC_CLASSDESC - 0x72
+      className
+        Length - 15 - 0x00 0f
+        Value - package1.Person - 0x7061636b616765312e506572736f6e
+      serialVersionUID - 0x60 32 45 e9 90 39 b0 bc
+      newHandle 0x00 7e 00 00
+      classDescFlags - 0x03 - SC_WRITE_METHOD | SC_SERIALIZABLE
+      fieldCount - 2 - 0x00 02
+      Fields
+        0:
+          Int - I - 0x49
+          fieldName
+            Length - 3 - 0x00 03
+            Value - age - 0x616765
+        1:
+          Object - L - 0x4c
+          fieldName
+            Length - 4 - 0x00 04
+            Value - name - 0x6e616d65
+          className1
+            TC_STRING - 0x74
+              newHandle 0x00 7e 00 01
+              Length - 18 - 0x00 12
+              Value - Ljava/lang/String; - 0x4c6a6176612f6c616e672f537472696e673b
+      classAnnotations
+        TC_ENDBLOCKDATA - 0x78
+      superClassDesc
+        TC_NULL - 0x70
+    newHandle 0x00 7e 00 02
+    classdata
+      package1.Person
+        values
+          age
+            (int)1 - 0x00 00 00 01
+          name
+            (object)
+              TC_STRING - 0x74
+                newHandle 0x00 7e 00 03
+                Length - 4 - 0x00 04
+                Value - name - 0x6e616d65
+        objectAnnotation
+          TC_STRING - 0x74
+            newHandle 0x00 7e 00 04
+            Length - 16 - 0x00 10
+            Value - This is a Object - 0x546869732069732061204f626a656374
+          TC_ENDBLOCKDATA - 0x78
+➜  SerializationDumper-master git:(main) ✗ 
+
+
