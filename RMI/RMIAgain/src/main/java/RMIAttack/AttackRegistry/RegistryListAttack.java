@@ -1,4 +1,4 @@
-package RMIAttack;
+package RMIAttack.AttackRegistry;
 
 import RMIDemo.*;
 
