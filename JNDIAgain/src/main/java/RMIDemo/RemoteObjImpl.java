@@ -10,10 +10,5 @@ public class RemoteObjImpl extends UnicastRemoteObject implements RemoteObj {
     @Override
     public void sayHello(String things) throws Exception {
         System.out.println(things.toUpperCase());
-        try {
-            Runtime.getRuntime().exec("/usr/bin/gnome-calculator");
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
