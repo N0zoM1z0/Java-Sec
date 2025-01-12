@@ -1,0 +1,28 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"weixin/sendMes"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"weixin.sendMes.save",
+	          "ver_type":"msg",
+	          "fields":[
+								  {"name":"template_key","type":"text","label":"模版ID","verify":"required","placeholder":"请输入模版ID"}, 
+								  {"name":"title","type":"text","label":"标题","verify":"required","placeholder":"请输入标题"}, 
+								  {"name":"firstclass","type":"text","label":"一级行业","verify":"required","placeholder":"请输入一级行业"}, 
+								  {"name":"secondclass","type":"text","label":"二级行业","verify":"required","placeholder":"请输入二级行业"}, 
+								  {"name":"content","type":"text","label":"详情","verify":"required","placeholder":"请输入详情"} 
+					   ],
+	       "tab_buttons":[
+		    				{"button_id":"s1","button_name":"新增","event":"add","icon":"&#xe654;"},
+		    				{"button_id":"s2","button_name":"关闭","event":"close","icon":"&#x1006;"}
+			    		]
+			  }
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_update.html">
+ 

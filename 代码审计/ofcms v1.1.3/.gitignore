@@ -1,0 +1,12 @@
+*.iml
+/.idea
+/ofcms-admin/src/main/resources/dev/conf/db.properties
+/target/
+/.classpath
+/.project
+/.factorypath
+/.settings/
+/log/
+/logs/
+/bin/
+/src/test

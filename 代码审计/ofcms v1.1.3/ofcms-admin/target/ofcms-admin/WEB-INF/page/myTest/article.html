@@ -1,0 +1,70 @@
+<#include "default/common/head.html" />
+<link rel="stylesheet" href="${reroot}/static/assets/css/comment.css"  >
+<br>
+<div class="of-content" style="clear: both;margin-top: 60px">
+    <div class="of-crad" style="width: 900px;margin: 0 auto;">
+        <@of.content site_id=site.site_id content_id=params.content_id>
+            <h2 class="content-title"> ${content.title_name}</h2>
+            <div class="content-inf">发布时间：${content.create_time}&nbsp;&nbsp; 作者：${content.author}&nbsp;&nbsp;浏览次数：<span
+                    id="views">${content.clicks}</span>
+            </div>
+            <div class="content-txt">${content.content}</div>
+        </@of.content>
+    </div>
+
+    <!-- 评论-->
+    <div class="of-crad" style="width: 900px;margin: 0 auto;">
+
+        <section class="comments">
+            <h1><span>用户评论</span></h1>
+            <form  class="layui-form">
+                <textarea name="comment_content" maxlength="8000"  required lay-verify="required"  placeholder="发表你此时的观点 ……" class="comments-text" id="comments-text"></textarea>
+                <div class="plfr1 clearfix">
+                    <div class="down clearfix">
+                        <input type="hidden" name="content_id" value="${params.content_id}">
+                        <input type="hidden" name="site_id" value="${site.site_id}">
+                        <input type="hidden" name="check_status" value="1">
+                        <input type="submit" lay-submit  value="提交评论" lay-filter="comment" class="submit-on">
+                    </div>
+                </div>
+            </form>
+        </section>
+        <section class="comments-list" style="margin-top:60px;">
+            <@of.comment site_id=site.site_id  content_id=params.content_id limit="10">
+            <ul>
+                <#if comment ??>
+                    <#list comment as data >
+                        <li>
+                            <span>评论时间：${data.comment_time} </span><br>
+                            ${data.comment_content}</li>
+                    </#list>
+                <#else>
+                    <div class="zanwu">暂无相关评论！</div>
+                </#if>
+             </ul>
+        </@of.comment>
+        </section>
+    </div>
+</div>
+<script src="${reroot}/static/lib/jquery-1.10.1.min.js"></script>
+<script src="${reroot}/static/assets/js/utile.js"></script>
+<script>
+    layui.use(['form','carousel','element'], function () {
+        var carousel = layui.carousel;
+        var element = layui.element;
+        var form = layui.form;
+        //监听提交
+        form.on('submit(comment)', function(data) {
+            utile.ajaxSubmit({"url":"${webroot}/api/v1/comment/save.json",data:data.field}, function(data) {
+                if (data.code == '200') {
+                    location.reload(this);
+                } else {
+                    alert(data.msg);
+                }
+            })
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
