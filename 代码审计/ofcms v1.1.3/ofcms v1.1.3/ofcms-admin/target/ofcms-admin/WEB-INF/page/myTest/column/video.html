@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>${columns.column_english}</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="description"
+	content="java 版CMS系统、基于java技术研发的内容管理系统、功能：栏目模板自定义、内容模型自定义、多个站点管理、在线模板页面编辑等功能、代码完全开源、MIT授权协议。">
+<meta name="keywords"
+	content="ofcms,cms,java,Jfinal,java cms,php cms,内容管理系统,门户网站,手机网站,免费cms,开源cms,后台管理,软件开发">
+<link rel="stylesheet"
+	href="${reroot}/static/plugins/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="${reroot}/static/assets/css/index.css"
+	media="all">
+<script src="${reroot}/static/plugins/layui/layui.js"></script>
+<style type="text/css">
+p.title {
+	height: 50px;
+	line-height: 50px;
+	font-size: 20px;
+	font-weight: bold;
+	float: left;
+	color: #565758;
+	width: 100%;
+}
+
+p.title {
+    border-bottom: solid 1px #cccccc;
+    border-bottom-color: #EEEEEE;
+}
+</style>
+</head>
+<body>
+	<div class="of-heand layui-bg-cyan">
+		<div class="layui-container layui-bg-cyan ">
+			<ul class="layui-nav layui-bg-cyan of-nav" lay-filter="">
+				<@of.column site_id=site.site_id >
+				<li
+					class="layui-nav-item <#if  columns.column_english == null> layui-this</#if>"><a
+					href="${session.site.access_protocol}://${session.site.access_path}">首页</a>
+					<#list column as data>
+					<li
+						class="layui-nav-item <#if data.column_english == columns.column_english> layui-this</#if>">
+						<@of.column site_id=site.site_id parent_id=data.column_id > <a
+						href="<#if column?? && (column?size>0)  > javascript:;<#else>${data.column_english}.html</#if>">${data.column_name}</a>
+						<#if column?? && (column?size>0) >
+						<dl class="layui-nav-child">
+							<!-- 二级菜单 -->
+							<#list column as child>
+							<dd
+								class=" <#if child.column_english == columns.column_english> layui-this</#if>">
+								<a href="${child.column_english}.html">${child.column_name}</a>
+							</dd>
+							</#list>
+						</dl>
+						</#if> </@of.column>
+					</li>
+					</#list> </@of.column>
+			</ul>
+		</div>
+	</div>
+	<div class="of-banner">
+		<div class="layui-carousel" id="banner">
+			<div carousel-item="">
+				<@of.ad site_id=site.site_id edition="shouye">
+				<#list ad as data>
+				<div>
+					<a href="${data.ad_jump_url!'javascript:;'}"><img
+						src="${session.site.access_protocol}://${session.site.access_path}${data.ad_image_url}"
+						alt="${data.ad_name}" style="width: 100%;"></a>
+				</div>
+				</#list>
+				</@of.ad>
+			</div>
+		</div>
+	</div>
+	<div class="of-content">
+		<div class="of-crad"
+			style="height: 250px; width: 1200px; margin: 0 auto;">
+			<div>
+				<p class="title">${columns.column_name}</p>
+				<div>
+					<@of.content_list site_id = site.site_id column_name=columns.column_english>
+					<#list content_list as data>
+					<div style="float: left;">
+					<a href="${data.url}" title="${data.title_name}" style="display: block;">
+						<img alt=""
+							src="${session.site.access_protocol}://${session.site.access_path}${data.thumbnail}"
+							style="display: block;"> 
+					<p>${data.title_name}</p>
+					</a>
+					</div>
+					</#list>
+					</@of.content_list>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		layui.use([ 'carousel', 'element' ], function() {
+			var carousel = layui.carousel;
+			var element = layui.element;
+			//图片轮播
+			carousel.render({
+				elem : '#banner',
+				width : '100%' //设置容器宽度
+				,
+				arrow : 'always' //始终显示箭头
+				,
+				height : '350px',
+				autoplay : true,
+				full : false,
+				interval : 3000
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<#--配置页面面板属性-->
+<#assign pannel_config>
+{       "page_config":{
+		"page_name":"代码生成",
+		"module_name":"weixin/sendMes"
+		},
+		"queryform":{
+	          "form_id":"query_form",	
+	          "sqlid":"weixin.sendMes.query",
+	          "fields":[
+						 {"name":"id","type":"text","label":"序号","div_width":"200","placeholder":"请输入序号"} 
+						], 
+			   "tab_buttons":[
+			  					 {"button_id":"s1","type":"submit","button_name":"查询" } 
+			  				 ]
+			  },
+		"queryresult":{ 
+	            "table_id":"adminDatagrid", 
+	            "is_load":"true", 
+	            "is_page":"true",
+	            "width":"680px",
+	            "height":"500px",
+	            "inputs":"id",
+	            "delkey":"id",
+	            "del_sqlid":"weixin.sendMes.delete",
+	            "add_url":"weixin/sendMes/add.html",
+	            "edit_url":"weixin/sendMes/edit.html",
+	            "columnlist":[
+					           	{"title":"#","field":"","sort":"","style":"","type":"numbers","fixed":"left"},
+					           	{"title":"","field":"","sort":"","style":"","checkbox":"true","fixed":"left"},
+							 	{"title":"序号","field":"id","width":"100" },
+							 	{"title":"模版ID","field":"template_key","width":"398" },
+							 	{"title":"标题","field":"title","width":"140" },
+							 	{"title":"一级行业","field":"firstclass","width":"140" },
+							 	{"title":"二级行业","field":"secondclass","width":"140" },
+							 	{"title":"详情","field":"content","width":"380" },
+								{"title":"操作","width":"280","align":"center","fixed":"right","toolbar":"#barTools"}
+							],
+			  "tab_buttons":[
+			    				{"button_id":"b1","button_name":"增加","event":"add","title":"增加","icon":"&#xe654;"},
+			    				{"button_id":"b2","button_name":"批量删除","event":"bathdel","icon":"&#xe640;"},
+			    				{"button_id":"b4","button_name":"刷新","event":"refresh","url":"#","icon":"&#x1002;"}
+			    			],      
+			    "tools_buttons":[
+			                    {"tool_button_id":"t2","button_name":"推送消息","type":"button","url":"weixin/sendMes/sendMesService.json","event":"submit"},
+			    				{"tool_button_id":"t1","button_name":"查看","event":"detail","title":"查看","icon":"&#xe615;"},
+			    				{"tool_button_id":"t2","button_name":"编辑","event":"edit","title":"编辑","icon":"&#xe642;"},
+			    				{"tool_button_id":"t3","button_name":"删除","event":"del","icon":"&#xe640;"}
+			    			]          
+        	 } 
+}
+</#assign>
+<#--为table 转换需要的qryresult-->
+<#assign pannelConfig=pannel_config?eval>
+<#include "admin/template/page/comn_query.html">
