@@ -190,7 +190,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
                     // 处理由get方法请求中文乱码问题
                     String value = entry.getValue().toString().replaceAll("('|\"|\\\\)", "\\\\$1");
                     //Xss过滤
-                    value = clearXss(value);
+                    value = clearXss(value); // 5.2.9 fixed
                     // 如果是get方法需要将请求地址参数转码
                     if (request.getMethod().equals(RequestMethod.GET)) {
                         try {

