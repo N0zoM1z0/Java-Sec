@@ -9,7 +9,7 @@ public class test_sql_connection {
         String CLASS_NAME = "com.mysql.cj.jdbc.Driver";
         String URL = "jdbc:mysql://localhost:3306/mysql";
         String USER = "root";
-        String PASSWORD = "root";
+        String PASSWORD = "Root123";
         Class.forName(CLASS_NAME);
         Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
         Statement statement = connection.createStatement();

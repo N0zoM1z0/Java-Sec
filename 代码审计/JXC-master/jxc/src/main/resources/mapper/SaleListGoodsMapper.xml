@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wangjiangfei.dao.SaleListGoodsDao">
+
+    <resultMap id="BaseResultMap" type="com.wangjiangfei.entity.SaleList">
+        <result column="sale_list_id" property="saleListId" jdbcType="INTEGER" />
+        <result column="sale_number" property="saleNumber" jdbcType="VARCHAR" />
+        <result column="amount_paid" property="amountPaid" jdbcType="DECIMAL" />
+        <result column="amount_payable" property="amountPayable" jdbcType="DECIMAL" />
+        <result column="sale_date" property="saleDate" jdbcType="VARCHAR" />
+        <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="customer_id" property="customerId" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+        <result column="true_name" property="trueName" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="BaseResultMap02" type="com.wangjiangfei.entity.SaleListGoods">
+        <result column="sale_list_goods_id" property="saleListGoodsId" jdbcType="INTEGER" />
+        <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+        <result column="goods_model" property="goodsModel" jdbcType="VARCHAR" />
+        <result column="goods_unit" property="goodsUnit" jdbcType="VARCHAR" />
+        <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+        <result column="price" property="price" jdbcType="DECIMAL" />
+        <result column="total" property="total" jdbcType="DECIMAL" />
+        <result column="sale_list_id" property="saleListId" jdbcType="INTEGER" />
+        <result column="goods_type_id" property="goodsTypeId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <resultMap id="BaseResultMap03" type="com.wangjiangfei.entity.SaleData">
+        <result column="date" property="date" jdbcType="VARCHAR" />
+        <result column="saleTotal" property="saleTotal" jdbcType="DECIMAL" />
+        <result column="purchasingTotal" property="purchasingTotal" jdbcType="DECIMAL" />
+    </resultMap>
+
+    <select id="getSaleTotalByGoodsId" resultType="java.lang.Integer">
+        SELECT
+            SUM(t_sale_list_goods.goods_num)
+        FROM
+            t_sale_list_goods
+        WHERE goods_id = #{goodsId}
+    </select>
+
+    <insert id="saveSaleList" useGeneratedKeys="true" keyProperty="saleListId" parameterType="com.wangjiangfei.entity.SaleList">
+        INSERT INTO t_sale_list
+        (
+        sale_number, sale_date, amount_paid, amount_payable,
+        remarks, state, customer_id, user_id
+        )
+        VALUES
+        (
+        #{saleNumber}, #{saleDate}, #{amountPaid}, #{amountPayable},
+        #{remarks}, #{state}, #{customerId}, #{userId}
+        )
+    </insert>
+
+    <insert id="saveSaleListGoods" useGeneratedKeys="true" keyProperty="saleListGoodsId" parameterType="com.wangjiangfei.entity.SaleListGoods">
+        INSERT INTO t_sale_list_goods
+        (
+        goods_id, goods_code, goods_name, goods_model, goods_unit,
+        goods_num, price, total, sale_list_id, goods_type_id
+        )
+        VALUES
+        (
+        #{goodsId}, #{goodsCode}, #{goodsName}, #{goodsModel}, #{goodsUnit},
+        #{goodsNum}, #{price}, #{total}, #{saleListId}, #{goodsTypeId}
+        )
+    </insert>
+
+    <select id="getSalelist" resultMap="BaseResultMap">
+        SELECT
+            t_sale_list.sale_list_id,
+            t_sale_list.sale_number,
+            t_sale_list.amount_paid,
+            t_sale_list.amount_payable,
+            t_sale_list.sale_date,
+            t_sale_list.state,
+            t_sale_list.remarks,
+            t_sale_list.customer_id,
+            t_sale_list.user_id,
+            t_user.true_name,
+            t_customer.customer_name
+        FROM
+            t_sale_list
+        LEFT JOIN t_user ON t_sale_list.user_id = t_user.user_id
+        LEFT JOIN t_customer ON t_sale_list.customer_id = t_customer.customer_id
+        <where>
+            <if test="saleNumber != null and saleNumber != ''">
+                AND t_sale_list.sale_number LIKE CONCAT('%', #{saleNumber} ,'%')
+            </if>
+            <if test="customerId != null">
+                AND t_sale_list.customer_id = #{customerId}
+            </if>
+            <if test="state != null">
+                AND t_sale_list.state = #{state}
+            </if>
+            <if test="sTime != null and sTime != ''">
+                AND t_sale_list.sale_date &gt;= #{sTime}
+            </if>
+            <if test="eTime != null and eTime != ''">
+                AND t_sale_list.sale_date &lt;= #{eTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getSaleListGoodsBySaleListId" resultMap="BaseResultMap02">
+        SELECT
+            t_sale_list_goods.sale_list_goods_id,
+            t_sale_list_goods.goods_id,
+            t_sale_list_goods.goods_code,
+            t_sale_list_goods.goods_name,
+            t_sale_list_goods.goods_model,
+            t_sale_list_goods.goods_num,
+            t_sale_list_goods.goods_unit,
+            t_sale_list_goods.price,
+            t_sale_list_goods.total,
+            t_sale_list_goods.sale_list_id,
+            t_sale_list_goods.goods_type_id
+        FROM
+            t_sale_list_goods
+        WHERE
+            sale_list_id = #{saleListId}
+    </select>
+
+    <select id="getSaleList" resultMap="BaseResultMap">
+        SELECT
+            t_sale_list.sale_list_id,
+            t_sale_list.sale_number,
+            t_sale_list.amount_paid,
+            t_sale_list.amount_payable,
+            t_sale_list.sale_date,
+            t_sale_list.state,
+            t_sale_list.remarks,
+            t_sale_list.customer_id,
+            t_sale_list.user_id
+        FROM
+            t_sale_list
+        WHERE
+            sale_list_id = #{saleListId}
+    </select>
+
+    <delete id="deleteSaleListById" parameterType="java.lang.Integer">
+        DELETE FROM
+        t_sale_list
+        WHERE sale_list_id = #{saleListId}
+    </delete>
+
+    <delete id="deleteSaleListGoodsBySaleListId" parameterType="java.lang.Integer">
+        DELETE FROM
+        t_sale_list_goods
+        WHERE sale_list_id = #{saleListId}
+    </delete>
+
+    <update id="updateState" parameterType="java.lang.Integer">
+        UPDATE t_sale_list
+        SET state = 1
+        WHERE sale_list_id = #{saleListId}
+    </update>
+
+    <select id="getSaleListGoods" resultMap="BaseResultMap02">
+        SELECT
+            t_sale_list_goods.sale_list_goods_id,
+            t_sale_list_goods.goods_id,
+            t_sale_list_goods.goods_code,
+            t_sale_list_goods.goods_name,
+            t_sale_list_goods.goods_model,
+            t_sale_list_goods.goods_num,
+            t_sale_list_goods.goods_unit,
+            t_sale_list_goods.price,
+            t_sale_list_goods.total,
+            t_sale_list_goods.sale_list_id,
+            t_sale_list_goods.goods_type_id,
+            t_goods_type.p_id
+        FROM
+            t_sale_list_goods
+        LEFT JOIN t_goods_type ON t_sale_list_goods.goods_type_id = t_goods_type.goods_type_id
+        <where>
+            <if test="saleListId != null">
+                AND t_sale_list_goods.sale_list_id = #{saleListId}
+            </if>
+            <if test="goodsTypeId != null and goodsTypeId != 1">
+                AND
+                (
+                t_sale_list_goods.goods_type_id = #{goodsTypeId} OR
+                t_goods_type.p_id = #{goodsTypeId}
+                )
+            </if>
+            <if test="codeOrName != null and codeOrName != ''">
+                AND
+                (
+                t_sale_list_goods.goods_name LIKE CONCAT('%', #{codeOrName} ,'%') OR
+                t_sale_list_goods.goods_code LIKE CONCAT('%', #{codeOrName} ,'%')
+                )
+            </if>
+        </where>
+    </select>
+
+    <select id="getSaleDataByDay" resultMap="BaseResultMap03">
+        SELECT
+            t2.sale_date AS DATE,
+            SUM( t1.goods_num * t1.price ) AS saleTotal,
+            SUM( t1.goods_num * t3.purchasing_price ) AS purchasingTotal
+        FROM
+            t_sale_list_goods t1
+            LEFT JOIN t_sale_list t2 ON t1.sale_list_id = t2.sale_list_id
+            LEFT JOIN t_goods t3 ON t1.goods_id = t3.goods_id
+        WHERE
+            t2.sale_date BETWEEN #{sTime} AND #{eTime}
+        GROUP BY
+            t2.sale_date
+    </select>
+
+    <select id="getSaleDataByMonth" resultMap="BaseResultMap03">
+        SELECT
+            DATE_FORMAT( t2.sale_date, '%Y-%m' ) AS DATE,
+            SUM( t1.goods_num * t1.price ) AS saleTotal,
+            SUM( t1.goods_num * t3.purchasing_price ) AS purchasingTotal
+        FROM
+            t_sale_list_goods t1
+            LEFT JOIN t_sale_list t2 ON t1.sale_list_id = t2.sale_list_id
+            LEFT JOIN t_goods t3 ON t1.goods_id = t3.goods_id
+        WHERE
+            DATE_FORMAT( t2.sale_date, '%Y-%m' ) BETWEEN #{sTime} AND #{eTime}
+        GROUP BY
+            DATE_FORMAT( t2.sale_date, '%Y-%m' )
+    </select>
+
+</mapper>

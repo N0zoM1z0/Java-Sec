@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wangjiangfei.dao.CustomerReturnListGoodsDao">
+
+    <resultMap id="BaseResultMap" type="com.wangjiangfei.entity.CustomerReturnList">
+        <result column="customer_return_list_id" property="customerReturnListId" jdbcType="INTEGER" />
+        <result column="return_number" property="returnNumber" jdbcType="VARCHAR" />
+        <result column="amount_paid" property="amountPaid" jdbcType="DECIMAL" />
+        <result column="amount_payable" property="amountPayable" jdbcType="DECIMAL" />
+        <result column="return_date" property="returnDate" jdbcType="VARCHAR" />
+        <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="customer_id" property="customerId" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+        <result column="true_name" property="trueName" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="BaseResultMap02" type="com.wangjiangfei.entity.CustomerReturnListGoods">
+        <result column="customer_return_list_goods_id" property="customerReturnListGoodsId" jdbcType="INTEGER" />
+        <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+        <result column="goods_model" property="goodsModel" jdbcType="VARCHAR" />
+        <result column="goods_unit" property="goodsUnit" jdbcType="VARCHAR" />
+        <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+        <result column="price" property="price" jdbcType="DECIMAL" />
+        <result column="total" property="total" jdbcType="DECIMAL" />
+        <result column="customer_return_list_id" property="customerReturnListId" jdbcType="INTEGER" />
+        <result column="goods_type_id" property="goodsTypeId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="getCustomerReturnTotalByGoodsId" resultType="java.lang.Integer">
+        SELECT
+            SUM(t_customer_return_list_goods.goods_num)
+        FROM
+            t_customer_return_list_goods
+            WHERE goods_id = #{goodsId}
+    </select>
+
+    <insert id="saveCustomerReturnList" useGeneratedKeys="true" keyProperty="customerReturnListId" parameterType="com.wangjiangfei.entity.CustomerReturnList">
+        INSERT INTO t_customer_return_list
+        (
+        return_number, return_date, amount_paid, amount_payable,
+        remarks, state, customer_id, user_id
+        )
+        VALUES
+        (
+        #{returnNumber}, #{returnDate}, #{amountPaid}, #{amountPayable},
+        #{remarks}, #{state}, #{customerId}, #{userId}
+        )
+    </insert>
+
+    <insert id="saveCustomerReturnListGoods" useGeneratedKeys="true" keyProperty="customerReturnListGoodsId" parameterType="com.wangjiangfei.entity.CustomerReturnListGoods">
+        INSERT INTO t_customer_return_list_goods
+        (
+        goods_id, goods_code, goods_name, goods_model, goods_unit,
+        goods_num, price, total, customer_return_list_id, goods_type_id
+        )
+        VALUES
+        (
+        #{goodsId}, #{goodsCode}, #{goodsName}, #{goodsModel}, #{goodsUnit},
+        #{goodsNum}, #{price}, #{total}, #{customerReturnListId}, #{goodsTypeId}
+        )
+    </insert>
+
+    <select id="getCustomerReturnlist" resultMap="BaseResultMap">
+        SELECT
+            t_customer_return_list.customer_return_list_id,
+            t_customer_return_list.return_number,
+            t_customer_return_list.return_date,
+            t_customer_return_list.amount_paid,
+            t_customer_return_list.amount_payable,
+            t_customer_return_list.state,
+            t_customer_return_list.customer_id,
+            t_customer_return_list.user_id,
+            t_customer_return_list.remarks,
+            t_user.true_name,
+            t_customer.customer_name
+        FROM
+            t_customer_return_list
+        LEFT JOIN t_user ON t_customer_return_list.user_id = t_user.user_id
+        LEFT JOIN t_customer ON t_customer_return_list.customer_id = t_customer.customer_id
+        <where>
+            <if test="returnNumber != null and returnNumber != ''">
+                AND t_customer_return_list.return_number LIKE CONCAT('%', #{returnNumber} ,'%')
+            </if>
+            <if test="customerId != null">
+                AND t_customer_return_list.customer_id = #{customerId}
+            </if>
+            <if test="state != null">
+                AND t_customer_return_list.state = #{state}
+            </if>
+            <if test="sTime != null and sTime != ''">
+                AND t_customer_return_list.return_date &gt;= #{sTime}
+            </if>
+            <if test="eTime != null and eTime != ''">
+                AND t_customer_return_list.return_date &lt;= #{eTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getCustomerReturnListGoodsByCustomerReturnListId" resultMap="BaseResultMap02">
+        SELECT
+            t_customer_return_list_goods.customer_return_list_goods_id,
+            t_customer_return_list_goods.goods_id,
+            t_customer_return_list_goods.goods_code,
+            t_customer_return_list_goods.goods_name,
+            t_customer_return_list_goods.goods_model,
+            t_customer_return_list_goods.goods_num,
+            t_customer_return_list_goods.goods_unit,
+            t_customer_return_list_goods.price,
+            t_customer_return_list_goods.total,
+            t_customer_return_list_goods.customer_return_list_id,
+            t_customer_return_list_goods.goods_type_id
+        FROM
+            t_customer_return_list_goods
+        WHERE
+            customer_return_list_id = #{customerReturnListId}
+    </select>
+
+    <select id="getCustomerReturnList" resultMap="BaseResultMap">
+        SELECT
+            t_customer_return_list.customer_return_list_id,
+            t_customer_return_list.return_number,
+            t_customer_return_list.return_date,
+            t_customer_return_list.amount_paid,
+            t_customer_return_list.amount_payable,
+            t_customer_return_list.state,
+            t_customer_return_list.customer_id,
+            t_customer_return_list.user_id,
+            t_customer_return_list.remarks
+        FROM
+            t_customer_return_list
+        WHERE
+            customer_return_list_id = #{customerReturnListId}
+    </select>
+
+    <delete id="deleteCustomerReturnListById" parameterType="java.lang.Integer">
+        DELETE FROM
+        t_customer_return_list
+        WHERE customer_return_list_id = #{customerReturnListId}
+    </delete>
+
+    <delete id="deleteCustomerReturnListGoodsByCustomerReturnListId" parameterType="java.lang.Integer">
+        DELETE FROM
+        t_customer_return_list_goods
+        WHERE customer_return_list_id = #{customerReturnListId}
+    </delete>
+
+    <update id="updateState" parameterType="java.lang.Integer">
+        UPDATE t_customer_return_list
+        SET state = 1
+        WHERE customer_return_list_id = #{customerReturnListId}
+    </update>
+
+    <select id="getCustomerReturnListGoods" resultMap="BaseResultMap02">
+        SELECT
+            t_customer_return_list_goods.customer_return_list_goods_id,
+            t_customer_return_list_goods.goods_id,
+            t_customer_return_list_goods.goods_code,
+            t_customer_return_list_goods.goods_name,
+            t_customer_return_list_goods.goods_model,
+            t_customer_return_list_goods.goods_num,
+            t_customer_return_list_goods.goods_unit,
+            t_customer_return_list_goods.price,
+            t_customer_return_list_goods.total,
+            t_customer_return_list_goods.customer_return_list_id,
+            t_customer_return_list_goods.goods_type_id,
+            t_goods_type.p_id
+        FROM
+            t_customer_return_list_goods
+        LEFT JOIN t_goods_type ON t_customer_return_list_goods.goods_type_id = t_goods_type.goods_type_id
+        <where>
+            <if test="customerReturnListId != null">
+                AND t_customer_return_list_goods.customer_return_list_id = #{customerReturnListId}
+            </if>
+            <if test="goodsTypeId != null and goodsTypeId != 1">
+                AND
+                (
+                t_customer_return_list_goods.goods_type_id = #{goodsTypeId} OR
+                t_goods_type.p_id = #{goodsTypeId}
+                )
+            </if>
+            <if test="codeOrName != null and codeOrName != ''">
+                AND
+                (
+                t_customer_return_list_goods.goods_name LIKE CONCAT('%', #{codeOrName} ,'%') OR
+                t_customer_return_list_goods.goods_code LIKE CONCAT('%', #{codeOrName} ,'%')
+                )
+            </if>
+        </where>
+    </select>
+
+</mapper>

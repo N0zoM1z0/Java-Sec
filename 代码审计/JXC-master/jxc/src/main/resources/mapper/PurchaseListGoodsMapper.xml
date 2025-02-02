@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wangjiangfei.dao.PurchaseListGoodsDao">
+
+    <resultMap id="BaseResultMap" type="com.wangjiangfei.entity.PurchaseList">
+        <result column="purchase_list_id" property="purchaseListId" jdbcType="INTEGER" />
+        <result column="purchase_number" property="purchaseNumber" jdbcType="VARCHAR" />
+        <result column="amount_paid" property="amountPaid" jdbcType="DECIMAL" />
+        <result column="amount_payable" property="amountPayable" jdbcType="DECIMAL" />
+        <result column="purchase_date" property="purchaseDate" jdbcType="VARCHAR" />
+        <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+        <result column="true_name" property="trueName" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="BaseResultMap02" type="com.wangjiangfei.entity.PurchaseListGoods">
+        <result column="purchase_list_goods_id" property="purchaseListGoodsId" jdbcType="INTEGER" />
+        <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+        <result column="goods_model" property="goodsModel" jdbcType="VARCHAR" />
+        <result column="goods_unit" property="goodsUnit" jdbcType="VARCHAR" />
+        <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+        <result column="price" property="price" jdbcType="DECIMAL" />
+        <result column="total" property="total" jdbcType="DECIMAL" />
+        <result column="purchase_list_id" property="purchaseListId" jdbcType="INTEGER" />
+        <result column="goods_type_id" property="goodsTypeId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <insert id="savePurchaseList" useGeneratedKeys="true" keyProperty="purchaseListId" parameterType="com.wangjiangfei.entity.PurchaseList">
+        INSERT INTO t_purchase_list
+        (
+        purchase_number, amount_paid, amount_payable, purchase_date,
+        remarks, state, supplier_id, user_id
+        )
+        VALUES
+        (
+        #{purchaseNumber}, #{amountPaid}, #{amountPayable}, #{purchaseDate},
+        #{remarks}, #{state}, #{supplierId}, #{userId}
+        )
+    </insert>
+
+    <insert id="savePurchaseListGoods" useGeneratedKeys="true" keyProperty="purchaseListGoodsId" parameterType="com.wangjiangfei.entity.PurchaseListGoods">
+        INSERT INTO t_purchase_list_goods
+        (
+        goods_id, goods_code, goods_name, goods_model, goods_unit,
+        goods_num, price, total, purchase_list_id, goods_type_id
+        )
+        VALUES
+        (
+        #{goodsId}, #{goodsCode}, #{goodsName}, #{goodsModel}, #{goodsUnit},
+        #{goodsNum}, #{price}, #{total}, #{purchaseListId}, #{goodsTypeId}
+        )
+    </insert>
+
+    <select id="getPurchaselist" resultMap="BaseResultMap">
+        SELECT
+            t_purchase_list.purchase_list_id,
+            t_purchase_list.purchase_number,
+            t_purchase_list.amount_paid,
+            t_purchase_list.amount_payable,
+            t_purchase_list.purchase_date,
+            t_purchase_list.remarks,
+            t_purchase_list.state,
+            t_purchase_list.supplier_id,
+            t_purchase_list.user_id,
+            t_supplier.supplier_name,
+            t_user.true_name
+        FROM
+            t_purchase_list
+        LEFT JOIN t_supplier ON t_purchase_list.supplier_id = t_supplier.supplier_id
+        LEFT JOIN t_user ON t_purchase_list.user_id = t_user.user_id
+        <where>
+            <if test="purchaseNumber != null and purchaseNumber != ''">
+                AND t_purchase_list.purchase_number LIKE CONCAT('%', #{purchaseNumber} ,'%')
+            </if>
+            <if test="supplierId != null">
+                AND t_purchase_list.supplier_id = #{supplierId}
+            </if>
+            <if test="state != null">
+                AND t_purchase_list.state = #{state}
+            </if>
+            <if test="sTime != null and sTime != ''">
+                AND t_purchase_list.purchase_date &gt;= #{sTime}
+            </if>
+            <if test="eTime != null and eTime != ''">
+                AND t_purchase_list.purchase_date &lt;= #{eTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getPurchaseListGoodsByPurchaseListId" resultMap="BaseResultMap02">
+        SELECT
+            t_purchase_list_goods.purchase_list_goods_id,
+            t_purchase_list_goods.goods_id,
+            t_purchase_list_goods.goods_code,
+            t_purchase_list_goods.goods_name,
+            t_purchase_list_goods.goods_model,
+            t_purchase_list_goods.goods_unit,
+            t_purchase_list_goods.goods_num,
+            t_purchase_list_goods.price,
+            t_purchase_list_goods.total,
+            t_purchase_list_goods.purchase_list_id,
+            t_purchase_list_goods.goods_type_id
+        FROM
+            t_purchase_list_goods
+        WHERE
+            purchase_list_id = #{purchaseListId}
+    </select>
+
+    <select id="getPurchaseListById" resultMap="BaseResultMap">
+        SELECT
+            t_purchase_list.purchase_list_id,
+            t_purchase_list.purchase_number,
+            t_purchase_list.amount_paid,
+            t_purchase_list.amount_payable,
+            t_purchase_list.purchase_date,
+            t_purchase_list.remarks,
+            t_purchase_list.state,
+            t_purchase_list.supplier_id,
+            t_purchase_list.user_id
+        FROM
+            t_purchase_list
+        WHERE
+            purchase_list_id = #{purchaseListId}
+    </select>
+
+    <delete id="deletePurchaseListById" parameterType="java.lang.Integer">
+        DELETE FROM
+        t_purchase_list
+        WHERE purchase_list_id = #{purchaseListId}
+    </delete>
+
+    <delete id="deletePurchaseListGoodsByPurchaseListId" parameterType="java.lang.Integer">
+        DELETE FROM
+        t_purchase_list_goods
+        WHERE purchase_list_id = #{purchaseListId}
+    </delete>
+
+    <update id="updateState" parameterType="java.lang.Integer">
+        UPDATE t_purchase_list
+        SET state = 1
+        WHERE purchase_list_id = #{purchaseListId}
+    </update>
+
+    <select id="getPurchaseListGoods" resultMap="BaseResultMap02">
+        SELECT
+            t_purchase_list_goods.purchase_list_goods_id,
+            t_purchase_list_goods.goods_id,
+            t_purchase_list_goods.goods_code,
+            t_purchase_list_goods.goods_name,
+            t_purchase_list_goods.goods_model,
+            t_purchase_list_goods.goods_unit,
+            t_purchase_list_goods.goods_num,
+            t_purchase_list_goods.price,
+            t_purchase_list_goods.total,
+            t_purchase_list_goods.purchase_list_id,
+            t_purchase_list_goods.goods_type_id,
+            t_goods_type.p_id
+        FROM
+            t_purchase_list_goods
+        LEFT JOIN t_goods_type ON t_purchase_list_goods.goods_type_id = t_goods_type.goods_type_id
+        <where>
+            <if test="purchaseListId != null">
+                AND t_purchase_list_goods.purchase_list_id = #{purchaseListId}
+            </if>
+            <if test="goodsTypeId != null and goodsTypeId != 1">
+                AND
+                (
+                t_purchase_list_goods.goods_type_id = #{goodsTypeId} OR
+                t_goods_type.p_id = #{goodsTypeId}
+                )
+            </if>
+            <if test="codeOrName != null and codeOrName != ''">
+                AND
+                (
+                t_purchase_list_goods.goods_name LIKE CONCAT('%', #{codeOrName} ,'%') OR
+                t_purchase_list_goods.goods_code LIKE CONCAT('%', #{codeOrName} ,'%')
+                )
+            </if>
+        </where>
+    </select>
+
+</mapper>
