@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="34cb0cb4-7408-45da-8156-717c5e5a846d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/EasyPoC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/StudentDeserialize01.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/StudentDeserialize02.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/StudentDeserialize03.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/StudentSerialize.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/maven/archetype.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/main/java/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/java/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ser.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ATTACK/FastjsonEasyPoC.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ATTACK/Student.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/DEMO/Student.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/DEMO/StudentSerialize.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/DEMO/StudentUnserialize01.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/DEMO/StudentUnserialize02.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/DEMO/StudentUnserialize03.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/FastJson1224VULN/TemplatesImplBasedATTACK/CC3.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/FastJson1224VULN/TemplatesImplBasedATTACK/JDBCRowImplBasedEXP.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/FastJson1224VULN/TemplatesImplBasedATTACK/TemplatesImplBasedEXP.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2sXFKBU2qgAvVvfBlIZPydeZl7b" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.EasyPoC.executor": "Run",
+    "Application.StudentDeserialize01.executor": "Run",
+    "Application.StudentDeserialize02.executor": "Run",
+    "Application.StudentDeserialize03.executor": "Run",
+    "Application.StudentSerialize.executor": "Run",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="34cb0cb4-7408-45da-8156-717c5e5a846d" name="Changes" comment="" />
+      <created>1738593946920</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1738593946920</updated>
+      <workItem from="1738593948693" duration="2861000" />
+      <workItem from="1738636267233" duration="635000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
