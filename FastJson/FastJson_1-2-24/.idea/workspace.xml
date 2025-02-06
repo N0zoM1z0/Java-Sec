@@ -4,70 +4,53 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d335d38-9934-4f47-be98-4d4203b4190a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/src/main/java/EasyPoC.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/src/main/java/Student.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/src/main/java/StudentDeserialize01.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/src/main/java/StudentDeserialize02.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/src/main/java/StudentDeserialize03.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/src/main/java/StudentSerialize.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/src/main/resources/META-INF/maven/archetype.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/src/main/resources/archetype-resources/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/src/main/resources/archetype-resources/src/main/java/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BasicFastJson/src/main/resources/archetype-resources/src/test/java/AppTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/maven/archetype.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/main/java/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/archetype-resources/src/test/java/AppTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ser.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/ATTACK/FastjsonEasyPoC.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/ATTACK/Student.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/DEMO/Student.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/DEMO/StudentSerialize.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/DEMO/StudentUnserialize01.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/DEMO/StudentUnserialize02.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/DEMO/StudentUnserialize03.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/FastJson1224VULN/TemplatesImplBasedATTACK/CC3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/FastJson1224VULN/TemplatesImplBasedATTACK/JDBCRowImplBasedEXP.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/main/java/FastJson1224VULN/TemplatesImplBasedATTACK/TemplatesImplBasedEXP.java" beforeDir="false" />
+    <list default="true" id="0c518626-b7c2-4077-a5fb-20fd5773c279" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/JNDIPoC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/TemplatesImplPoc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JNDI/src/main/java/JNDIInjection/Vuln.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JNDI/src/main/java/JNDIInjection/Vuln.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
-  <component name="ProjectId" id="2sYeRcyBOugbuWTtY0pSkjncQ76" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2sZtQ70Ef6qniwGkghEjUOsP5od" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.JNDIPoC.executor": "Debug",
+    "Application.TemplatesImplPoc.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/web/Desktop/Java-Sec/代码审计/RuoYi-4.6.0",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -83,16 +66,29 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5d335d38-9934-4f47-be98-4d4203b4190a" name="Changes" comment="" />
-      <created>1738636930150</created>
+      <changelist id="0c518626-b7c2-4077-a5fb-20fd5773c279" name="Changes" comment="" />
+      <created>1738674906478</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1738636930150</updated>
-      <workItem from="1738636932705" duration="218000" />
+      <updated>1738674906478</updated>
+      <workItem from="1738674907416" duration="1493000" />
+      <workItem from="1738721834782" duration="2042000" />
+      <workItem from="1738724177079" duration="121000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/../../../WebTools/Java/JDKAll/jdk1.8.0_65/jre/lib/rt.jar!/com/sun/rowset/JdbcRowSetImpl.class</url>
+          <line>1356</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
