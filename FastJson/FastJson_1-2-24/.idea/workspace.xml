@@ -5,11 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c518626-b7c2-4077-a5fb-20fd5773c279" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/JNDIPoC.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/TemplatesImplPoc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Deserialization/SnakeYaml/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Deserialization/SnakeYaml/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Deserialization/SnakeYaml/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Deserialization/SnakeYaml/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Deserialization/SnakeYaml/example.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Deserialization/SnakeYaml/src/main/java/JdbcRowSetImplEXP/Exp2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Deserialization/SnakeYaml/src/main/java/ScriptEngineManagerEXP/Exp1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Deserialization/SnakeYaml/src/main/java/SerializeTest/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Deserialization/SnakeYaml/src/main/java/SerializeTest/YamlSerialize.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Deserialization/SnakeYaml/src/main/java/URLPoC/BypassPoC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Deserialization/SnakeYaml/src/main/java/URLPoC/OriginalPoC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Deserialization/SnakeYaml/src/main/java/com/snakeyaml/usage/YamlExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Deserialization/SnakeYaml/src/main/java/com/snakeyaml/usage/YamlWriteExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Deserialization/SnakeYaml/src/main/java/com/snakeyaml/usage/example.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JNDI/src/main/java/JNDIInjection/Vuln.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JNDI/src/main/java/JNDIInjection/Vuln.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/JNDIPoC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JNDIPoC.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +51,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.JNDIPoC.executor": "Debug",
+    "Application.JNDIPoC.executor": "Run",
     "Application.TemplatesImplPoc.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -74,6 +85,7 @@
       <workItem from="1738674907416" duration="1493000" />
       <workItem from="1738721834782" duration="2042000" />
       <workItem from="1738724177079" duration="121000" />
+      <workItem from="1739013031596" duration="158000" />
     </task>
     <servers />
   </component>
