@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<!-- 禁止百度转码 -->
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<!-- uc强制竖屏 -->
+	<meta name="screen-orientation" content="portrait">
+	<!-- QQ强制竖屏 -->
+	<meta name="x5-orientation" content="portrait">
+	<title>{dreamer-cms:category field="typenamecn" /}_{dreamer-cms:global name="title"/}</title>
+	<meta name="Keywords" content="{dreamer-cms:global name="keywords"/}" />
+	<meta name="Description" content="{dreamer-cms:global name="describe"/}" />
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/iconfont/iconfont.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/reset.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/animate.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/style.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}scripts/theme/default/layer.css">
+	<script src="{dreamer-cms:template /}scripts/jquery-1.11.3.min.js"></script>
+	<script src="{dreamer-cms:template /}scripts/jquery.SuperSlide.2.1.1.js"></script>
+	<script src="{dreamer-cms:template /}scripts/js.js"></script>
+	<script src="{dreamer-cms:template /}scripts/layer.js"></script>
+</head>
+<body crt-type-code="{dreamer-cms:category field="typecode" /}">
+<div class="aboutUs">
+	{dreamer-cms:include file='inc/header.html'/}
+	<div class="publicHeader min_wrapper_1200">
+		<div class="headerBg"></div>
+		<div class="text wrapper_1200">
+			<div class="title">《梦想家》优秀的内容管理解决方案</div>
+			<div class="infor">系统累计更新百余次，每一次的完善背后都离不开所有技术人员的辛勤付出</div>
+			<div class="img"><a href="https://qm.qq.com/cgi-bin/qm/qr?k=Ba41Hjymx8sei97Y9EwcREEsgww0oYG4&jump_from=webapi&authKey=ddiBUR6Dopdxifg3KDh4B1oGblfyuWebDqFWj0KLYAZFTBqXLoAMmd7jnWrN6xxp" target="_blank">加入交流群</a></div>
+		</div>
+	</div>
+	<div class="publicNav">
+		<div class="wrapper_1200 container">
+			{dreamer-cms:channel typeid="4ol61bbh" type="son"}
+			<div class="item" type-code="[field:typecode/]"><a href="[field:typeurl/]">[field:typenamecn /]</a></div>
+			{/dreamer-cms:channel}
+		</div>
+	</div>
+	<div class="conter wrapper_1200">
+		{dreamer-cms:location lang="cn" /}
+		<div class="title">
+			<div>{dreamer-cms:category field="typenamecn" /}</div>
+			<div class="line"></div>
+		</div>
+		<div class="pictrue" style="font-size: 16px;line-height: 35px;color: #282828;">
+			{dreamer-cms:category field="htmlcontent" /}
+		</div>
+	</div>
+	<div class="developHistory">
+		<!--发展历程 年份-->
+		<div class="wrap">
+			<div class="year">2022</div>
+			<div class="list">
+				<div class="item">
+					<div class="dis month">06月</div>
+					<ul class="dis">
+						<li>2022年06月27日，梦想家发布4.0.1版本，升级Log4j、Fastjson、Shiro等框架版本</li>
+					</ul>
+				</div>
+			</div>
+			<div class="year">2021</div>
+			<div class="list">
+				<div class="item">
+					<div class="dis month">05月</div>
+					<ul class="dis">
+						<li>2021年09月11日，梦想家发布4.0.0版本，新增图集、图片、附件、时间等字段类型</li>
+					</ul>
+				</div>
+				<div class="item">
+					<div class="dis month">05月</div>
+					<ul class="dis">
+						<li>2021年05月18日，梦想家发布3.5.1版本，修复XSS注入、并支持SQL标签</li>
+					</ul>
+				</div>
+				<div class="item">
+					<div class="dis month">01月</div>
+					<ul class="dis">
+						<li>2021年01月06日，梦想家发布3.5.0版本，支持Lombok、并对标签字段支持Function</li>
+					</ul>
+				</div>
+			</div>
+			<div class="year">2020</div>
+			<div class="list">
+				<div class="item">
+					<div class="dis month">05月</div>
+					<ul class="dis">
+						<li>2020年05月15日，梦想家发布3.0.1版本，支持整站静态化</li>
+					</ul>
+				</div>
+				<div class="item">
+					<div class="dis month">04月</div>
+					<ul class="dis">
+						<li>2020年04月02日，梦想家发布2.5.1版本，支持全文搜索、多环境开发等</li>
+					</ul>
+				</div>
+				<div class="item">
+					<div class="dis month">01月</div>
+					<ul class="dis">
+						<li>2020年01月09日，梦想家发布2.1.1版本，支持表单模型，实现自定义数据库表结构</li>
+					</ul>
+				</div>
+			</div>
+			<div class="year">2019</div>
+			<div class="list">
+				<div class="item">
+					<div class="dis month">11月</div>
+					<ul class="dis">
+						<li>2019年11月04日，梦想家发布2.0.1版本，支持在线上传模版包</li>
+					</ul>
+				</div>
+				<div class="item">
+					<div class="dis month">09月</div>
+					<ul class="dis">
+						<li>2019年09月05日，梦想家发布2.0.0版本，开创了解析式引擎与编译式引擎并存的模式</li>
+					</ul>
+				</div>
+			</div>
+			<div class="year">2018</div>
+			<div class="list">
+				<div class="item">
+					<div class="dis month">07月</div>
+					<ul class="dis">
+						<li>2018年07月30日，梦想家发布1.0.0版本</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--发展历程 年份-->
+	</div>
+	<div class="clearfix"></div>
+	
+	<div id="advers" class="min_wrapper_1200">
+		<div class="wrapper_1200 wrapper1">免费体验后台管理系统<a href="/admin" target="_blank" title="立即体验">立即体验</a></div>
+	</div>
+	
+	{dreamer-cms:include file='inc/footer.html'/}
+</div>
+{dreamer-cms:include file="inc/service.html" /}
+</body>
+</html>

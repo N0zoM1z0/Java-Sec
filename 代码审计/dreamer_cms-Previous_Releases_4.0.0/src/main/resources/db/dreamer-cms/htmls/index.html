@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<!-- 禁止百度转码 -->
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<!-- uc强制竖屏 -->
+	<meta name="screen-orientation" content="portrait">
+	<!-- QQ强制竖屏 -->
+	<meta name="x5-orientation" content="portrait">
+	<title>Dreamer CMS 梦想家内容管理系统</title>
+	<meta name="Keywords" content="Dreamer CMS 梦想家内容管理系统" />
+	<meta name="Description" content="Dreamer CMS 梦想家内容管理系统是国内首款java开发的内容发布系统，采用最流行的springboot+thymeleaf框架搭建，灵活小巧，配置简单。" />
+	<link rel="stylesheet" href="/resources/templates/default_v2/css/iconfont/iconfont.css">
+	<link rel="stylesheet" href="/resources/templates/default_v2/css/reset.css">
+	<link rel="stylesheet" href="/resources/templates/default_v2/css/animate.css">
+	<link rel="stylesheet" href="/resources/templates/default_v2/css/style.css">
+	<link rel="stylesheet" href="/resources/templates/default_v2/scripts/theme/default/layer.css">
+	<script src="/resources/templates/default_v2/scripts/jquery-1.11.3.min.js"></script>
+	<script src="/resources/templates/default_v2/scripts/jquery.SuperSlide.2.1.1.js"></script>
+	<script src="/resources/templates/default_v2/scripts/js.js"></script>
+	<script src="/resources/templates/default_v2/scripts/layer.js"></script>
+</head>
+<body>
+<div class="index">
+	<div id="header" class="min_wrapper_1200">
+	<div class="pull-left">
+		<span class="item">
+			<i class="iconfont icondianhua"></i>
+			官方电话：<span class="phone">15133334151</span>
+		</span>
+		<span class="item">
+			<i class="iconfont iconicon-test"></i>
+			QQ技术交流群： 
+			<span class="phone" style="margin-left: 6px;">
+				<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=Ba41Hjymx8sei97Y9EwcREEsgww0oYG4&jump_from=webapi&authKey=ddiBUR6Dopdxifg3KDh4B1oGblfyuWebDqFWj0KLYAZFTBqXLoAMmd7jnWrN6xxp" style="color: #fff;">597652651(QQ群)</a>
+			</span> 
+		</span>
+	</div>
+	<div class="pull-right">
+		<a href="http://doc.iteachyou.cc" title="帮助文档" target="_blank">帮助文档</a>
+		<a href="http://wpa.qq.com/msgrd?v=3&uin=153095904&site=qq&menu=yes" target="_blank">授权咨询</a>
+	</div>
+</div>
+<div class="clearfix"></div>
+<div id="nav">
+	<div class="pull-left">
+		<a href="/" title="Dreamer CMS 梦想家内容管理系统">
+			<img src="/resources/templates/default_v2/images/logo.png" title="Dreamer CMS 梦想家内容管理系统" alt="Dreamer CMS 梦想家内容管理系统">
+		</a>
+	</div>
+	<div class="pull-right">
+		<a class="item" href="/" title="首页">首页</a> 
+		
+			
+			<a class="item" href="javascript:void(0);" title="框架介绍" id="navtop_4ol61bbh">
+				<span id="topspan_4ol61bbh">框架介绍</span>
+				<div class="item list">
+					
+					<div class="itemn Navson_6rztc072" url="/htmls/banbenshuomin/list-1.html">版本说明</div>
+					
+					<div class="itemn Navson_mvpeun1s" url="/htmls/changjianwenti/list-1.html">常见问题</div>
+					
+					<div class="itemn Navson_yjug0grv" url="/htmls/xiazaizhongxin/list-1.html">下载中心</div>
+					
+					<div class="itemn Navson_ir1k18x0" url="/htmls/guanyuwomen/index.html">关于我们</div>
+					
+				</div>
+			</a>
+			
+			
+		
+			
+			<a class="item" href="javascript:void(0);" title="成功案例" id="navtop_he9g4d0j">
+				<span id="topspan_he9g4d0j">成功案例</span>
+				<div class="item list">
+					
+					<div class="itemn Navson_48385ou5" url="/htmls/zhengfu/list-1.html">政府</div>
+					
+					<div class="itemn Navson_3m1s0813" url="/htmls/xiehui/list-1.html">协会</div>
+					
+					<div class="itemn Navson_0723u098" url="/htmls/qiye/list-1.html">企业</div>
+					
+					<div class="itemn Navson_5dwqhes7" url="/htmls/xuexiao/list-1.html">学校</div>
+					
+					<div class="itemn Navson_v35683wr" url="/htmls/qita/list-1.html">其它</div>
+					
+				</div>
+			</a>
+			
+			
+		
+			
+			<a class="item" href="javascript:void(0);" title="解决方案" id="navtop_1hq8501w">
+				<span id="topspan_1hq8501w">解决方案</span>
+				<div class="item list">
+					
+					<div class="itemn Navson_ghx3glm1" url="/htmls/zhengfu/index.html">政府</div>
+					
+					<div class="itemn Navson_051fu5ij" url="/htmls/xiehui/index.html">协会</div>
+					
+					<div class="itemn Navson_0n629d19" url="/htmls/qiye/index.html">企业</div>
+					
+					<div class="itemn Navson_pqm57986" url="/htmls/xuexiao/index.html">学校</div>
+					
+					<div class="itemn Navson_4jh6co17" url="/htmls/qita/index.html">其它</div>
+					
+				</div>
+			</a>
+			
+			
+		
+			
+			
+			<a class="item" href="/htmls/chanpinjiage/index.html" title="产品价格" id="navtop_76crpo3s">
+				<span id="topspan_76crpo3s">产品价格</span>
+			</a>
+			
+		
+			
+			
+			<a class="item" href="http://doc.iteachyou.cc" title="参考手册" id="navtop_71e2w1xx">
+				<span id="topspan_71e2w1xx">参考手册</span>
+			</a>
+			
+		
+			
+			
+			<a class="item" href="/htmls/mobanzhongxin/list-1.html" title="模版中心" id="navtop_a54547w2">
+				<span id="topspan_a54547w2">模版中心</span>
+			</a>
+			
+		
+			
+			<a class="item" href="javascript:void(0);" title="新闻中心" id="navtop_96nbp5pc">
+				<span id="topspan_96nbp5pc">新闻中心</span>
+				<div class="item list">
+					
+					<div class="itemn Navson_c44273d2" url="/htmls/gongsixinwen/list-1.html">公司新闻</div>
+					
+					<div class="itemn Navson_6j0r9qzq" url="/htmls/hangyexinwen/list-1.html">行业新闻</div>
+					
+					<div class="itemn Navson_zac9idyl" url="/htmls/gengxinjilu/list-1.html">更新记录</div>
+					
+				</div>
+			</a>
+			
+			
+		
+		<a class="demoCenter" >演示中心
+			<div class="demoCon">
+				<div class="demo">
+					<div class="whiteBg">
+						<div class="name">梦想家演示地址及账号</div>
+						<div class="infor">网站前台</div>
+						<table border="1">
+							<tr>
+								<th width="50%">演示网址</th>
+								<th width="25%">账号</th>
+								<th width="25%">密码</th>
+							</tr>
+							<tr>
+								<td><a href="http://cms.iteachyou.cc" target="_blank" style="color:#2a7efb;">http://cms.iteachyou.cc</a></td>
+								<td>无</td>
+								<td>无</td>
+							</tr>
+						</table>
+						<div class="infor">后台管理系统</div>
+						<table border="1">
+							<tr>
+								<th width="50%">演示网址</th>
+								<th width="25%">账号</th>
+								<th width="25%">密码</th>
+							</tr>
+							<tr>
+								<td><a href="http://cms.iteachyou.cc/admin" target="_blank" style="color:#2a7efb;">http://cms.iteachyou.cc/admin</a></td>
+								<td>wangjn</td>
+								<td>123456</td>
+							</tr>
+						</table>
+						<div class="showHow">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</a>
+		<div class="demoCenter download" target="_blank">
+			<a href="https://gitee.com/isoftforce/dreamer_cms" target="_blank" style="color: #fff;" title="源码下载">源码下载</a> 
+		</div>
+	</div>
+</div>
+<div class="clearfix"></div>
+<style>
+.download table{border-color:#eee !important;}
+.download table tr th{background-color: #f7f7f7 !important;width: 33.3%;}
+.download th span{color:#666666;font-weight: bold;}
+</style>
+<script>
+	jQuery(".itemn").click(function(){
+		window.location.href = jQuery(this).attr("url")
+	})
+</script>
+	<div id="fullSlide">
+		<div class="bd">
+			<ul>
+				
+				<li style="background:url(http://localhost:8888/resources/uploads//20230109/f4b89d05f38c4ba7a0a8dea2e720aa88.jpeg) center 0 no-repeat;"> <a target="_blank" href="/htmls/lunbotu/20230109/6c2e8cc97f9346cb8f09926b74a0854f.html" title="轮播图二"></a> </li>
+				
+				<li style="background:url(http://localhost:8888/resources/uploads//20230109/227ea68d175c46dc9b92e13e13331df4.jpg) center 0 no-repeat;"> <a target="_blank" href="/htmls/lunbotu/20230109/b2d86668da714a1c839c016d70066c53.html" title="轮播图一"></a> </li>
+				
+			</ul>
+		</div>
+		<div class="hd">
+			<ul>
+				
+				<li></li>
+				
+				<li></li>
+				
+			</ul>
+		</div>
+		<a class="prev iconfont iconzuo001" href="javascript:void(0)"></a>
+		<a class="next iconfont iconyou001" href="javascript:void(0)"></a> 
+	</div>
+	
+	<!-- 框架特点 begin -->
+	<div class="category">
+		
+		<a class="item" href="/htmls/gaokuozhanxing/index.html" target="_blank">
+			<div class="itemCon">
+				<div class="line">
+					<div class="dis pictrue animated"><img src="http://localhost:8888/resources/uploads//20230110/753188bccb7f49888856852e465dbff8.png"></div>
+					<div class="dis text">
+						<div class="name">高扩展性</div>
+						<div class="desc">高扩展性</div>
+					</div>
+				</div>
+			</div>
+		</a>
+		
+		<a class="item" href="/htmls/xitonganquan/index.html" target="_blank">
+			<div class="itemCon">
+				<div class="line">
+					<div class="dis pictrue animated"><img src="http://localhost:8888/resources/uploads//20230110/7981488b7581476eb5de5de10e74f07a.png"></div>
+					<div class="dis text">
+						<div class="name">系统安全</div>
+						<div class="desc">梦想家严格遵循 Web 安全规范，前后台双重验证，数据编码传输，密码加密存储等</div>
+					</div>
+				</div>
+			</div>
+		</a>
+		
+		<a class="item" href="/htmls/mianfeikaiyuan/index.html" target="_blank">
+			<div class="itemCon">
+				<div class="line">
+					<div class="dis pictrue animated"><img src="http://localhost:8888/resources/uploads//20230110/fb6de1985900433998885ec14d231de5.png"></div>
+					<div class="dis text">
+						<div class="name">免费开源</div>
+						<div class="desc">梦想家坚持开放源代码</div>
+					</div>
+				</div>
+			</div>
+		</a>
+		
+		<a class="item" href="/htmls/gongjiangjingshen/index.html" target="_blank">
+			<div class="itemCon">
+				<div class="line">
+					<div class="dis pictrue animated"><img src="http://localhost:8888/resources/uploads//20230110/d0e3506ad119451cbf1dbf4fcf658775.png"></div>
+					<div class="dis text">
+						<div class="name">工匠精神</div>
+						<div class="desc">梦想家用了近8年的技术沉淀，几乎适应于全行业、全领域，特别擅长企业、政府、医疗、金融的二次开发</div>
+					</div>
+				</div>
+			</div>
+		</a>
+		
+	</div>
+	<!-- 框架特点 end -->
+	
+	<div class="clearfix"></div>
+  
+	<div class="freeSystem min_wrapper_1200">
+		<div class="title">
+			<div class="name">解决方案</div>
+			<div>致力于帮助更多的中小企业树立线上企业品牌，实现互联网转型</div>
+		</div>
+		<ul>
+			
+			<li>
+				<div class="item1 ">
+					<div class="iconfont iconshangchengxitong"></div>
+					<div class="name">政府</div>
+					<div>赋予每个政府机构和每个人以强大的力量，助其取得更大成就。</div>
+					<div class="list">
+						
+						<div class="item">推动经济增长和发展</div>
+						
+						<div class="item">建设可持续发展未来</div>
+						
+						<div class="item">提供安全可靠的服务</div>
+						
+						<div class="item">实现个性化数字体验</div>
+						
+					</div>
+				</div>
+				<div class="item2 ">
+					<div class="bgcolor">
+						<div class="name animated">政府</div>
+						<div class="infor animated">赋予每个政府机构和每个人以强大的力量，助其取得更大成就。</div>
+					</div>
+					<div class="list">
+						
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">推动经济增长和发展</div>
+								<div class="explanation">刺激经济增长，为员工提供培训、技能提升机会和新计划。</div>
+							</div>
+						</div>
+						
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">建设可持续发展未来</div>
+								<div class="explanation">利用新兴技术的力量创造更美好的未来。</div>
+							</div>
+						</div>
+						
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">提供安全可靠的服务</div>
+								<div class="explanation">通过采用最高安全性和合规性标准，构建值得信赖的政府服务。</div>
+							</div>
+						</div>
+						
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">实现个性化数字体验</div>
+								<div class="explanation">利用政府解决方案为个人和企业提供可访问的包容性平台和增强数字服务。</div>
+							</div>
+						</div>
+						
+						<div class="more qqcs"><a href="/htmls/zhengfu/index.html">查看更多 ></a></div>
+					</div>
+				</div>
+			</li>
+			
+			<li>
+				<div class="item1 ">
+					<div class="iconfont iconshangchengxitong"></div>
+					<div class="name">协会</div>
+					<div>流程繁琐复杂 邀约渠道复杂 互动场景单一 参会者数据单一</div>
+					<div class="list">
+						
+						<div class="item">流程繁琐复杂</div>
+						
+						<div class="item">互动场景单一</div>
+						
+					</div>
+				</div>
+				<div class="item2 ">
+					<div class="bgcolor">
+						<div class="name animated">协会</div>
+						<div class="infor animated">流程繁琐复杂 邀约渠道复杂 互动场景单一 参会者数据单一</div>
+					</div>
+					<div class="list">
+						
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">流程繁琐复杂</div>
+								<div class="explanation">参会者多，嘉宾多，行程多，需要反复确认嘉宾和参会者日程，而工作人员就那些</div>
+							</div>
+						</div>
+						
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">互动场景单一</div>
+								<div class="explanation">互动场景少，内容触达难实现，参会者反馈和体验无法收集</div>
+							</div>
+						</div>
+						
+						<div class="more qqcs"><a href="/htmls/xiehui/index.html">查看更多 ></a></div>
+					</div>
+				</div>
+			</li>
+			
+			<li>
+				<div class="item1 
+					on
+					">
+					<div class="iconfont iconshangchengxitong"></div>
+					<div class="name">企业</div>
+					<div>助力企业智慧化管理，真正实现降本增效</div>
+					<div class="list">
+						
+						<div class="item">加快您成功步伐</div>
+						
+						<div class="item">简化安全保护</div>
+						
+						<div class="item">保护您的未来</div>
+						
+					</div>
+				</div>
+				<div class="item2 
+					on
+					">
+					<div class="bgcolor">
+						<div class="name animated">企业</div>
+						<div class="infor animated">助力企业智慧化管理，真正实现降本增效</div>
+					</div>
+					<div class="list">
+						
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">加快您成功步伐</div>
+								<div class="explanation">当今时代，局势瞬息万变。我们拥有无可比拟的威胁情报，只要是发现过一次的威胁，就能在所有位置保护企业免受危害。</div>
+							</div>
+						</div>
+						
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">简化安全保护</div>
+								<div class="explanation">通过快速部署获得强大的保护，利用自动、准确的警报来节省时间。因此，您可以将精力集中在对业务最重要的工作上。</div>
+							</div>
+						</div>
+						
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">保护您的未来</div>
+								<div class="explanation">您再也不必随着业务的增长而不断更改安全策略。充分利用我们的资源和专业知识，推动您的企业向前发展。</div>
+							</div>
+						</div>
+						
+						<div class="more qqcs"><a href="/htmls/qiye/index.html">查看更多 ></a></div>
+					</div>
+				</div>
+			</li>
+			
+			<li>
+				<div class="item1 ">
+					<div class="iconfont iconshangchengxitong"></div>
+					<div class="name">学校</div>
+					<div>学生是我国的一个特殊群体,增强学生体质, 促进学生健康成长,是关系到国家和民族未来的大事。</div>
+					<div class="list">
+						
+						<div class="item">基于数据和事实</div>
+						
+						<div class="item">数字校园建设目标</div>
+						
+						<div class="item">助力教师提升专业水平</div>
+						
+					</div>
+				</div>
+				<div class="item2 ">
+					<div class="bgcolor">
+						<div class="name animated">学校</div>
+						<div class="infor animated">学生是我国的一个特殊群体,增强学生体质, 促进学生健康成长,是关系到国家和民族未来的大事。</div>
+					</div>
+					<div class="list">
+						
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">基于数据和事实</div>
+								<div class="explanation">基于数据和事实的实证分析，立足于区域生涯教育的基础和开展现状</div>
+							</div>
+						</div>
+						
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">数字校园建设目标</div>
+								<div class="explanation">实现校园内教学、科研、管理、服务的数字化、信息化、网络化，深化教育改革，提高办学质量、办学效益和科研水平</div>
+							</div>
+						</div>
+						
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">助力教师提升专业水平</div>
+								<div class="explanation">帮助学校生涯教师提升专业水平，提高学校生涯课程教学的质量</div>
+							</div>
+						</div>
+						
+						<div class="more qqcs"><a href="/htmls/xuexiao/index.html">查看更多 ></a></div>
+					</div>
+				</div>
+			</li>
+			
+			<li>
+				<div class="item1 ">
+					<div class="iconfont iconshangchengxitong"></div>
+					<div class="name">其它</div>
+					<div>满足多行业多类型数字化建设需求！</div>
+					<div class="list">
+						
+						<div class="item">学习型组织</div>
+						
+						<div class="item">知识库</div>
+						
+					</div>
+				</div>
+				<div class="item2 ">
+					<div class="bgcolor">
+						<div class="name animated">其它</div>
+						<div class="infor animated">满足多行业多类型数字化建设需求！</div>
+					</div>
+					<div class="list">
+						
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">学习型组织</div>
+								<div class="explanation">结合企业组织架构，按不同部门和岗位科学安排培训学习任务，注重培训学习效果，打造学习型组织。</div>
+							</div>
+						</div>
+						
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">知识库</div>
+								<div class="explanation">通过数字化平台转化承载培训学习课程内容，沉淀企业知识库，为企业经营管理赋能。</div>
+							</div>
+						</div>
+						
+						<div class="more qqcs"><a href="/htmls/qita/index.html">查看更多 ></a></div>
+					</div>
+				</div>
+			</li>
+			
+		</ul>
+		<div class="clearfix"></div>
+		<a href="http://wpa.qq.com/msgrd?v=3&uin=153095904&site=qq&menu=yes" target="_blank">
+			<div class="freeBnt set_2_button set_4_button1s">
+				<span>立即咨询</span>
+			</div>
+		</a>
+	</div>
+
+	<div class="customized min_wrapper_1200">
+		<div class="wrapper_1200">
+			<div class="title">我要做定制项目，抢占互联网红利！</div>
+			<a href="http://wpa.qq.com/msgrd?v=3&uin=153095904&site=qq&menu=yes" target="_blank">
+				<div class="bnt set_4_button1 raised hoverable dingzhi">
+					<div class="anim"></div>
+					<span>我要定制</span>
+				</div>
+			</a>
+		</div>
+	</div>
+  
+	<div class="case">
+		<div class="title">我们的精选案例</div>
+		<div class="tip">无论项目大小，我们都会不遗余力的为您提供最优质的产品和高质量的服务</div>
+		<div class="wrapper_1200">
+			<div id="slideBox" class="slideBox">
+				<div class="hd">
+					<ul>
+						
+						<li></li>
+						
+						<li></li>
+						
+					</ul>
+				</div>
+				<a class="prev iconfont iconzuo001" href="javascript:void(0)"></a>
+				<div class="bd">
+					<ul>
+						
+						<li>
+							<a href="/htmls/qiye/20230109/cca53a7338c042c0afa94f3183a652db.html">
+								<div class="dis text">
+									<div class="name"><span>“</span>丽康会</div>
+									<div class="textCon">丽康会是莱福怡家旗下从事健康养身、科学变美，集云端智能、科研、教学、线下服务为一体的大健康产业平台。</div>
+									<div class="caseBnt set_2_button caseDetails" data-id="cca53a7338c042c0afa94f3183a652db"> 
+										<span>查看案例</span>
+									</div>
+								</div>
+								<div class="dis pictrue"><img src="http://localhost:8888/resources/uploads//20230109/45e0857beb7e4965900589cec7104b01.png"/></div>
+							</a> 
+						</li>
+						
+						<li>
+							<a href="/htmls/xuexiao/20230109/ced8d1640c87401ab0b2eaf0ab68757e.html">
+								<div class="dis text">
+									<div class="name"><span>“</span>广东生态工程职业学院大学生创新创业网站</div>
+									<div class="textCon">作为广东省唯一一所面向生态建设产业链及生态文明建设领域的高职院校、唯一一所牵头打造“广东森林生态综合示范园”的高职院校、唯一一所参与开展粤港澳大湾区世界级森林城市群建设的高职院校作为广东省唯一一所面向生态建设产业链及生态文明建设领域的高职院校，学校立足生态特色，服务面向农林渔业人才培养，把创新创业双创教育写入“十三五”“十四五”规划，引领双创教育全面融入人才培养，实现“专创融合”，形成了“双融五驱”的“生态版”专创融合育人模式，持续推进双创教学改革。</div>
+									<div class="caseBnt set_2_button caseDetails" data-id="ced8d1640c87401ab0b2eaf0ab68757e"> 
+										<span>查看案例</span>
+									</div>
+								</div>
+								<div class="dis pictrue"><img src="http://localhost:8888/resources/uploads//20230109/1431bc857b4144359e4992b177149b3a.png"/></div>
+							</a> 
+						</li>
+						
+					</ul>
+				</div>
+				<a class="dis iconfont iconyou001 next" href="javascript:void(0)"></a>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="cooperation min_wrapper_1200" style="background:url(http://localhost:8888/resources/uploads//20230110/76a88172a972475b880559b1ca7d26ff.jpg) center 0 no-repeat;">
+		<div class="name">合作客户</div>
+		<div class="infor">我们深知合作才能共赢，和众多知名企业达成深入合作</div>
+		<div class="wrapper_1200">
+		<ul class="partner">
+			
+			<li>
+				<div class="pictrue details">
+					<a href="https://www.tencent.com" target="_blank" title="腾讯会议">
+						<img src="http://localhost:8888/resources/uploads//20230110/f979828078ad4270a3fdfef2f4e8e2b9.png" alt="腾讯会议">
+					</a>
+				</div>
+				<div class="item line1 on details" data-id="f8ec213214764952815076dde18b8dcc">
+					<a href="https://www.tencent.com" target="_blank" title="腾讯会议">腾讯会议</a>
+				</div>
+			</li>
+			
+			<li>
+				<div class="pictrue details">
+					<a href="https://www.baidu.com" target="_blank" title="百度">
+						<img src="http://localhost:8888/resources/uploads//20230110/b406f329b5de4556884937e37d83972d.png" alt="百度">
+					</a>
+				</div>
+				<div class="item line1 on details" data-id="23c2811cb842493cbadb0c0a8cc77046">
+					<a href="https://www.baidu.com" target="_blank" title="百度">百度</a>
+				</div>
+			</li>
+			
+			<li>
+				<div class="pictrue details">
+					<a href="https://www.iteachyou.cc" target="_blank" title="I Teach You，我教你！">
+						<img src="http://localhost:8888/resources/uploads//20230110/d62d571762c24c12a8b173cf7fe38dd6.png" alt="I Teach You，我教你！">
+					</a>
+				</div>
+				<div class="item line1 on details" data-id="250a0fccf75043caaeb2e470057df7ae">
+					<a href="https://www.iteachyou.cc" target="_blank" title="I Teach You，我教你！">I Teach You，我教你！</a>
+				</div>
+			</li>
+			
+		</ul>
+	</div>
+		
+	</div>
+	
+	
+	<div class="wrapper_1200">
+		<ul class="function">
+			
+			<li>
+				<div class="name">公司新闻</div>
+				<div class="line"></div>
+				
+				<div class="pictrue details" data-id="1a1314addf3443a68bc0922749524d0c">
+					<a href="/htmls/gongsixinwen/20230110/1a1314addf3443a68bc0922749524d0c.html" target="_blank" title="二、资源目录和代码之间的关系">
+						<img src="http://localhost:8888/resources/uploads//20230110/3eb507aab5b343c8b5d3ea1784974774.jpg" alt="二、资源目录和代码之间的关系">
+					</a>
+				</div>
+				<div class="item line1 on details" data-id="1a1314addf3443a68bc0922749524d0c">
+					<span>二、资源目录和代码之间的关系</span>
+					<a href="/htmls/gongsixinwen/20230110/1a1314addf3443a68bc0922749524d0c.html" target="_blank" title="二、资源目录和代码之间的关系">公司新闻</a>
+				</div>
+				
+				
+				<div class="item line1 details" data-id="1a1314addf3443a68bc0922749524d0c">
+					<span>二、资源目录和代码之间的关系</span>
+					<a href="/htmls/gongsixinwen/20230110/1a1314addf3443a68bc0922749524d0c.html" target="_blank" title="二、资源目录和代码之间的关系">公司新闻</a>
+				</div>
+				
+				<div class="item line1 details" data-id="b004ec8e2fb84b6a82141dabcc1962e0">
+					<span>一、开发环境搭建及项目导入</span>
+					<a href="/htmls/gongsixinwen/20230110/b004ec8e2fb84b6a82141dabcc1962e0.html" target="_blank" title="一、开发环境搭建及项目导入">公司新闻</a>
+				</div>
+				
+				<a href="/htmls/gongsixinwen/list-1.html" target="_blank" title="公司新闻">
+					<div class="more set_8_button outline" data-opt="[field:id/]">查看更多<span class="lines"></span></div>
+				</a>
+			</li>
+			
+			<li>
+				<div class="name">行业新闻</div>
+				<div class="line"></div>
+				
+				<div class="pictrue details" data-id="7a4bc5cade9845bbb2528783d995ce20">
+					<a href="/htmls/hangyexinwen/20230110/7a4bc5cade9845bbb2528783d995ce20.html" target="_blank" title="智慧校园管理系统平台组成内容有哪些">
+						<img src="http://localhost:8888/resources/uploads//20230110/b1f2da7161f746d79a368b6d35994dfd.jpg" alt="智慧校园管理系统平台组成内容有哪些">
+					</a>
+				</div>
+				<div class="item line1 on details" data-id="7a4bc5cade9845bbb2528783d995ce20">
+					<span>智慧校园管理系统平台组成内容有哪些</span>
+					<a href="/htmls/hangyexinwen/20230110/7a4bc5cade9845bbb2528783d995ce20.html" target="_blank" title="智慧校园管理系统平台组成内容有哪些">行业新闻</a>
+				</div>
+				
+				
+				<div class="item line1 details" data-id="d33c271fbeef4f529a107500ece6cc7c">
+					<span>中小学管理系统开发过程中遇到的问题</span>
+					<a href="/htmls/hangyexinwen/20230110/d33c271fbeef4f529a107500ece6cc7c.html" target="_blank" title="中小学管理系统开发过程中遇到的问题">行业新闻</a>
+				</div>
+				
+				<div class="item line1 details" data-id="7a4bc5cade9845bbb2528783d995ce20">
+					<span>智慧校园管理系统平台组成内容有哪些</span>
+					<a href="/htmls/hangyexinwen/20230110/7a4bc5cade9845bbb2528783d995ce20.html" target="_blank" title="智慧校园管理系统平台组成内容有哪些">行业新闻</a>
+				</div>
+				
+				<a href="/htmls/hangyexinwen/list-1.html" target="_blank" title="行业新闻">
+					<div class="more set_8_button outline" data-opt="[field:id/]">查看更多<span class="lines"></span></div>
+				</a>
+			</li>
+			
+			<li>
+				<div class="name">更新记录</div>
+				<div class="line"></div>
+				
+				<div class="pictrue details" data-id="50810efa568d4a8d96887def1f8bd110">
+					<a href="/htmls/gengxinjilu/20230110/50810efa568d4a8d96887def1f8bd110.html" target="_blank" title="梦想家内容管理系统部署文档">
+						<img src="http://localhost:8888/resources/uploads//20230110/7851bcec99644c0b9f0c46aa5f0787ad.jpg" alt="梦想家内容管理系统部署文档">
+					</a>
+				</div>
+				<div class="item line1 on details" data-id="50810efa568d4a8d96887def1f8bd110">
+					<span>梦想家内容管理系统部署文档</span>
+					<a href="/htmls/gengxinjilu/20230110/50810efa568d4a8d96887def1f8bd110.html" target="_blank" title="梦想家内容管理系统部署文档">更新记录</a>
+				</div>
+				
+				
+				<div class="item line1 details" data-id="c4abe7b7a3b943a7a4a3a48533a6aa50">
+					<span>梦想家内容管理系统v4.0.0发布了</span>
+					<a href="/htmls/gengxinjilu/20230110/c4abe7b7a3b943a7a4a3a48533a6aa50.html" target="_blank" title="梦想家内容管理系统v4.0.0发布了">更新记录</a>
+				</div>
+				
+				<div class="item line1 details" data-id="50810efa568d4a8d96887def1f8bd110">
+					<span>梦想家内容管理系统部署文档</span>
+					<a href="/htmls/gengxinjilu/20230110/50810efa568d4a8d96887def1f8bd110.html" target="_blank" title="梦想家内容管理系统部署文档">更新记录</a>
+				</div>
+				
+				<a href="/htmls/gengxinjilu/list-1.html" target="_blank" title="更新记录">
+					<div class="more set_8_button outline" data-opt="[field:id/]">查看更多<span class="lines"></span></div>
+				</a>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="clearfix"></div>
+ 
+	<div id="footer" class="min_wrapper_1200">
+	<div class="wrapper_1200">
+		<ul class="list">
+			<li>
+				<div class="name">
+					
+						框架介绍
+					
+				</div>
+				
+				<a class="item" href="/htmls/banbenshuomin/list-1.html" title="版本说明">版本说明</a>
+				
+				<a class="item" href="/htmls/changjianwenti/list-1.html" title="常见问题">常见问题</a>
+				
+				<a class="item" href="/htmls/xiazaizhongxin/list-1.html" title="下载中心">下载中心</a>
+				
+				<a class="item" href="/htmls/guanyuwomen/index.html" title="关于我们">关于我们</a>
+				
+			</li>
+			<li>
+				<div class="name">
+					
+						解决方案
+					
+				</div>
+				
+				<a class="item" href="/htmls/zhengfu/index.html" title="政府">政府</a>
+				
+				<a class="item" href="/htmls/xiehui/index.html" title="协会">协会</a>
+				
+				<a class="item" href="/htmls/qiye/index.html" title="企业">企业</a>
+				
+				<a class="item" href="/htmls/xuexiao/index.html" title="学校">学校</a>
+				
+				<a class="item" href="/htmls/qita/index.html" title="其它">其它</a>
+				
+			</li>
+			<li>
+				<div class="name">
+					
+						新闻中心
+					
+				</div>
+				
+				<a class="item" href="/htmls/gongsixinwen/list-1.html" title="公司新闻">公司新闻</a>
+				
+				<a class="item" href="/htmls/hangyexinwen/list-1.html" title="行业新闻">行业新闻</a>
+				
+				<a class="item" href="/htmls/gengxinjilu/list-1.html" title="更新记录">更新记录</a>
+				
+			</li>
+			<li>
+				<div class="name">
+					
+						成功案例
+					
+				</div>
+				
+				<a class="item" href="/htmls/zhengfu/list-1.html" title="政府">政府</a>
+				
+				<a class="item" href="/htmls/xiehui/list-1.html" title="协会">协会</a>
+				
+				<a class="item" href="/htmls/qiye/list-1.html" title="企业">企业</a>
+				
+				<a class="item" href="/htmls/xuexiao/list-1.html" title="学校">学校</a>
+				
+				<a class="item" href="/htmls/qita/list-1.html" title="其它">其它</a>
+				
+			</li>
+			<li>
+				<div class="name">联系方式</div>
+				<div class="item">全国热线 ：<span>15133334151</span></div>
+				<div class="item">项目合作 ：<span>153095904(QQ)</span></div>
+				<div class="item" style="">技术交流 ：
+					<div style="width: 150px;float: right;">
+						<span style="display: block;">
+							<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=Ba41Hjymx8sei97Y9EwcREEsgww0oYG4&jump_from=webapi&authKey=ddiBUR6Dopdxifg3KDh4B1oGblfyuWebDqFWj0KLYAZFTBqXLoAMmd7jnWrN6xxp" style="color: #6aa6ff;">597652651(QQ群)</a>
+						</span>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="name">关注我们</div>
+				<div class="official">
+					
+					<img src="/resources/uploads/20230110/5464eb92f132460f86205386f93c1bb9.jpg" width="100" />
+					
+					<div class="ewm">
+						<span class="iconfont iconweixin-copy"></span>官方微信
+					</div>
+				</div>
+				<div class="official">
+					
+					<img src="/resources/uploads/20230110/dc005133cae84869896721f6c41da0f9.jpg" width="100" />
+					
+					<div class="ewm"><span class="iconfont iconxiaochengxu"></span>官方公众号</div>
+				</div>
+			</li>
+		</ul>
+		<div class="clearfix"></div>
+		<div class="friendship"> 
+			<a>友情链接：</a>
+			
+				<a href="https://www.tencent.com">腾讯会议</a>
+			
+				<a href="https://www.baidu.com">百度</a>
+			
+				<a href="https://www.iteachyou.cc">I Teach You，我教你！</a>
+			
+		</div>
+		<div class="copy">
+			<div class="pull-left">
+				Copyright © 2018 Powered by I Teach You，我教你；Dreamer CMS 梦想家内容管理系统
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<a target="_blank" style="color: #ccc;" href='http://www.beian.miit.gov.cn/'>冀ICP备19026223号</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+</div>
+	
+<div class="customerService animated qqcs">
+	<a class="bnt qqcs" href="http://wpa.qq.com/msgrd?v=3&uin=153095904&site=qq&menu=yes" target="_blank">
+	<div class="pos">
+		<div class="iconfont iconguanbi"></div>
+	</div>
+	</a>
+</div>
+<div class="customerClose"> 
+	<a class="bnt qqcs" href="http://wpa.qq.com/msgrd?v=3&uin=153095904&site=qq&menu=yes" target="_blank">QQ咨询</a> 
+</div>
+<div class="floatWindow">
+	<div class="list">
+		<div class="item">
+			<span class="iconfont iconqq2"></span>
+			<div class="itemCon qqcs">
+				<div class="qq show">
+					<div class="arrow"></div>
+					<a href="http://wpa.qq.com/msgrd?v=3&uin=153095904&site=qq&menu=yes" target="_blank">
+					<img src="/resources/templates/default_v2/images/qq2.png">
+					咨询在线QQ客服 
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="item">
+			<span class="iconfont icondianhua6"></span>
+			<div class="itemCon">
+				<div class="phone">
+					<div class="arrow"></div>
+					<img src="/resources/templates/default_v2/images/phone01.png" class="dis">
+					<div class="dis">
+						<div class="items">服务热线</div>
+						<div class="items num">15133334151</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item">
+			<span class="iconfont iconerweima2"></span>
+			<div class="itemCon">
+				<div class="ewm">
+					<div class="pictrue">
+						<div class="arrow"></div>
+						
+						<img src="/resources/uploads/20230110/5464eb92f132460f86205386f93c1bb9.jpg">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item return">
+			<span class="iconfont iconzhiding"></span>
+		</div>
+	</div>
+</div>
+<script>
+$(function () {
+	jQuery("#fullSlide").slide({ 
+		titCell:".hd li", 
+		mainCell:".bd ul", 
+		effect:"leftLoop", 
+		easing:"easeInOutQuad",
+		autoPlay:true, 
+		delayTime:700
+	});
+	
+	$('.freeSystem ul li').on("mouseenter",function(){
+		$(this).find('.item1').addClass('on').parent().siblings().find('.item1').removeClass('on');
+		$(this).find('.item2').addClass('on').parent().siblings().find('.item2').removeClass('on');
+	});
+	$('.freeSystem ul li').hover(function () {
+		$(this).find('.item2 .bgcolor .name').addClass('bounceInLeft');
+		$(this).find('.item2 .bgcolor .infor').addClass('bounceInRight');
+	},function () {
+		$(this).find('.item2 .bgcolor .name').removeClass('bounceInLeft');
+		$(this).find('.item2 .bgcolor .infor').removeClass('bounceInRight');
+	});
+	
+	jQuery(".slideBox").slide({mainCell:".bd ul",autoPlay:true});
+	$('.category .item').hover(function (){
+		$(this).find('.pictrue').addClass('bounceIn');
+	},function () {
+		$(this).find('.pictrue').removeClass('bounceIn');
+	});
+
+	$('.Upgrade').click(function () {
+		window.location.href="/price/";
+	});
+	$('.mask').click(function () {
+		$('.mask').css('display','none');
+		$('.ewmPay').removeClass('on');
+		location.reload();
+	});
+	$('.ewmPay .iconfont').click(function () {
+		$('.mask').css('display','none');
+		$('.ewmPay').removeClass('on');
+		location.reload();
+	});
+
+	$('.dingzhi').on('click',function () {
+		window.open("{dede:global.kf_url/}");
+	});
+})
+</script>
+</body>
+</html>

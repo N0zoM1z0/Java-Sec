@@ -1,0 +1,44 @@
+<!--=== call to action 2 ===-->
+<section id="action" class="call-to-action-2">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="call-to-action-wrap">
+                    <div class="call-to-action-title">
+                        <div class="text-center"><a href="{dreamer-cms:variable name='cfg_gitee_addr'/}" class="btn btn-primary main-btn">源码下载</a></div>
+                        <h3>梦想家CMS内容管理系统支持码云、Github等多种渠道下载。</h3>
+                    </div>
+                    <div class="list-wrap">
+                        <ul class="list-inline applications">
+                            <li class="list-inline-item"><a href="{dreamer-cms:variable name='cfg_gitee_addr'/}"><img src="{dreamer-cms:template /}images/app1.png" alt="Application"></a></li>
+                            <li class="list-inline-item"><a href="{dreamer-cms:variable name='cfg_github_addr'/}"><img src="{dreamer-cms:template /}images/app2.png" alt="Application"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=== footer ===-->
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-5 col-md-6 col-sm-5 align-self-center">
+            	<div>
+            		<p>
+            			{dreamer-cms:global name="copyright" /}
+            			备案号：{dreamer-cms:global name="icp" /}
+            		</p>
+            	</div>
+
+            </div>
+            <div class="col-lg-7 col-md-6 col-sm-7 align-self-center">
+                <ul class="list-inline footer-menu">
+                	{dreamer-cms:channel type='top' currentstyle=""}
+                    <li class="list-inline-item"><a href="[field:typeurl /]" title="[field:typenamecn /]">[field:typenamecn /]</a></li>
+                    {/dreamer-cms:channel}
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

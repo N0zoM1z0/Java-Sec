@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dreamer CMS - 后台管理系统</title> 
+    <link href="/resource/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="row">
+    <div class="col-md-12">
+    	<h1 class="panel-heading">编辑角色</h1>
+        <!--breadcrumbs start -->
+        <ul class="breadcrumb">
+			<li><a href="/admin/dashboard/toIndex"><i class="fa fa-home"></i> 首页</a></li>
+			<li class="active">编辑角色</li>
+		</ul>
+        <!--breadcrumbs end -->
+    </div>
+</div>
+<section class="panel">
+	<div class="panel-body">
+		<form class="col s12" id="form1" th:action="@{/admin/role/update}" onsubmit="return validateForm();" method="post">
+			<input type="hidden" th:value="${role.id}" id="id" name="id"/>
+			<div class="form-group form-control-medium">
+				<label for="roleName">角色名称：</label>
+				<input id="roleName" name="roleName" type="text" th:value="${role.roleName}" class="form-control" placeholder="角色名称" />
+			</div>
+			<div class="form-group form-control-medium">
+				<label for="roleCode">角色编码：</label>
+				<input id="roleCode" name="roleCode" type="text" th:value="${role.roleCode}" readonly="readonly" class="form-control" placeholder="角色编码（编码为空系统则自动生成）" />
+			</div>
+			<div class="form-btn-group-left">
+            	<button type="submit" class="btn btn-info">保存</button>
+            </div>
+		</form>
+	</div>
+</section>
+<script src="/resource/js/jquery.min.js"></script>
+<script src="/resource/js/coco-message/coco-message.js"></script>
+<script th:inline="javascript">
+   	/* 保存方法 */
+    function validateForm(){
+    	var roleName = $("#roleName").val();
+    	if(roleName == null || roleName==''){
+    		cocoMessage.error("角色名称不能为空");
+    		return false;
+    	}
+    	return true;
+    }
+</script>
+</body>
+</html>

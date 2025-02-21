@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<!-- 禁止百度转码 -->
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<!-- uc强制竖屏 -->
+	<meta name="screen-orientation" content="portrait">
+	<!-- QQ强制竖屏 -->
+	<meta name="x5-orientation" content="portrait">
+	<title>{dreamer-cms:global name="title"/}</title>
+	<meta name="Keywords" content="{dreamer-cms:global name="keywords"/}" />
+	<meta name="Description" content="{dreamer-cms:global name="describe"/}" />
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/iconfont/iconfont.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/reset.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/animate.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/style.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}scripts/theme/default/layer.css">
+	<script src="{dreamer-cms:template /}scripts/jquery-1.11.3.min.js"></script>
+	<script src="{dreamer-cms:template /}scripts/jquery.SuperSlide.2.1.1.js"></script>
+	<script src="{dreamer-cms:template /}scripts/js.js"></script>
+	<script src="{dreamer-cms:template /}scripts/layer.js"></script>
+</head>
+<body>
+<div class="index">
+	{dreamer-cms:include file='inc/header.html'/}
+	<div id="fullSlide">
+		<div class="bd">
+			<ul>
+				{dreamer-cms:list typeid="9jdjs0s8" pagenum="1" pagesize="5" flag="p" formkey="h4j2gb6u" addfields="href"}
+				<li style="background:url([field:litpic/]) center 0 no-repeat;"><a target="_blank" href="[field:href/]" title="[field:title /]"></a> </li>
+				{/dreamer-cms:list}
+			</ul>
+		</div>
+		<div class="hd">
+			<ul>
+				{dreamer-cms:list typeid="9jdjs0s8" pagenum="1" pagesize="5" flag="p"}
+				<li></li>
+				{/dreamer-cms:list}
+			</ul>
+		</div>
+		<a class="prev iconfont iconzuo001" href="javascript:void(0)"></a>
+		<a class="next iconfont iconyou001" href="javascript:void(0)"></a> 
+	</div>
+	
+	<!-- 框架特点 begin -->
+	<div class="category">
+		{dreamer-cms:channel typeid="a56diet3" showall="true" type="son"}
+		<a class="item" href="[field:typeurl/]" target="_blank">
+			<div class="itemCon">
+				<div class="line">
+					<div class="dis pictrue animated"><img src="[field:typeimg/]"></div>
+					<div class="dis text">
+						<div class="name">[field:typenamecn /]</div>
+						<div class="desc">[field:description /]</div>
+					</div>
+				</div>
+			</div>
+		</a>
+		{/dreamer-cms:channel}
+	</div>
+	<!-- 框架特点 end -->
+	
+	<div class="clearfix"></div>
+  
+	<div class="freeSystem min_wrapper_1200">
+		<div class="title">
+			<div class="name">解决方案</div>
+			<div>致力于帮助更多的中小企业树立线上企业品牌，实现互联网转型</div>
+		</div>
+		<ul>
+			{dreamer-cms:categoryartlist typeid="1hq8501w" type="son" length="5"}
+			<li>
+				<div class="item1 {dreamer-cms:if test="('3' eq [field:autoindex/])"}
+					on
+					{/dreamer-cms:if}">
+					<div class="iconfont iconshangchengxitong"></div>
+					<div class="name">[field:typenamecn /]</div>
+					<div>[field:description /]</div>
+					<div class="list">
+						{dreamer-cms:channel}
+						<div class="item">[field:typenamecn /]</div>
+						{/dreamer-cms:channel}
+					</div>
+				</div>
+				<div class="item2 {dreamer-cms:if test="('3' eq [field:autoindex/])"}
+					on
+					{/dreamer-cms:if}">
+					<div class="bgcolor">
+						<div class="name animated">[field:typenamecn /]</div>
+						<div class="infor animated">[field:description /]</div>
+					</div>
+					<div class="list">
+						{dreamer-cms:channel}
+						<div class="item">
+							<div class="dis iconfont iconjingzhimoban"></div>
+							<div class="dis">
+								<div class="name">[field:typenamecn /]</div>
+								<div class="explanation">[field:description /]</div>
+							</div>
+						</div>
+						{/dreamer-cms:channel}
+						<div class="more qqcs"><a href="[field:typeurl/]">查看更多 ></a></div>
+					</div>
+				</div>
+			</li>
+			{/dreamer-cms:categoryartlist}
+		</ul>
+		<div class="clearfix"></div>
+		<a href="http://wpa.qq.com/msgrd?v=3&uin={dreamer-cms:variable name='cfg_global_qq'/}&site=qq&menu=yes" target="_blank">
+			<div class="freeBnt set_2_button set_4_button1s">
+				<span>立即咨询</span>
+			</div>
+		</a>
+	</div>
+
+	<div class="customized min_wrapper_1200">
+		<div class="wrapper_1200">
+			<div class="title">我要做定制项目，抢占互联网红利！</div>
+			<a href="http://wpa.qq.com/msgrd?v=3&uin={dreamer-cms:variable name='cfg_global_qq'/}&site=qq&menu=yes" target="_blank">
+				<div class="bnt set_4_button1 raised hoverable dingzhi">
+					<div class="anim"></div>
+					<span>我要定制</span>
+				</div>
+			</a>
+		</div>
+	</div>
+  
+	<div class="case">
+		<div class="title">我们的精选案例</div>
+		<div class="tip">无论项目大小，我们都会不遗余力的为您提供最优质的产品和高质量的服务</div>
+		<div class="wrapper_1200">
+			<div id="slideBox" class="slideBox">
+				<div class="hd">
+					<ul>
+						{dreamer-cms:list typeid="he9g4d0j" pagenum="1" pagesize="10" flag="p" cascade="true"}
+						<li></li>
+						{/dreamer-cms:list}
+					</ul>
+				</div>
+				<a class="prev iconfont iconzuo001" href="javascript:void(0)"></a>
+				<div class="bd">
+					<ul>
+						{dreamer-cms:list typeid="he9g4d0j" pagenum="1" pagesize="10" flag="p" cascade="true"}
+						<li>
+							<a href="[field:arcurl/]">
+								<div class="dis text">
+									<div class="name"><span>“</span>[field:title/]</div>
+									<div class="textCon">[field:remark/]</div>
+									<div class="caseBnt set_2_button caseDetails" data-id="[field:id/]"> 
+										<span>查看案例</span>
+									</div>
+								</div>
+								<div class="dis pictrue"><img src="[field:litpic/]"/></div>
+							</a> 
+						</li>
+						{/dreamer-cms:list}
+					</ul>
+				</div>
+				<a class="dis iconfont iconyou001 next" href="javascript:void(0)"></a>
+			</div>
+		</div>
+	</div>
+	
+	{dreamer-cms:type typeid="2jk6313y"}
+	<div class="cooperation min_wrapper_1200" style="background:url([field:typeimg /]) center 0 no-repeat;">
+		<div class="name">合作客户</div>
+		<div class="infor">[field:description/]</div>
+		<div class="wrapper_1200">
+		<ul class="partner">
+			{dreamer-cms:list typeid="2jk6313y" pagenum="1" pagesize="15" sortBy="weight" sortWay="asc" formkey="80AZ783M" addfields="link_url"}
+			<li>
+				<div class="pictrue details">
+					<a href="[field:link_url/]" target="_blank" title="[field:title/]">
+						<img src="[field:litpic/]" alt="[field:title/]">
+					</a>
+				</div>
+				<div class="item line1 on details" data-id="[field:id/]">
+					<a href="[field:link_url/]" target="_blank" title="[field:title/]">[field:title /]</a>
+				</div>
+			</li>
+			{/dreamer-cms:list}
+		</ul>
+	</div>
+		
+	</div>
+	{/dreamer-cms:type}
+	
+	<div class="wrapper_1200">
+		<ul class="function">
+			{dreamer-cms:categoryartlist typeid="96nbp5pc" length="3"}
+			<li>
+				<div class="name">[field:typenamecn  /]</div>
+				<div class="line"></div>
+				{dreamer-cms:list pagenum="1" pagesize="1" sortBy="weight" sortWay="asc"}
+				<div class="pictrue details" data-id="[field:id/]">
+					<a href="[field:arcurl/]" target="_blank" title="[field:title/]">
+						<img src="[field:litpic/]" alt="[field:title/]">
+					</a>
+				</div>
+				<div class="item line1 on details" data-id="[field:id/]">
+					<span>[field:title /]</span>
+					<a href="[field:arcurl/]" target="_blank" title="[field:title/]">[field:typenamecn/]</a>
+				</div>
+				{/dreamer-cms:list}
+				{dreamer-cms:list pagenum="1" pagesize="5" sortBy="weight" sortWay="desc"}
+				<div class="item line1 details" data-id="[field:id/]">
+					<span>[field:title/]</span>
+					<a href="[field:arcurl/]" target="_blank" title="[field:title/]">[field:typenamecn/]</a>
+				</div>
+				{/dreamer-cms:list}
+				<a href="[field:typeurl/]" target="_blank" title="[field:typenamecn/]">
+					<div class="more set_8_button outline" data-opt="[field:id/]">查看更多<span class="lines"></span></div>
+				</a>
+			</li>
+			{/dreamer-cms:categoryartlist}
+		</ul>
+	</div>
+	<div class="clearfix"></div>
+ 
+	{dreamer-cms:include file="inc/footer.html" /}
+	
+</div>
+	
+<div class="customerService animated qqcs">
+	<a class="bnt qqcs" href="http://wpa.qq.com/msgrd?v=3&uin={dreamer-cms:variable name='cfg_global_qq'/}&site=qq&menu=yes" target="_blank">
+	<div class="pos">
+		<div class="iconfont iconguanbi"></div>
+	</div>
+	</a>
+</div>
+<div class="customerClose"> 
+	<a class="bnt qqcs" href="http://wpa.qq.com/msgrd?v=3&uin={dreamer-cms:variable name='cfg_global_qq'/}&site=qq&menu=yes" target="_blank">QQ咨询</a> 
+</div>
+{dreamer-cms:include file="inc/service.html" /}
+<script>
+$(function () {
+	jQuery("#fullSlide").slide({ 
+		titCell:".hd li", 
+		mainCell:".bd ul", 
+		effect:"leftLoop", 
+		easing:"easeInOutQuad",
+		autoPlay:true, 
+		delayTime:700
+	});
+	
+	$('.freeSystem ul li').on("mouseenter",function(){
+		$(this).find('.item1').addClass('on').parent().siblings().find('.item1').removeClass('on');
+		$(this).find('.item2').addClass('on').parent().siblings().find('.item2').removeClass('on');
+	});
+	$('.freeSystem ul li').hover(function () {
+		$(this).find('.item2 .bgcolor .name').addClass('bounceInLeft');
+		$(this).find('.item2 .bgcolor .infor').addClass('bounceInRight');
+	},function () {
+		$(this).find('.item2 .bgcolor .name').removeClass('bounceInLeft');
+		$(this).find('.item2 .bgcolor .infor').removeClass('bounceInRight');
+	});
+	
+	jQuery(".slideBox").slide({mainCell:".bd ul",autoPlay:true});
+	$('.category .item').hover(function (){
+		$(this).find('.pictrue').addClass('bounceIn');
+	},function () {
+		$(this).find('.pictrue').removeClass('bounceIn');
+	});
+
+	$('.Upgrade').click(function () {
+		window.location.href="/price/";
+	});
+	$('.mask').click(function () {
+		$('.mask').css('display','none');
+		$('.ewmPay').removeClass('on');
+		location.reload();
+	});
+	$('.ewmPay .iconfont').click(function () {
+		$('.mask').css('display','none');
+		$('.ewmPay').removeClass('on');
+		location.reload();
+	});
+
+	$('.dingzhi').on('click',function () {
+		window.open("{dede:global.kf_url/}");
+	});
+})
+</script>
+</body>
+</html>

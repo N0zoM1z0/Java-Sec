@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dreamer CMS - 后台管理系统</title> 
+    <link rel="icon" href="/resource/icon/favicon.ico" type="image/x-icon" />
+    <link href="/resource/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/leftMenu/left-side-menu.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/leftMenu/iconfont.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="skin-black">
+<header class="header">
+	<a href="/admin/u/toIndex" class="logo">
+		<img src="/resource/img/logo.png" />
+	</a>
+	<!-- Header Navbar: style can be found in header.less -->
+	<nav class="navbar navbar-static-top" role="navigation">
+		<!-- Sidebar toggle button-->
+		<a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</a>
+		<div class="navbar-right">
+			<ul class="nav navbar-nav">
+				<li class="dropdown user user-menu">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-user"></i>
+						<span><font id="user-name"></font> <i class="caret"></i></span>
+					</a>
+					<ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+						<li class="dropdown-header text-center">用户中心</li>
+						<li>
+							<a href="/index" target="_blank"><i class="fa fa-home pull-right"></i> 网站首页</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="/admin/user/toUpdatePwd" target="mainframe"><i class="fa fa-user fa-fw pull-right"></i> 修改密码</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="javascript:void(0)" onclick="logout();"><i class="fa fa-sign-out pull-right"></i> 退出登录</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</header>
+<!-- 主体开始 -->
+<div class="wrapper row-offcanvas row-offcanvas-left">
+	<!-- 左侧 -->
+	<aside class="left-side sidebar-offcanvas">
+		<!-- 菜单开始 -->
+		<section class="sidebar">
+			<!-- search form -->
+			<form action="/admin/search/doSearch" method="post" class="sidebar-form" target="mainframe">
+				<div class="input-group">
+					<input type="text" name="entity['keywords']" class="form-control" placeholder="输入关键字进行搜索"/>
+					<span class="input-group-btn">
+						<button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+					</span>
+				</div>
+			</form>
+			
+			<!-- 菜单开始 -->
+			<div class="lsm-container">	
+		        <div class="lsm-scroll" >
+		            <div class="lsm-sidebar">
+						<ul class="sidebar-menu">
+							<li class="active">
+								<a href="/admin/dashboard/toIndex" target="mainframe" class="waves-effect waves-dark"><i class="fa fa-dashboard"></i>仪表盘</a>
+							</li>
+							<li class="lsm-sidebar-item" th:each="item : ${menus}">
+			                    <a href="javascript:void(1);" th:if="not ${#lists.isEmpty(item.children)}"><i th:class="${item.menuIcon}"></i><span th:text="${item.menuName}"></span><i class="my-icon lsm-sidebar-more"></i></a>
+			                    <a th:href="@{${item.menuUrl}}" target="mainframe" class="waves-effect waves-dark" th:if="${#lists.isEmpty(item.children)}"><i th:class="${item.menuIcon}"></i><span th:text="${item.menuName}"></span></a>
+				                <ul th:if="not ${#lists.isEmpty(item.children)}">
+				                	<li th:each="child : ${item.children}"><a th:href="@{${child.menuUrl}}" target="mainframe" class="waves-effect waves-dark"><span th:text="${child.menuName}"></span></a></li>
+				                </ul>
+			                </li>
+						</ul>
+					</div>
+		        </div>
+		    </div>
+		</section>
+		<!-- 菜单结束 -->
+	</aside>
+	<!-- 右侧开始 -->
+	<aside class="right-side">
+		<section class="content">
+			<iframe id="mainframe" name="mainframe" style="width:100%; border:0;" src="/admin/dashboard/toIndex"></iframe>
+		</section>
+		<div class="footer-main">
+			Copyright &copy; Dreamer CMS, Powered by <a href="http://www.iteachyou.cc" title="I Teach You,我教你！">I Teach You , 我教你！</a> 2018-2030
+		</div>
+	</aside>
+	<!-- 右侧结束 -->
+</div><!-- 主体结束 -->
+<!-- jQuery 2.0.2 -->
+<script src="/resource/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/resource/js/bootstrap.min.js"></script>
+<!-- Director App -->
+<script src="/resource/js/Director/app.js"></script>
+<script src="/resource/js/left-side-menu.js"></script>
+<script>
+	$(function () {
+		iframeAutoHeight();
+		$(".sidebar-menu li").click(function(){
+			$(".sidebar-menu li").removeClass("active");
+			$(this).addClass("active");
+		});
+
+		var userStr = sessionStorage.getItem("dreamer-cms-user");
+		if(userStr == null || userStr == "" || userStr == "undefined"){
+			window.location.href = "/admin/u/toLogin";
+		}else{
+			var user = JSON.parse(userStr);
+			$("#user-name").text(user.username + "[" + user.realname + "]");
+		}
+	});
+		
+	function iframeAutoHeight() {
+	    var headerH = $(".header").height();
+	    var footerH = $(".footer-main").height() + 15;
+	    var sectionH = 45;
+	    var bodyerH = $(window).height() - headerH - footerH - sectionH;
+	    $("iframe#mainframe").height(bodyerH);
+	}
+		
+	//退出登录
+	function logout(){
+		sessionStorage.removeItem("dreamer-cms-user");
+		window.location.href = "/admin/u/logout";
+	}
+</script>
+</body>
+</html>

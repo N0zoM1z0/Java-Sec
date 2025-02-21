@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.iteachyou.cms.dao.SystemMapper" >
+  <resultMap id="BaseResultMap" type="cc.iteachyou.cms.entity.System" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="website" property="website" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="describe" property="describe" jdbcType="VARCHAR" />
+    <result column="icp" property="icp" jdbcType="VARCHAR" />
+    <result column="copyright" property="copyright" jdbcType="VARCHAR" />
+    <result column="uploaddir" property="uploaddir" jdbcType="VARCHAR" />
+    <result column="staticdir" property="staticdir" jdbcType="VARCHAR" />
+    <result column="browse_type" property="browseType" jdbcType="INTEGER" />
+    <result column="appid" property="appid" jdbcType="VARCHAR" />
+    <result column="appkey" property="appkey" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, website, title, keywords, describe, icp, copyright, appid, appkey, uploaddir, staticdir, browse_type
+  </sql>
+  
+  <select id="getCurrentSystem" resultMap="BaseResultMap">
+  	select * from system_setting limit 0, 1
+  </select>
+</mapper>

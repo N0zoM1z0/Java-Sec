@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dreamer CMS - 后台管理系统</title> 
+    <link href="/resource/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/iCheck/all.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="row">
+    <div class="col-md-12">
+    	<h1 class="panel-heading">文章管理</h1>
+        <!--breadcrumbs start -->
+        <ul class="breadcrumb">
+			<li><a href="/admin/dashboard/toIndex"><i class="fa fa-home"></i> 首页</a></li>
+			<li th:if="${category != null}"><a href="/admin/category" th:title="${category.cnname}" th:text="${category.cnname}"></a></li>
+			<li class="active">文章管理</li>
+		</ul>
+        <!--breadcrumbs end -->
+    </div>
+</div>
+<section class="panel">
+	<div class="panel-body">
+         <button class="btn btn-primary btn-addon btn-sm" th:typeid="${#strings.isEmpty(cid) ? '-1' : cid}" th:onclick="javascript: toAddArticle(this.getAttribute('typeid'))">
+             <i class="fa fa-plus"></i> 发布文章
+         </button>
+    </div>
+    <div class="panel-body table-responsive">
+		<table class="table table-hover table-border">
+			<thead>
+				<tr>
+					<th style="width:50px;">选择</th>
+					<th>文章标题</th>
+					<th>所属栏目</th>
+					<th>发布时间</th>
+					<th>浏览量</th>
+					<th>权重</th>
+					<th>发布状态</th>
+					<th style="width:300px;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="article : ${page.list}">
+					<td><input type="checkbox" class="flat-grey list-child" th:value="${article.aid}"/></td>
+					<td><a href="#" th:text="${article.title}"></a></td>
+					<td th:text="${article.categoryCnName}"></td>
+					<td th:text="${#dates.format(article.createTime, 'yyyy-MM-dd')}"></td>
+					<td th:text="${article.clicks}"></td>
+					<td th:text="${article.weight}"></td>
+					<td><span th:text="${article.status}=='1'?'已发布':'未发布'" th:class="${article.status}=='1'?'label label-success':'label label-danger'">否</span></td>
+					<td>
+						<a target="_blank" th:href="'/article/' + ${article.aid}" class="btn btn-xs btn-warning">预览</a>
+						<span>&nbsp;|&nbsp;</span>
+						<a href="javascript:void(0)" class="btn btn-xs btn-success copyArticleIdBtn" th:aid="${article.aid}" th:onclick="javascript:copyArticleId(this.getAttribute('aid'))">复制文章ID</a>
+						<span>&nbsp;|&nbsp;</span>
+						<a th:href="@{/admin/archives/toEdit(id=${article.aid},cid=${article.categoryId})}" class="btn btn-xs btn-success">编辑</a>
+						<span>&nbsp;|&nbsp;</span>
+						<a href="javascript:void(0)" data-toggle="modal" class="btn btn-xs btn-danger" th:aid="${article.aid}" th:typeid="${article.categoryId}" th:onclick="javascript:confrimRemove(this.getAttribute('aid'),this.getAttribute('typeid'))">删除</a>
+					</td>
+				</tr>
+				<tr th:if="${#lists.isEmpty(page.list)}">
+					<td colspan="8" align="center">无数据</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+    <div class="panel-footer bg-white text-right">
+         <ul class="pagination">
+             <li><a th:href="@{/admin/archives/list(pageNum=1,pageSize=${page.pageSize},entity[cid]=${cid})}" title="首页" th:class="${page.isFirstPage} ? 'paginationNotAllowed' : ''">«</a></li>
+             <li><a th:href="@{/admin/archives/list(pageNum=${page.prePage},pageSize=${page.pageSize},entity[cid]=${cid})}" title="上一页" th:if="${page.hasPreviousPage}">‹</a></li>
+             <li th:each="pageinfo : ${page.navigatepageNums}"><a th:href="@{/admin/archives/list(pageNum=${pageinfo},pageSize=${page.pageSize},entity[cid]=${cid})}" th:class="${pageinfo == page.pageNum} ? 'paginationActive' : ''" th:text="${pageinfo}"></a></li>
+             <li><a th:href="@{/admin/archives/list(pageNum=${page.nextPage},pageSize=${page.pageSize},entity[cid]=${cid})}" title="下一页" th:if="${page.hasNextPage}">›</a></li>
+             <li><a th:href="@{/admin/archives/list(pageNum=${page.pages},pageSize=${page.pageSize},entity[cid]=${cid})}" title="未页" th:class="${page.isLastPage} ? 'paginationNotAllowed' : ''">»</a></li>
+         </ul>
+     </div>
+</section>
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="remove-dialog" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">操作提示？</h4>
+            </div>
+            <div class="modal-body">
+				<h4 class="modal-title">您确定要删除该记录吗？</h4>
+				<input type="hidden" id="cacheID" />
+				<input type="hidden" id="cid" />
+            </div>
+            <div class="modal-footer">
+            	<button type="button" class="btn btn-primary btn-addon btn-sm" onclick="remove();">确定</button>
+            	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery 2.0.2 -->
+<script src="/resource/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/resource/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="/resource/js/plugins/iCheck/icheck.min.js"></script>
+<script src="/resource/js/coco-message/coco-message.js"></script>
+<script src="/resource/js/clipboard.min.js"></script>
+<script>
+	window.onload = function(){
+		renderCheckBox();
+	}
+	
+	function renderCheckBox(){
+		$('input').on('ifChecked', function(event) {
+		    $(this).parents('li').addClass("task-done");
+		    console.log('ok');
+		});
+		$('input').on('ifUnchecked', function(event) {
+		    $(this).parents('li').removeClass("task-done");
+		    console.log('not');
+		});
+		
+		$('input[type="checkbox"].flat-grey, input[type="radio"].flat-grey').iCheck({
+		    checkboxClass: 'icheckbox_flat-grey',
+		    radioClass: 'iradio_flat-grey'
+		});
+	}
+	
+	function toAddArticle(cid){
+		window.location.href = "/admin/archives/toAdd?code=" + cid;
+	}
+	
+	function confrimRemove(id,cid){
+		$("#remove-dialog").modal();
+		$("#cacheID").val(id);
+		$("#cid").val(cid);
+	}
+	
+	function remove(){
+		var currentID = $("#cacheID").val();
+		var cid = $("#cid").val();
+		window.location.href="/admin/archives/delete?id="+currentID + "&cid="+cid;
+		$("#remove-dialog").modal('hide');
+	}
+	
+	function copyArticleId(id){
+		var content = id;
+		var clipboard = new Clipboard('.copyArticleIdBtn',{
+			text: function() {
+				return content;
+			}
+		});
+		clipboard.on('success', function(e) {
+			cocoMessage.success("复制成功");
+		});
+	
+		clipboard.on('error', function(e) {
+			cocoMessage.error("复制失败");
+		});
+	}
+</script>
+</body>
+</html>

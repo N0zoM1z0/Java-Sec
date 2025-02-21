@@ -1,0 +1,99 @@
+<div id="header" class="min_wrapper_1200">
+	<div class="pull-left">
+		<span class="item">
+			<i class="iconfont icondianhua"></i>
+			官方电话：<span class="phone">{dreamer-cms:variable name='cfg_global_telephone'/}</span>
+		</span>
+		<span class="item">
+			<i class="iconfont iconicon-test"></i>
+			QQ技术交流群： 
+			<span class="phone" style="margin-left: 6px;">
+				<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=Ba41Hjymx8sei97Y9EwcREEsgww0oYG4&jump_from=webapi&authKey=ddiBUR6Dopdxifg3KDh4B1oGblfyuWebDqFWj0KLYAZFTBqXLoAMmd7jnWrN6xxp" style="color: #fff;">{dreamer-cms:variable name='cfg_global_qqgroup'/}(QQ群)</a>
+			</span> 
+		</span>
+	</div>
+	<div class="pull-right">
+		<a href="{dreamer-cms:variable name='cfg_global_doc'/}" title="帮助文档" target="_blank">帮助文档</a>
+		<a href="http://wpa.qq.com/msgrd?v=3&uin={dreamer-cms:variable name='cfg_global_qq'/}&site=qq&menu=yes" target="_blank">授权咨询</a>
+	</div>
+</div>
+<div class="clearfix"></div>
+<div id="nav">
+	<div class="pull-left">
+		<a href="/" title="{dreamer-cms:global name="title"/}">
+			<img src="{dreamer-cms:template /}images/logo.png" title="{dreamer-cms:global name="title"/}" alt="{dreamer-cms:global name="title"/}">
+		</a>
+	</div>
+	<div class="pull-right">
+		<a class="item" href="/" title="首页">首页</a> 
+		{dreamer-cms:categoryartlist length="10"}
+			{dreamer-cms:if test="('true' eq [field:haschildren/])"}
+			<a class="item" href="javascript:void(0);" title="[field:typenamecn /]" id="navtop_[field:typecode/]">
+				<span id="topspan_[field:typecode /]">[field:typenamecn /]</span>
+				<div class="item list">
+					{dreamer-cms:channel}
+					<div class="itemn Navson_[field:typecode /]" url="[field:typeurl /]">[field:typenamecn /]</div>
+					{/dreamer-cms:channel}
+				</div>
+			</a>
+			{/dreamer-cms:if}
+			{dreamer-cms:if test="('false' eq [field:haschildren/])"}
+			<a class="item" href="[field:typeurl /]" title="[field:typenamecn /]" id="navtop_[field:typecode/]">
+				<span id="topspan_[field:typecode /]">[field:typenamecn /]</span>
+			</a>
+			{/dreamer-cms:if}
+		{/dreamer-cms:categoryartlist}
+		<a class="demoCenter" >演示中心
+			<div class="demoCon">
+				<div class="demo">
+					<div class="whiteBg">
+						<div class="name">梦想家演示地址及账号</div>
+						<div class="infor">网站前台</div>
+						<table border="1">
+							<tr>
+								<th width="50%">演示网址</th>
+								<th width="25%">账号</th>
+								<th width="25%">密码</th>
+							</tr>
+							<tr>
+								<td><a href="http://cms.iteachyou.cc" target="_blank" style="color:#2a7efb;">http://cms.iteachyou.cc</a></td>
+								<td>无</td>
+								<td>无</td>
+							</tr>
+						</table>
+						<div class="infor">后台管理系统</div>
+						<table border="1">
+							<tr>
+								<th width="50%">演示网址</th>
+								<th width="25%">账号</th>
+								<th width="25%">密码</th>
+							</tr>
+							<tr>
+								<td><a href="http://cms.iteachyou.cc/admin" target="_blank" style="color:#2a7efb;">http://cms.iteachyou.cc/admin</a></td>
+								<td>wangjn</td>
+								<td>123456</td>
+							</tr>
+						</table>
+						<div class="showHow">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</a>
+		<div class="demoCenter download" target="_blank">
+			<a href="https://gitee.com/isoftforce/dreamer_cms" target="_blank" style="color: #fff;" title="源码下载">源码下载</a> 
+		</div>
+	</div>
+</div>
+<div class="clearfix"></div>
+<style>
+.download table{border-color:#eee !important;}
+.download table tr th{background-color: #f7f7f7 !important;width: 33.3%;}
+.download th span{color:#666666;font-weight: bold;}
+</style>
+<script>
+	jQuery(".itemn").click(function(){
+		window.location.href = jQuery(this).attr("url")
+	})
+</script>

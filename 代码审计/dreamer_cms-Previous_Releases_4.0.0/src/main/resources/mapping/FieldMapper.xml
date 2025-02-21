@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.iteachyou.cms.dao.FieldMapper" >
+  <resultMap id="BaseResultMap" type="cc.iteachyou.cms.entity.Field" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="form_id" property="formId" jdbcType="VARCHAR" />
+    <result column="field_text" property="fieldText" jdbcType="VARCHAR" />
+    <result column="field_name" property="fieldName" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="data_type" property="dataType" jdbcType="VARCHAR" />
+    <result column="default_value" property="defaultValue" jdbcType="VARCHAR" />
+    <result column="max_length" property="maxLength" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ext01" property="ext01" jdbcType="VARCHAR" />
+    <result column="ext02" property="ext02" jdbcType="VARCHAR" />
+    <result column="ext03" property="ext03" jdbcType="VARCHAR" />
+    <result column="ext04" property="ext04" jdbcType="VARCHAR" />
+    <result column="ext05" property="ext05" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, form_id, field_text, field_name, type, data_type, default_value, max_length, 
+    create_by, create_time, update_by, update_time, ext01, ext02, ext03, ext04, ext05
+  </sql>
+  
+  <select id="queryFieldByFormId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_fields
+    where form_id = #{formId,jdbcType=VARCHAR}
+    order by create_time asc
+  </select>
+</mapper>

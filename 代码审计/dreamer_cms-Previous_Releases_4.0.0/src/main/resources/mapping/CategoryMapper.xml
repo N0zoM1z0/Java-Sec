@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.iteachyou.cms.dao.CategoryMapper" >
+  <resultMap id="BaseResultMap" type="cc.iteachyou.cms.entity.Category" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="cnname" property="cnname" jdbcType="VARCHAR" />
+    <result column="enname" property="enname" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="cat_seq" property="catSeq" jdbcType="VARCHAR" />
+    <result column="form_id" property="formId" jdbcType="VARCHAR" />
+    <result column="image_path" property="imagePath" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="link_target" property="linkTarget" jdbcType="VARCHAR" />
+    <result column="page_size" property="pageSize" jdbcType="INTEGER" />
+    <result column="cat_model" property="catModel" jdbcType="INTEGER" />
+    <result column="visit_url" property="visitUrl" jdbcType="VARCHAR" />
+    <result column="cover_temp" property="coverTemp" jdbcType="VARCHAR" />
+    <result column="list_temp" property="listTemp" jdbcType="VARCHAR" />
+    <result column="article_temp" property="articleTemp" jdbcType="VARCHAR" />
+    <result column="link_url" property="linkUrl" jdbcType="VARCHAR" />
+    <result column="default_editor" property="defaultEditor" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="is_show" property="isShow" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="is_input" property="isInput" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ext01" property="ext01" jdbcType="VARCHAR" />
+    <result column="ext02" property="ext02" jdbcType="VARCHAR" />
+    <result column="ext03" property="ext03" jdbcType="VARCHAR" />
+    <result column="ext04" property="ext04" jdbcType="VARCHAR" />
+    <result column="ext05" property="ext05" jdbcType="VARCHAR" />
+    <result column="md_content" property="mdContent" jdbcType="LONGVARCHAR" />
+    <result column="html_content" property="htmlContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, cnname, enname, code, cat_seq, form_id, image_path, description, link_target, 
+    page_size, cat_model, visit_url, cover_temp, list_temp, article_temp, link_url, default_editor, 
+    parent_id, is_show, level, sort, is_input, create_by, create_time, update_by, update_time, 
+    ext01, ext02, ext03, ext04, ext05, md_content, html_content
+  </sql>
+  
+  <select id="queryListByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from system_category
+  	where parent_id = "-1"
+  	order by sort asc
+  </select>
+  
+  <select id="selectByParentId" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from system_category
+  	where parent_id = #{parentId,jdbcType=VARCHAR}
+  	order by sort asc
+  </select>
+  
+  <select id="queryCategoryByCode" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from system_category
+  	where code = #{code,jdbcType=VARCHAR}
+  	order by sort asc
+  </select>
+  
+  <select id="queryListByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from system_category
+  	where 1 = 1
+  	<if test="parentId != null and parentId != ''">
+  		and parent_id = #{parentId,jdbcType=VARCHAR}
+    </if>
+    <if test="cid != null and cid != ''">
+  		and code = #{cid,jdbcType=VARCHAR}
+    </if>
+  	<if test="isShow != null and isShow != ''">
+    	and is_show = #{isShow,jdbcType=VARCHAR}
+    </if>
+    order by sort asc
+    <if test="sortBy != null and sortBy != ''">
+    	,${sortBy} 
+    </if>
+    <if test="sortWay != null and sortWay != ''">
+    	${sortWay}
+    </if>
+    <if test="length != null and length != ''">
+    	limit ${start},${length}
+    </if>
+  </select>
+  
+  <select id="queryAll" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from system_category
+  </select>
+</mapper>

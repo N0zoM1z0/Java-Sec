@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dreamer CMS - 后台管理系统</title> 
+    <link href="/resource/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/iCheck/all.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="row">
+    <div class="col-md-12">
+    	<h1 class="panel-heading">任务管理</h1>
+        <!--breadcrumbs start -->
+        <ul class="breadcrumb">
+			<li><a href="/admin/dashboard/toIndex"><i class="fa fa-home"></i> 首页</a></li>
+			<li class="active">任务管理</li>
+		</ul>
+        <!--breadcrumbs end -->
+    </div>
+</div>
+<section class="panel">
+	<div class="panel-body">
+         <!-- <span class="pull-right badge badge-info">32</span> -->
+         <button class="btn btn-primary btn-addon btn-sm" th:onclick="toAdd();">
+             <i class="fa fa-plus"></i> 添加任务
+         </button>
+    </div>
+    <div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width:50px;">选择</th>
+					<th>任务名称</th>
+					<th>完整类路径</th>
+					<th>Cron表达式</th>
+					<th>状态</th>
+					<th style="width:300px;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item,stat : ${page.list}">
+					<td><input type="checkbox" class="flat-grey list-child" th:value="${item.id}" /></td>
+					<td th:text="${item.taskName}"></td>
+					<td th:text="${item.clazzName}"></td>
+					<td th:text="${item.cronExpression}"></td>
+					<td>
+						<span th:if="${item.status} == 1">启用</span>
+						<span th:if="${item.status} == 0">禁用</span>
+					</td>
+					<td>
+						<a href="javascript:void(0)" class="btn btn-xs btn-success" th:taskId="${item.id}" th:onclick="run(this.getAttribute('taskId'));">执行</a>
+						<span>&nbsp;|&nbsp;</span>
+						<a th:href="@{/admin/task/changeStatus(id=${item.id},status=(${item.status}) == '1' ? 0 : 1)}" class="btn btn-xs btn-success">
+							<span th:if="${item.status} == '1'">禁用</span>
+							<span th:if="${item.status} == '0'">启用</span>
+						</a>
+						<span>&nbsp;|&nbsp;</span>
+						<a th:href="@{/admin/task/toEdit(id=${item.id})}" class="btn btn-xs btn-success">编辑</a>
+						<span>&nbsp;|&nbsp;</span>
+						<a href="javascript:void(0)" data-toggle="modal" class="btn btn-xs btn-danger" th:userId="${item.id}" th:onclick="confrimRemove(this.getAttribute('userId'));">删除</a>
+					</td>
+				</tr>
+				<tr th:if="${#lists.isEmpty(page.list)}">
+					<td colspan="4" align="center">无数据</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+    <div class="panel-footer bg-white text-right">
+         <ul class="pagination">
+             <li><a th:href="@{/admin/task/list(pageNum=1,pageSize=${page.pageSize})}" title="首页" th:class="${page.isFirstPage} ? 'paginationNotAllowed' : ''">«</a></li>
+             <li><a th:href="@{/admin/task/list(pageNum=${page.prePage},pageSize=${page.pageSize})}" title="上一页" th:if="${page.hasPreviousPage}">‹</a></li>
+             <li th:each="pageinfo : ${page.navigatepageNums}"><a th:href="@{/admin/task/list(pageNum=${pageinfo},pageSize=${page.pageSize})}" th:class="${pageinfo == page.pageNum} ? 'paginationActive' : ''" th:text="${pageinfo}"></a></li>
+             <li><a th:href="@{/admin/task/list(pageNum=${page.nextPage},pageSize=${page.pageSize})}" title="下一页" th:if="${page.hasNextPage}">›</a></li>
+             <li><a th:href="@{/admin/task/list(pageNum=${page.pages},pageSize=${page.pageSize})}" title="未页" th:class="${page.isLastPage} ? 'paginationNotAllowed' : ''">»</a></li>
+         </ul>
+     </div>
+</section>
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="remove-dialog" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">操作提示？</h4>
+            </div>
+            <div class="modal-body">
+				<h4 class="modal-title">您确定要删除该记录吗？</h4>
+				<input type="hidden" id="cacheID" />
+				<!-- <input type="hidden" id="cid" /> -->
+            </div>
+            <div class="modal-footer">
+            	<button type="button" class="btn btn-primary btn-addon btn-sm" onclick="remove();">确定</button>
+            	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery 2.0.2 -->
+<script src="/resource/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/resource/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="/resource/js/plugins/iCheck/icheck.min.js"></script>
+<script src="/resource/js/coco-message/coco-message.js"></script>
+<script>
+	window.onload = function(){
+		renderCheckBox();
+	}
+	
+	function renderCheckBox(){
+		$('input').on('ifChecked', function(event) {
+		    $(this).parents('li').addClass("task-done");
+		    console.log('ok');
+		});
+		$('input').on('ifUnchecked', function(event) {
+		    $(this).parents('li').removeClass("task-done");
+		    console.log('not');
+		});
+		
+		$('input[type="checkbox"].flat-grey, input[type="radio"].flat-grey').iCheck({
+		    checkboxClass: 'icheckbox_flat-grey',
+		    radioClass: 'iradio_flat-grey'
+		});
+	}
+	
+	function toAdd(){
+		window.location.href = "/admin/task/toAdd";
+	}
+	
+	function run(id) {
+        $.get("/admin/task/run?id=" + id, function(response){
+        	if(response.success){
+				cocoMessage.success(response.info);
+			}else{
+				cocoMessage.error(response.info);
+			}
+        });
+    }
+
+    function changeStatusTaskCron(aObj) {
+        let cronKey = aObj.getAttribute("data-cron-key");
+        let status = aObj.getAttribute("data-cron-status");
+        if (status == AppConsts.ENABLED) {
+            status = AppConsts.DISABLED;
+        } else {
+            status = AppConsts.ENABLED;
+        }
+        let formData = new FormData();
+        formData.append("cronKey", cronKey);
+        formData.append("status", status);
+        post("/scheduled/task/changeStatusTaskCron", "/scheduled/task/taskList", formData);
+    }
+	
+	function confrimRemove(id){
+		$("#remove-dialog").modal();
+		$("#cacheID").val(id);
+	}
+	
+	function remove(){
+		var currentID = $("#cacheID").val();
+		window.location.href="/admin/task/delete?id="+currentID;
+		$("#remove-dialog").modal('hide');
+	}
+</script>
+</body>
+</html>

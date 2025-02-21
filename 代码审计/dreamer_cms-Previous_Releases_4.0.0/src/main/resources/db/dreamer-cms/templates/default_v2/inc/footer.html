@@ -1,0 +1,89 @@
+<div id="footer" class="min_wrapper_1200">
+	<div class="wrapper_1200">
+		<ul class="list">
+			<li>
+				<div class="name">
+					{dreamer-cms:type typeid="4ol61bbh"}
+						[field:typenamecn /]
+					{/dreamer-cms:type}
+				</div>
+				{dreamer-cms:channel typeid="4ol61bbh" type="son"}
+				<a class="item" href="[field:typeurl/]" title="[field:typenamecn /]">[field:typenamecn /]</a>
+				{/dreamer-cms:channel}
+			</li>
+			<li>
+				<div class="name">
+					{dreamer-cms:type typeid="1hq8501w"}
+						[field:typenamecn /]
+					{/dreamer-cms:type}
+				</div>
+				{dreamer-cms:channel typeid="1hq8501w" type="son"}
+				<a class="item" href="[field:typeurl/]" title="[field:typenamecn /]">[field:typenamecn /]</a>
+				{/dreamer-cms:channel}
+			</li>
+			<li>
+				<div class="name">
+					{dreamer-cms:type typeid="96nbp5pc"}
+						[field:typenamecn /]
+					{/dreamer-cms:type}
+				</div>
+				{dreamer-cms:channel typeid="96nbp5pc" type="son"}
+				<a class="item" href="[field:typeurl/]" title="[field:typenamecn /]">[field:typenamecn /]</a>
+				{/dreamer-cms:channel}
+			</li>
+			<li>
+				<div class="name">
+					{dreamer-cms:type typeid="he9g4d0j"}
+						[field:typenamecn /]
+					{/dreamer-cms:type}
+				</div>
+				{dreamer-cms:channel typeid="he9g4d0j" type="son"}
+				<a class="item" href="[field:typeurl/]" title="[field:typenamecn /]">[field:typenamecn /]</a>
+				{/dreamer-cms:channel}
+			</li>
+			<li>
+				<div class="name">联系方式</div>
+				<div class="item">全国热线 ：<span>{dreamer-cms:variable name='cfg_global_telephone'/}</span></div>
+				<div class="item">项目合作 ：<span>{dreamer-cms:variable name='cfg_global_qq'/}(QQ)</span></div>
+				<div class="item" style="">技术交流 ：
+					<div style="width: 150px;float: right;">
+						<span style="display: block;">
+							<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=Ba41Hjymx8sei97Y9EwcREEsgww0oYG4&jump_from=webapi&authKey=ddiBUR6Dopdxifg3KDh4B1oGblfyuWebDqFWj0KLYAZFTBqXLoAMmd7jnWrN6xxp" style="color: #6aa6ff;">{dreamer-cms:variable name="cfg_global_qqgroup" /}(QQ群)</a>
+						</span>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="name">关注我们</div>
+				<div class="official">
+					{dreamer-cms:sql sql="select image_path as litpic from system_archives where id = [cc3c8a326842433292ad1bf7cae7e1c1]"}
+					<img src="/resources/uploads/[field:litpic /]" width="100" />
+					{/dreamer-cms:sql}
+					<div class="ewm">
+						<span class="iconfont iconweixin-copy"></span>官方微信
+					</div>
+				</div>
+				<div class="official">
+					{dreamer-cms:sql sql="select image_path as litpic from system_archives where id = [498d51b3f1f643638dda51e5e7b7b792]"}
+					<img src="/resources/uploads/[field:litpic /]" width="100" />
+					{/dreamer-cms:sql}
+					<div class="ewm"><span class="iconfont iconxiaochengxu"></span>官方公众号</div>
+				</div>
+			</li>
+		</ul>
+		<div class="clearfix"></div>
+		<div class="friendship"> 
+			<a>友情链接：</a>
+			{dreamer-cms:list typeid="2jk6313y" pagenum="1" pagesize="10" formkey="80AZ783M" addfields="link_url"}
+				<a href="[field:link_url /]">[field:title /]</a>
+			{/dreamer-cms:list}
+		</div>
+		<div class="copy">
+			<div class="pull-left">
+				{dreamer-cms:global name="copyright" /}
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<a target="_blank" style="color: #ccc;" href='http://www.beian.miit.gov.cn/'>{dreamer-cms:global name="icp"/}</a>
+			</div>
+		</div>
+	</div>
+</div>

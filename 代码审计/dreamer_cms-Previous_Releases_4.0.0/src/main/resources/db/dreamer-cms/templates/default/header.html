@@ -1,0 +1,60 @@
+<!--=== navigation ===-->
+<header id="nav" class="header">
+    <!-- menu -->
+    <div class="navbar navbar-expand-md navbar-light default-menu justify-content-between" role="navigation">
+        <div class="container-fluid">
+            <a href="/" class="site-logo navbar-brand">DreamerCMS</a>
+            <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#v" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="v">
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link scroll" href="/">首页</a></li>
+                    {dreamer-cms:categoryartlist length="8"}
+                    	{dreamer-cms:if test="('true' eq [field:haschildren/])"}
+                    	<li class="dropdown nav-item"><a href="[field:typeurl/]" class="nav-link dropdown-toggle" data-toggle="dropdown">[field:typenamecn /]</a>
+	                        <ul class="dropdown-menu">
+	                        	{dreamer-cms:channel}
+	                            <li><a class="dropdown-item" href="[field:typeurl/]"><i class="ion ion-chevron-right"></i>[field:typenamecn /]</a></li>
+	                            {/dreamer-cms:channel}
+	                        </ul>
+	                    </li>
+	                    {/dreamer-cms:if}
+	                    {dreamer-cms:if test="('false' eq [field:haschildren/])"}
+	                    <li class="nav-item"><a class="nav-link scroll" href="[field:typeurl /]" title="[field:typenamecn /]">[field:typenamecn /]</a></li>
+	                    {/dreamer-cms:if}
+                    {/dreamer-cms:categoryartlist}
+                </ul>
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="dropdown nav-item"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="ion fa fa-search"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-right list-search">
+                            <li class="dropdown-item">
+                                <form class="navbar-left nav-search" role="search" action="/search" method="post">
+                                    <div class="form-inline">
+                                        <input class="form-control" placeholder="输入关键字进行搜索..." type="text" name="entity['keywords']">
+                                        <i class="fa fa-search"></i>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#popup"><i class="ion fa fa-reorder"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+<!--=== offset canvas / sidebar ===-->
+<div class="popup" id="popup">
+    <div class="popup-content"><div class="left-slide-sidebar ">
+        <div class="canvas-title">DreamerCMS MENUS</div>
+        <ul class="list-unstyled slide-sidebar">
+            <li><a href="#">首页</a></li>
+            {dreamer-cms:channel type='top' currentstyle=""}
+            <li><a href="[field:typeurl /]" title="[field:typenamecn /]">[field:typenamecn /]</a></li>
+            {/dreamer-cms:channel}
+        </ul>
+    </div>
+        <a href="#close" class="popup-close">&times;</a>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+   	<meta charset="utf-8" />
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dreamer CMS - 后台管理系统</title> 
+    <link href="/resource/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/resource/js/plugins/treeSelect/css/zTreeStyle.css"/>
+	<link rel="stylesheet" type="text/css" media="all" href="/resource/js/plugins/treeSelect/css/treeSelect.css"/>
+</head>
+
+<body>
+<div class="row">
+    <div class="col-md-12">
+    	<h1 class="panel-heading">编辑菜单</h1>
+        <!--breadcrumbs start -->
+        <ul class="breadcrumb">
+			<li><a href="/admin/dashboard/toIndex"><i class="fa fa-home"></i> 首页</a></li>
+			<li class="active">编辑菜单</li>
+		</ul>
+        <!--breadcrumbs end -->
+    </div>
+</div>
+<section class="panel">
+	<div class="panel-body">
+		<form class="col s12" id="form1" th:action="@{/admin/menu/update}" onsubmit="return validateForm();" method="post">
+			<input type="hidden" th:value="${menu.id}" id="id" name="id"/>
+			<div class="form-group form-control-medium">
+				<label for="menuName">菜单名称：</label>
+				<input id="menuName" name="menuName" type="text" th:value="${menu.menuName}" class="form-control" placeholder="菜单名称" />
+			</div>
+			<div class="form-group form-control-medium">
+				<label for="menuCode">菜单编码：</label>
+				<input id="menuCode" name="menuCode" type="text" th:value="${menu.menuCode}" readonly="readonly" class="form-control" placeholder="菜单编码" />
+			</div>
+			<div class="form-group form-control-medium">
+				<label for="menuUrl">菜单路径：</label>
+				<input id="menuUrl" name="menuUrl" type="text" th:value="${menu.menuUrl}" class="form-control" placeholder="菜单路径" />
+			</div>
+			<div class="form-group form-control-medium">
+				<label for="parentId">上级菜单：</label>
+				<div style="width: 100%;" class="treeSelect form-group form-control-medium"></div>
+			</div>
+			<div class="form-group form-control-medium">
+				<label for="menuIcon">菜单图标：</label>
+				<input id="menuIcon" name="menuIcon" type="text" th:value="${menu.menuIcon}" class="form-control" placeholder="菜单图标" />
+			</div>
+			<div class="form-group form-control-small">
+				<label for="sort">排序：</label>
+				<input id="sort" name="sort" type="text" th:value="${menu.sort}" class="form-control" placeholder="排序" />
+			</div>
+			<div class="form-group form-control-medium">
+				<label for="remark">备注：</label>
+				<textarea rows="5" name="remark" class="form-control" th:text="${menu.remark}" placeholder="备注"></textarea>
+			</div>
+			<div class="form-btn-group-left">
+            	<button type="submit" class="btn btn-info">保存</button>
+            </div>
+		</form>
+	</div>
+</section>
+<script src="/resource/js/jquery.min.js"></script>
+<script src="/resource/js/plugins/treeSelect/jquery.ztree.all.min.js"></script>
+<script src="/resource/js/plugins/treeSelect/treeSelect.js"></script>
+<script src="/resource/js/coco-message/coco-message.js"></script>
+<script th:inline="javascript">
+	var currentMenu = [[${menu}]];
+	
+	var allList = [[${parentList}]];
+    $(function () {
+		$(".treeSelect").treeSelect({
+	    	data: allList,
+	        inputId: "parentId",
+	        name: "parentId",
+	        defaultKey: currentMenu.parentMenuName,
+	        defaultValue: currentMenu.parentId
+	    })
+	});
+   	/* 保存方法 */
+    function validateForm(){
+    	var menuName = $("#menuName").val();
+    	if(menuName == null || menuName==''){
+			cocoMessage.error("菜单名称不能为空");
+    		return false;
+    	}
+    	return true;
+    }
+</script>
+</body>
+</html>

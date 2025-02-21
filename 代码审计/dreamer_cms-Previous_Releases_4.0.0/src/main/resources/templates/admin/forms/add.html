@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dreamer CMS - 后台管理系统</title> 
+    <link href="/resource/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="row">
+    <div class="col-md-12">
+    	<h1 class="panel-heading">添加表单</h1>
+        <!--breadcrumbs start -->
+        <ul class="breadcrumb">
+			<li><a href="/admin/dashboard/toIndex"><i class="fa fa-home"></i> 首页</a></li>
+			<li class="active">添加表单</li>
+		</ul>
+        <!--breadcrumbs end -->
+    </div>
+</div>
+<section class="panel">
+	<div class="panel-body">
+		<form class="col s12" id="form1" th:action="@{/admin/forms/add}" onsubmit="return validateForm();" method="post">
+			<div class="form-group form-control-medium">
+				<label for="formName">表单名：</label>
+				<input id="formName" name="formName" type="text" class="form-control" placeholder="表单名称" />
+			</div>
+			<div class="form-group form-control-medium">
+                <label for="tableName">附加表名：</label>
+                <input id="tableName" name="tableName" type="text" class="form-control" placeholder="系统会自动添加表前缀system_" />
+			</div>
+			<div class="form-group">
+				<label for="type">表单性质：</label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="type" id="type-yes" value="1" checked="checked" /> 自定义表单
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="type" id="type-no" value="0" /> 系统表单
+                </label>
+			</div>
+			<div class="form-btn-group-left">
+            	<button type="submit" class="btn btn-info">保存</button>
+            </div>
+		</form>
+	</div>
+</section>
+<script src="/resource/js/jquery.min.js"></script>
+<script src="/resource/js/coco-message/coco-message.js"></script>
+<script>
+    function validateForm(){
+    	var formName = $("#formName").val();
+    	var tableName = $("#tableName").val();
+    	if(formName == null || menuName==''){
+    		cocoMessage.error("表单名称不能为空");
+    		return false;
+    	}
+    	if(tableName == null || tableName==''){
+    		cocoMessage.error("附加表名不能为空");
+    		return false;
+    	}
+    	return true;
+    }
+</script>
+</body>
+</html>

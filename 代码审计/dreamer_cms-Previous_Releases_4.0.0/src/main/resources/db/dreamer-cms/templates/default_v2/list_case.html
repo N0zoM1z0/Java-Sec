@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<!-- 禁止百度转码 -->
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<!-- uc强制竖屏 -->
+	<meta name="screen-orientation" content="portrait">
+	<!-- QQ强制竖屏 -->
+	<meta name="x5-orientation" content="portrait">
+	<title>{dreamer-cms:category field="typenamecn" /}_{dreamer-cms:global name="title"/}</title>
+	<meta name="Keywords" content="{dreamer-cms:global name="keywords"/}" />
+	<meta name="Description" content="{dreamer-cms:global name="describe"/}" />
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/iconfont/iconfont.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/reset.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/animate.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/style.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}scripts/theme/default/layer.css">
+	<script src="{dreamer-cms:template /}scripts/jquery-1.11.3.min.js"></script>
+	<script src="{dreamer-cms:template /}scripts/jquery.SuperSlide.2.1.1.js"></script>
+	<script src="{dreamer-cms:template /}scripts/js.js"></script>
+	<script src="{dreamer-cms:template /}scripts/layer.js"></script>
+	<style>
+	.wrapper_1200 .caseList .more {
+		font-size: 14px;
+		color: #999999;
+		width: 120px;
+		height: 36px;
+		text-align: center;
+		line-height: 36px;
+		margin: 36px auto 40px auto;
+		cursor: pointer;
+		display: block;
+	}
+	</style>
+</head>
+<body crt-type-code="{dreamer-cms:category field="typecode" /}">
+<div class="case-center">
+	{dreamer-cms:include file='inc/header.html'/}
+	
+	{dreamer-cms:sql sql="select image_path as litpic from system_archives where id = [1f7da4c6706c48ab8f9e223dbdfb80b4]"}
+	<div class="publicHeader2 min_wrapper_1200" style="background:url(/resources/uploads/[field:litpic /]) no-repeat;"></div>
+	{/dreamer-cms:sql}
+	
+	<div class="nav">
+		<div class="wrapper_1200">
+			{dreamer-cms:channel typeid="he9g4d0j" type="son"}
+			<div class="item" type-code="[field:typecode/]"><a href="[field:typeurl/]">[field:typenamecn /]</a></div>
+			{/dreamer-cms:channel}
+		</div>
+	</div>
+	
+	<div class="wrapper_1200">
+		{dreamer-cms:location lang="cn" /}
+		<div class="caseList">
+			<div class="customer" style="text-align: center;">
+				{dreamer-cms:pagelist}
+				<div class="item">
+					<div class="one">
+						<div class="pictrue">
+							<a href="[field:arcurl/]">
+								<img src="[field:litpic/]" title="[field:title/]" class="caseBg" />
+							</a>
+							<div class="ewm">
+								<a href="[field:arcurl/]">
+									<img src="[field:litpic/]" title="[field:title/]" />
+								</a>
+							</div>
+						</div>
+						<div class="text">
+							<div class="name"><a href="[field:arcurl/]" title="[field:title/]">[field:title/]</a></div>
+							<div class="infor"><a href="[field:arcurl/]" title="[field:title/]">[field:remark function="substring(0,60,'...')"/]</a></div>
+							<div class="industry">查看详情</div>
+						</div>
+					</div>
+					<div class="two">
+						<div class="ewm animated" style="margin:30px auto 0 auto;">
+							<img src="[field:litpic/]" title="[field:title/]" />
+						</div>
+						<div class="industry animated"><a href="[field:arcurl/]" title="[field:title/]">详情查看</a></div>
+					</div>
+				</div>
+				{/dreamer-cms:pagelist}
+			</div>
+			<div class="clearfix"></div>
+			<!--<div class="more set_8_button outline" data-type="1">查看更多<span class="lines"></span></div>
+			<div class="more no_more" >没有更多了</div>-->
+			<div class="listpages" >
+				{dreamer-cms:pagination /}
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	
+	<div class="wrapper_1200">
+		<div class="formMember">
+			
+			<div class="form">
+				<div class="name">快速咨询客服</div>
+				<div class="infor">想拥有您的定制化官网么？您可将自己的需求提交给客服。</div>
+				<form id="Form" action="/input" method="post">
+					<input type="hidden" name="typeid" value="wqz18j7q" />
+					<input type="hidden" name="formkey" value="8t2lkr8d" />
+					<div class="item">
+						<input type="text" id="title" placeholder="填写您的姓名" name="title">
+					</div>
+					<div class="item">
+						<input type="text" id="telephone" placeholder="填写您的联系电话" name="telephone">
+					</div>
+					<div class="item">
+						<textarea id="content" name="content" class="form-control" placeholder="填写您的需求"></textarea>
+					</div>
+					<div class="captcha">
+						<div class="login-form-vcode"><img alt="图片验证码" width="120" height="46" src="" id="vcode"></div>
+						<div class="login-form-vcode-input"><input type="text" name="captcha" placeholder="验证码" required="required" class="form-control" /></div>
+						<div class="clearFix"></div>
+					</div>
+					<div class="form-btn-group-left">
+						<div class="submission set_5_button" id="essentialInformation">提交</div>
+					</div>
+				</form>
+			</div>
+			
+		</div>
+	</div>
+	
+	<div id="advers" class="min_wrapper_1200">
+		<div class="wrapper_1200 wrapper1">免费体验后台管理系统<a href="/admin" target="_blank" title="立即体验">立即体验</a></div>
+	</div>
+	
+	{dreamer-cms:include file='inc/footer.html'/}
+</div>
+
+{dreamer-cms:include file="inc/service.html" /}
+<script src="{dreamer-cms:template /}scripts/jquery.serializejson.js"></script>
+<script src="{dreamer-cms:template /}scripts/coco-message.js"></script>
+<script>
+$(function () {
+	$("#vcode").attr("src","/getKaptcha?t=" + new Date().getTime());
+	
+	$("#vcode").click(function(){
+		var t = new Date().getTime();
+		$(this).attr("src","/getKaptcha?t=" + t);
+	});
+
+	$("body").on("mouseenter", ".caseList .item", function() {
+		$(this).find('.one').hide();
+		$(this).addClass('on');
+		$(this).find('.two').show();
+		$(this).find('.two .ewm').addClass('bounceInDown');
+		$(this).find('.two .industry').addClass('lightSpeedIn');
+	});
+	$("body").on("mouseleave", ".caseList .item", function() {
+		$(this).find('.one').show();
+		$(this).removeClass('on');
+		$(this).find('.two').hide();
+		$(this).find('.two .ewm').removeClass('bounceInDown');
+		$(this).find('.two .industry').removeClass('lightSpeedIn');
+	});
+	
+	$("#essentialInformation").click(function(){
+		var username=$("input[name='title']").val();
+		var phone=$("input[name='telephone']").val();
+		var content=$("textarea[name='content']").val();
+		var captcha=$("input[name='captcha']").val();
+		var rsd=/^1[3|4|5|6|7|8|9]\d{9}$/;
+		var regex=new RegExp(rsd);
+		if(!username){
+			layer.msg('填写您的姓名', {icon: 5});
+			return false;
+		}
+		if(!phone){
+			layer.msg('填写您的联系电话', {icon: 5});
+			return false;
+		}
+		if(!regex.test(phone)){
+			layer.msg('手机号有误', {icon: 5});
+			return false;
+		}
+		if(!content){
+			layer.msg('填写您的需求', {icon: 5});
+			return false;
+		}
+		if(!captcha){
+			layer.msg('填写您的验证码', {icon: 5});
+			return false;
+		}
+		var formData = $("#Form").serializeJSON();
+		$.ajax({
+            url : "/input",
+            data : formData,
+            type : "post",
+            dataType : "JSON",
+            success : (result) => {
+                if(result.state === '200'){
+                    cocoMessage.success(5000, "提交成功！", function (){});
+                }else{
+                    cocoMessage.error(5000, result.info, function (){});
+
+                }
+            }
+        });
+	})
+})
+
+</script>
+</body>
+</html>

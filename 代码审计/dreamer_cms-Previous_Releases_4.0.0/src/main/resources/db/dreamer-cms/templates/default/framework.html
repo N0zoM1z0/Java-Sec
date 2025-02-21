@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{dreamer-cms:category field="typenamecn" /} - {dreamer-cms:global name="title"/}</title>
+    <meta name="Keywords" content="{dreamer-cms:global name="keywords"/}" />
+	<meta name="Description" content="{dreamer-cms:global name="describe"/}" />
+    <!--============ All CSS Links ===========-->
+    <link rel="stylesheet" href="{dreamer-cms:template /}bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}css/font-awesome.min.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}plugins/slick/slick.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}plugins/slick/slick-theme.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}css/app.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}css/responsive.css">
+</head>
+<body>
+	{dreamer-cms:include file='header.html'/}
+
+    <!--=== page header ===-->
+    <section class="page-header d-flex align-items-center">
+        <div class="container-fluid">
+            <div class="page-header-content text-center">
+                <div class="page-header-tag">{dreamer-cms:global name="title" /}</div>
+                <div class="page-header-title">{dreamer-cms:category field="typenamecn" /}</div>
+            </div>
+        </div>
+    </section>
+
+    <!--=== single blog post ===-->
+    <section class="blog-home">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-12 mx-auto">
+                    <div class="post post-card">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-details">
+			                        <a href="#" class="post-image" ><img src="{dreamer-cms:category field='typeimg' /}" alt="#" class="img-fluid featured-img"></a>
+                                    {dreamer-cms:category field="htmlcontent" /}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--=== products intro ===-->
+    <section id="blog" class="product">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title-wrap text-center">
+                        <div class="section-title"><h2>更新记录</h2></div>
+                        <div class="section-detail-para">每一次版本的升级，都凝聚了开发者的智慧与努力...</div>
+                    </div>
+                </div>
+                {dreamer-cms:list typeid="HE9G4D0J" start="0" length="4" formkey="LUVC0AW2" addfields="versionnum,notes"}
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="product__item">
+                        <div class="card">
+                            <div class="product__content-inner card-body">
+                                <div class="product__title-price">
+                                    <a href="product-detail.html"><h5 class="card-title"><a href="single-post.html">[field:title/]</a></h5></a>
+                                </div>
+                                <div class="product-para">版本号：[field:versionnum/]</div>
+                                <div class="product-para">发布日期：[field:createtime/]</div>
+                                <div class="product-para">升级说明：[field:notes/]</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/dreamer-cms:list}
+                <div class="col-12 mt-5">
+                	{dreamer-cms:type typeid="HE9G4D0J"}
+                    <div class="text-center"><a href="[field:typeurl/]" class="btn btn-primary main-btn btn-reload"><i class="fa fa-spinner fa-spin"></i> 查看更多</a></div>
+                    {/dreamer-cms:type}
+                </div>
+
+            </div>
+        </div>
+    </section>
+	
+	{dreamer-cms:include file='footer.html'/}
+	
+    <!--============ JavaScript ===========-->
+    <script src="{dreamer-cms:template /}js/jquery-3.2.1.slim.min.js"></script>
+    <script src="{dreamer-cms:template /}bootstrap/js/bootstrap.min.js"></script>
+    <script src="{dreamer-cms:template /}js/popper.min.js"></script>
+    <script src="{dreamer-cms:template /}plugins/slick/slick.min.js"></script>
+    <script src="{dreamer-cms:template /}js/app.js"></script>
+</body>
+</html>
+

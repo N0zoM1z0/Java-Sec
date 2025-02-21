@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<!-- 禁止百度转码 -->
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<!-- uc强制竖屏 -->
+	<meta name="screen-orientation" content="portrait">
+	<!-- QQ强制竖屏 -->
+	<meta name="x5-orientation" content="portrait">
+	<title>{dreamer-cms:category field="typenamecn" /}_{dreamer-cms:global name="title"/}</title>
+	<meta name="Keywords" content="{dreamer-cms:global name="keywords"/}" />
+	<meta name="Description" content="{dreamer-cms:global name="describe"/}" />
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/iconfont/iconfont.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/reset.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/animate.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}css/style.css">
+	<link rel="stylesheet" href="{dreamer-cms:template /}scripts/theme/default/layer.css">
+	<script src="{dreamer-cms:template /}scripts/jquery-1.11.3.min.js"></script>
+	<script src="{dreamer-cms:template /}scripts/jquery.SuperSlide.2.1.1.js"></script>
+	<script src="{dreamer-cms:template /}scripts/js.js"></script>
+	<script src="{dreamer-cms:template /}scripts/layer.js"></script>
+	<style>
+	.wrapper_1200 .caseList .more {
+		font-size: 14px;
+		color: #999999;
+		width: 120px;
+		height: 36px;
+		text-align: center;
+		line-height: 36px;
+		margin: 36px auto 40px auto;
+		cursor: pointer;
+		display: block;
+	}
+	</style>
+</head>
+<body>
+<div class="case-center">
+	{dreamer-cms:include file='inc/header.html'/}
+	
+	{dreamer-cms:sql sql="select image_path as litpic from system_archives where id = [1f7da4c6706c48ab8f9e223dbdfb80b4]"}
+	<div class="publicHeader2 min_wrapper_1200" style="background:url(/resources/uploads/[field:litpic /]) no-repeat;"></div>
+	{/dreamer-cms:sql}
+	
+	<div class="wrapper_1200">
+		{dreamer-cms:location lang="cn" /}
+	
+		<div class="caseList">
+			<div class="customer" style="text-align: center;">
+				{dreamer-cms:pagelist}
+				<div class="item">
+					<div class="one">
+						<div class="pictrue">
+							<a href="[field:arcurl/]" title="[field:title/]" style="display:block;height:100%;">
+								<img src="[field:litpic/]" title="[field:title/]" width="100%" />
+							</a>
+						</div>
+						<div class="text">
+							<div class="name"><a href="[field:arcurl/]" title="[field:title/]">[field:title/]</a></div>
+							<div class="infor">[field:remark function="substring(0,60,'...')"/]</div>
+							<div class="industry"><a href="[field:arcurl/]" title="[field:title/]">查看详情</a></div>
+						</div>
+					</div>
+				</div>
+				{/dreamer-cms:pagelist}
+			</div>
+			<div class="clearfix"></div>
+			<!--<div class="more set_8_button outline" data-type="1">查看更多<span class="lines"></span></div>
+			<div class="more no_more" >没有更多了</div>-->
+			<div class="listpages" >
+				{dreamer-cms:pagination /}
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	
+	<div id="advers" class="min_wrapper_1200">
+		<div class="wrapper_1200 wrapper1">免费体验后台管理系统<a href="/admin" target="_blank" title="立即体验">立即体验</a></div>
+	</div>
+	
+	{dreamer-cms:include file='inc/footer.html'/}
+</div>
+{dreamer-cms:include file="inc/service.html" /}
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.iteachyou.cms.dao.VariableMapper">
+  <resultMap id="BaseResultMap" type="cc.iteachyou.cms.entity.Variable">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, item_name, info, type, value, create_by, create_time, update_by, update_time
+  </sql>
+  
+  <select id="queryListByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from system_variable
+  	<if test="name != null and name != ''">
+  		WHERE ITEM_NAME = #{name} OR VALUE = #{name} 
+  	</if>
+  	order by CREATE_TIME desc
+  </select>
+  
+  <select id="queryVariableByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from system_variable
+  	<if test="name != null and name != ''">
+  		WHERE ITEM_NAME = #{name,jdbcType=VARCHAR} OR VALUE = #{name,jdbcType=VARCHAR} 
+  	</if>
+  </select>
+</mapper>

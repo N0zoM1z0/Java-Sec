@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{dreamer-cms:global name="title"/}</title>
+    <meta name="Keywords" content="{dreamer-cms:global name="keywords"/}" />
+	<meta name="Description" content="{dreamer-cms:global name="describe"/}" />
+    <!--============ All CSS Links ===========-->
+    <link rel="stylesheet" href="{dreamer-cms:template /}bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}css/font-awesome.min.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}plugins/slick/slick.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}plugins/slick/slick-theme.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}css/app.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}css/responsive.css">
+</head>
+<body>
+	{dreamer-cms:include file='header.html'/}
+    <!--=== header intro ===-->
+    <section id="home" class="header-intro-1 d-flex align-items-center">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="header-intro-wrap text-center">
+                        <div class="header-intro-title"><h3>梦想家CMS内容管理系统</h3></div>
+                        <div class="header-intro-tag">免费完整开源、标签化建站</div>
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><a href="{dreamer-cms:variable name='cfg_gitee_addr'/}" class="btn btn-primary main-btn bg-green">源码下载</a></li>
+                            <li class="list-inline-item">
+								{dreamer-cms:attachment key="ez159g51"}
+									<a href="[field:dlurl /]" target="_blank" class="btn btn-primary main-btn bg-main">一键运行版下载</a>
+								{/dreamer-cms:attachment}
+							</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=== speciality ===-->
+    <section class="speciality">
+        <div class="container-fluid">
+            <div class="row">
+            	{dreamer-cms:channel typeid="TNLESKZ4" showall="true" type="son"}
+                <div class="col-lg-3 col-md-3 col-sm-4">
+                    <div class="speciality-wrap">
+                        <div><i class="ion [field:ext01 /]"></i></div>
+                        <a href="#">[field:typenamecn /]</a>
+                    </div>
+                </div>
+                {/dreamer-cms:channel}
+            </div>
+        </div>
+    </section>
+    <!--=== feature ===-->
+    <section id="feature" class="feature" >
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                	<div class="section-tag">{dreamer-cms:global name="title" /}</div>
+                    <div class="section-title mb-5"><h2>模版中心</h2></div>
+                </div>
+                {dreamer-cms:list typeid="A54547W2" pagenum="1" pagesize="4" flag="p"}
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="feature-wrap">
+                        <div class="feature-image"><img src="[field:litpic /]" class="ion ion-ios-cloud-outline"></i></div>
+                        <a href="[field:arcurl/]">[field:title function="substring(0,100,'...')" /]</a>
+                        <p></p>
+                    </div>
+                </div>
+                {/dreamer-cms:list}
+            </div>
+            <div class="row">
+                <div class="col-12 mt-5">
+                	{dreamer-cms:type typeid="A54547W2"}
+                    <div class="text-center"><a href="[field:typeurl/]" class="btn btn-primary main-btn btn-reload"><i class="fa fa-spinner fa-spin"></i> 查看更多</a></div>
+                    {/dreamer-cms:type}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--=== highlight section ===-->
+    <section class="highlight-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="highlight-section-wrap text-center">
+                        <div class="highlight-section-title"><h3>{dreamer-cms:global name="title" /}</h3></div>
+                        <div class="highlight-section-tag">国内首款java开发的内容发布系统，采用最流行的springboot+thymeleaf框架搭建，灵活小巧，配置简单；并且拥有丰富的文档和入门教程。</div>
+                        <ul class="list-inline">
+                        	{dreamer-cms:type typeid="76CRPO3S"}
+                            <li class="list-inline-item"><a href="[field:typeurl/]" class="btn btn-primary main-btn bg-green">[field:typenamecn/]</a></li>
+                            {/dreamer-cms:type}
+                            {dreamer-cms:type typeid="822N58D3"}
+                            <li class="list-inline-item"><a href="[field:typeurl/]" class="btn btn-primary main-btn bg-main">[field:typenamecn/]</a></li>
+                            {/dreamer-cms:type}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--=== about us ===-->
+    <section id="about" class="about-us">
+        <div class="container-fluid">
+            <div class="row">
+            	{dreamer-cms:type typeid="MVPEUN1S"}
+                <div class="col-lg-12 align-self-center">
+                    <div class="about-wrap">
+                        <div class="section-tag">{dreamer-cms:global name="title" /}</div>
+                        <div class="section-title"><h2>[field:typenamecn/]</h2></div>
+                        <p>
+                            [field:htmlcontent/]
+                        </p>
+                    </div>
+                </div>
+                {/dreamer-cms:type}
+            </div>
+        </div>
+    </section>
+
+    <!--=== testimonial & clients ===-->
+    <section id="testimonial" class="testimonial">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title-wrap text-center">
+                        <div class="section-tag">{dreamer-cms:global name="title" /}</div>
+                        <div class="section-title"><h2>好评和合作伙伴</h2></div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-10 col-sm-12 mx-auto">
+                    <div id="testimonial-slider" class="testimonial-slider">
+                    	{dreamer-cms:list typeid="1HQ8501W" start="0" length="3" flag="p" addfields="evaluator,content,source" formkey="2EFPN7JY"}
+                        <div class="slider-item">
+                            <div class="testimonial-wrap mx-auto">
+                                <div class="testimon-detail">
+                                    <div class="testimon-icon"><i class="ion fa fa-smile-o"></i></div>
+                                    <strong>[field:title/]</strong>
+                                    <p>[field:content/]</p>
+                                </div>
+                                <div class="testimon-img-wrap">
+                                    <div class="testimon-img"><img src="[field:litpic/]" alt="[field:title/]"></div>
+                                    <div class="testimon-name">[field:evaluator/]</div>
+                                    <div class="testimon-tag">[field:source/]</div>
+                                </div>
+                            </div>
+                        </div>
+                        {/dreamer-cms:list}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 col-md-10 col-sm-12 mx-auto">
+                    <div class="client-content-wrap">
+                        <ul class="list-inline client-content-logo">
+                        	{dreamer-cms:list typeid="2JK6313Y" start="0" length="12"}
+                            <li class="list-inline-item"><img src="[field:litpic/]" alt="[field:title/]" class="img-fluid"></li>
+                            {/dreamer-cms:list}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--=== products intro ===-->
+    <section id="blog" class="product" style="margin-top:50px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title-wrap text-center">
+                        <div class="section-tag">{dreamer-cms:global name="title" /}</div>
+                        <div class="section-title"><h2>更新记录</h2></div>
+                        <div class="section-detail-para">每一次版本的升级，都凝聚了开发者的智慧与努力...</div>
+                    </div>
+                </div>
+                {dreamer-cms:list typeid="HE9G4D0J" start="0" length="4" formkey="LUVC0AW2" addfields="versionnum,notes"}
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="product__item">
+                        <div class="card">
+                            <div class="product__content-inner card-body">
+                                <div class="product__title-price">
+                                    <a href="product-detail.html"><h5 class="card-title"><a href="[field:arcurl/]">[field:title/]</a></h5></a>
+                                </div>
+                                <div class="product-para">版本号：[field:versionnum/]</div>
+                                <div class="product-para">发布日期：[field:createtime/]</div>
+                                <div class="product-para">升级说明：[field:notes/]</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/dreamer-cms:list}
+                <div class="col-12 mt-5">
+                	{dreamer-cms:type typeid="HE9G4D0J"}
+                    <div class="text-center"><a href="[field:typeurl/]" class="btn btn-primary main-btn btn-reload"><i class="fa fa-spinner fa-spin"></i> 查看更多</a></div>
+                    {/dreamer-cms:type}
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+	{dreamer-cms:include file='footer.html'/}
+    <!--============ JavaScript ===========-->
+    <script src="{dreamer-cms:template /}js/jquery-3.2.1.slim.min.js"></script>
+    <script src="{dreamer-cms:template /}bootstrap/js/bootstrap.min.js"></script>
+    <script src="{dreamer-cms:template /}js/popper.min.js"></script>
+    <script src="{dreamer-cms:template /}plugins/slick/slick.min.js"></script>
+    <script src="{dreamer-cms:template /}js/app.js"></script>
+</body>
+</html>

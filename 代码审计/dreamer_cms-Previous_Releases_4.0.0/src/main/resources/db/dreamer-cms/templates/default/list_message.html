@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{dreamer-cms:category field="typenamecn" /} - {dreamer-cms:global name="title"/}</title>
+    <meta name="Keywords" content="{dreamer-cms:global name="keywords"/}" />
+	<meta name="Description" content="{dreamer-cms:global name="describe"/}" />
+    <!--============ All CSS Links ===========-->
+    <link rel="stylesheet" href="{dreamer-cms:template /}bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}css/font-awesome.min.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}plugins/slick/slick.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}plugins/slick/slick-theme.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}css/app.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}css/responsive.css">
+	<style type="text/css">
+		.login-form-vcode{float: left;}
+		.login-form-vcode-input{float: left;}
+		.clearFix{clear: both;}
+	</style>
+</head>
+<body>
+
+    {dreamer-cms:include file='header.html'/}
+
+    <!--=== page header ===-->
+    <section class="page-header d-flex align-items-center">
+        <div class="container-fluid">
+            <div class="page-header-content text-center">
+                <div class="page-header-tag">{dreamer-cms:global name="title" /}</div>
+                <div class="page-header-title">{dreamer-cms:category field="typenamecn" /}</div>
+            </div>
+        </div>
+    </section>
+
+    <!--=== blog page ===-->
+    <section class="blog-page-1">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="blog-page-header">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                    	{dreamer-cms:pagelist pagesize="10" formkey="8t2lkr8d" addfields="telephone"}
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="news-post">
+                                <div class="news-details">
+                                    <div class="media-heading"><a href="[field:arcurl/]">[field:title/]</a><span style="float:right;font-size: 12px;">发布日期：[field:createtime/]</span></div>
+                                    <a href="[field:arcurl/]" class="blog-post-link">查看详情 <i class="fa fa-angle-double-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        {/dreamer-cms:pagelist}
+                    </div>
+                    <div class="row">
+                    	<div class="col-lg-12 col-md-12 col-sm-12">
+                    	{dreamer-cms:pagination /}
+                    	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	<!--=== blog page ===-->
+    <section class="blog-page-1">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col">
+					<form action="/input" method="post">
+						<input type="hidden" name="typeid" value="wqz18j7q" />
+						<input type="hidden" name="formkey" value="8t2lkr8d" />
+						<div class="form-group">
+							<label for="title">标题：</label>
+							<input type="text" id="title" name="title" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="telephone">电话：</label>
+							<input type="text" id="telephone" name="telephone" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="content">内容：</label>
+							<textarea id="content" name="content" class="form-control"></textarea>
+						</div>
+						<div class="form-group">
+							<div class="login-form-vcode"><img alt="图片验证码" width="100" height="39" src="" id="vcode"></div>
+							<div class="login-form-vcode-input"><input type="text" name="captcha" placeholder="验证码" required="required" class="form-control" /></div>
+							<div class="clearFix"></div>
+						</div>
+						<div class="form-btn-group-left">
+							<button type="submit" class="btn btn-info">保存</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	{dreamer-cms:include file='footer.html'/}
+	
+    <!--============ JavaScript ===========-->
+    <script src="{dreamer-cms:template /}js/jquery-3.2.1.slim.min.js"></script>
+    <script src="{dreamer-cms:template /}bootstrap/js/bootstrap.min.js"></script>
+    <script src="{dreamer-cms:template /}js/popper.min.js"></script>
+    <script src="{dreamer-cms:template /}plugins/slick/slick.min.js"></script>
+    <script src="{dreamer-cms:template /}js/app.js"></script>
+	<script>
+		$(function () {
+	    	$("#vcode").attr("src","/getKaptcha?t=" + new Date().getTime());
+	    	
+	    	$("#vcode").click(function(){
+	    		var t = new Date().getTime();
+	    		$(this).attr("src","/getKaptcha?t=" + t);
+	    	});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+	"themeName":"新版主题",
+	"themeImage":"http://localhost:8888/resource/img/dreamercms-logo.png",
+	"themeAuthor":"王俊南",
+	"themePath":"default_v2"//此路径要和模板文件夹的名称一致
+}

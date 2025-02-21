@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.iteachyou.cms.dao.SysLoggerMapper" >
+  <resultMap id="BaseResultMap" type="cc.iteachyou.cms.entity.SysLogger" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="oper_user" property="operUser" jdbcType="VARCHAR" />
+    <result column="oper_type" property="operType" jdbcType="INTEGER" />
+    <result column="oper_source" property="operSource" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="module" property="module" jdbcType="VARCHAR" />
+    <result column="browser" property="browser" jdbcType="VARCHAR" />
+    <result column="platform" property="platform" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="extend1" property="extend1" jdbcType="VARCHAR" />
+    <result column="extend2" property="extend2" jdbcType="VARCHAR" />
+    <result column="extend3" property="extend3" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ResultMapWithBLOBs" type="cc.iteachyou.cms.entity.SysLogger" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, level, oper_user, oper_type, oper_source, ip, module, browser, platform, create_by, 
+    create_time, update_by, update_time, extend1, extend2, extend3
+  </sql>
+  
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  
+  <select id="queryListByPage" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+  	select 
+  	<include refid="Base_Column_List"></include>,
+  	<include refid="Blob_Column_List"></include>
+  	from system_logger
+  </select>
+</mapper>

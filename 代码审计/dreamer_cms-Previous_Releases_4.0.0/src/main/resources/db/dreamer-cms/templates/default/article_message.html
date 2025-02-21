@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{dreamer-cms:category field="typenamecn" /} - {dreamer-cms:global name="title"/}</title>
+    <meta name="Keywords" content="{dreamer-cms:global name="keywords"/}" />
+	<meta name="Description" content="{dreamer-cms:global name="describe"/}" />
+    <!--============ All CSS Links ===========-->
+    <link rel="stylesheet" href="{dreamer-cms:template /}bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}css/font-awesome.min.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}plugins/slick/slick.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}plugins/slick/slick-theme.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}css/app.css">
+    <link rel="stylesheet" href="{dreamer-cms:template /}css/responsive.css">
+</head>
+<body>
+	{dreamer-cms:include file='header.html'/}
+
+    <!--=== page header ===-->
+    <section class="page-header d-flex align-items-center">
+        <div class="container-fluid">
+            <div class="page-header-content text-center">
+                <div class="page-header-tag">{dreamer-cms:global name="title" /}</div>
+                <div class="page-header-title">{dreamer-cms:category field="typenamecn" /}</div>
+            </div>
+        </div>
+    </section>
+
+    <!--=== single blog post ===-->
+    <section class="blog-home">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-12 mx-auto">
+                    <div class="post post-card">
+                        <div class="single-post-header">
+                            <div class="post-tag">{dreamer-cms:article field="createtime" /}</div>
+                            <h1>{dreamer-cms:article field="title" /}</h1>
+                            <ul class="list-inline blog-item-links">
+                                <li class="list-inline-item">手机号：{dreamer-cms:article field="telephone" /}</li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-details">
+                                    	留言内容：{dreamer-cms:article field="content" /}
+                                </div>
+                            </div>
+                        </div>
+						<div class="row">
+                            <div class="col-12">
+                                <div class="card-details">
+                                    	回复内容：{dreamer-cms:article field="reply" /}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+	{dreamer-cms:include file='footer.html'/}
+	
+    <!--============ JavaScript ===========-->
+    <script src="{dreamer-cms:template /}js/jquery-3.2.1.slim.min.js"></script>
+    <script src="{dreamer-cms:template /}bootstrap/js/bootstrap.min.js"></script>
+    <script src="{dreamer-cms:template /}js/popper.min.js"></script>
+    <script src="{dreamer-cms:template /}plugins/slick/slick.min.js"></script>
+    <script src="{dreamer-cms:template /}js/app.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dreamer CMS - 后台管理系统</title> 
+    <link href="/resource/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/iCheck/all.css" rel="stylesheet" type="text/css" />
+    <link href="/resource/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="row">
+    <div class="col-md-12">
+    	<h1 class="panel-heading">搜索结果</h1>
+        <!--breadcrumbs start -->
+        <ul class="breadcrumb">
+			<li><a href="/admin/dashboard/toIndex"><i class="fa fa-home"></i> 首页</a></li>
+			<li class="active">搜索结果</li>
+		</ul>
+        <!--breadcrumbs end -->
+    </div>
+</div>
+<section class="panel">
+	<div class="panel-body">
+        <form id="form1" th:action="@{/admin/search/doSearch}" method="post">
+        	<div class="row">
+        		<div class="col-sm-12 col-md-6 col-lg-4">
+					<div class="form-group">
+						<label for="keywords">搜索关键字：</label>
+						<input id="keywords" name="entity['keywords']" type="text" th:value="${keywords}" class="form-control" placeholder="输入关键字进行搜索" />
+					</div>
+				</div>
+				<div class="col-sm-12 col-md-6 col-lg-4">
+					<div class="form-group">
+						<button id="go" type="submit" class="btn btn-info" style="margin-top: 25px;">保存</button>
+					</div>
+				</div>
+			</div>
+		</form>
+    </div>
+    <div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width:50px;">选择</th>
+					<th>文章标题</th>
+					<th>所属栏目</th>
+					<th>发布时间</th>
+					<th>浏览量</th>
+					<th>权重</th>
+					<th>发布状态</th>
+					<th style="width:150px;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="article : ${page.list}">
+					<td><input type="checkbox" class="flat-grey list-child" th:value="${article.id}"/></td>
+					<td><a href="#" th:text="${article.title}"></a></td>
+					<td th:text="${article.categoryCnName}"></td>
+					<td th:text="${#dates.format(article.createTime, 'yyyy-MM-dd')}"></td>
+					<td th:text="${article.clicks}"></td>
+					<td th:text="${article.weight}"></td>
+					<td><span th:text="${article.status}=='1'?'已发布':'未发布'" th:class="${article.status}=='1'?'label label-success':'label label-danger'">否</span></td>
+					<td>
+						<a target="_blank" th:href="'/article/' + ${article.id}" class="btn btn-xs btn-warning">预览</a>
+						<span>&nbsp;|&nbsp;</span>
+						<a href="javascript:void(0)" class="btn btn-xs btn-success copyArticleIdBtn" th:aid="${article.id}" th:onclick="javascript:copyArticleId(this.getAttribute('aid'))">复制文章ID</a>
+					</td>
+				</tr>
+				<tr th:if="${#lists.isEmpty(page.list)}">
+					<td colspan="8" align="center">无数据</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+    <div class="panel-footer bg-white text-right">
+         <ul class="pagination">
+             <li><a th:href="@{/admin/search/doSearch(pageNum=1,pageSize=${page.pageSize},entity[keywords]=${keywords})}" title="首页" th:class="${page.isFirstPage} ? 'paginationNotAllowed' : ''">«</a></li>
+             <li><a th:href="@{/admin/search/doSearch(pageNum=${page.prePage},pageSize=${page.pageSize},entity[keywords]=${keywords})}" title="上一页" th:if="${page.hasPreviousPage}">‹</a></li>
+             <li th:each="pageinfo : ${page.navigatepageNums}"><a th:href="@{/admin/search/doSearch(pageNum=${pageinfo},pageSize=${page.pageSize},entity[keywords]=${keywords})}" th:class="${pageinfo == page.pageNum} ? 'paginationActive' : ''" th:text="${pageinfo}"></a></li>
+             <li><a th:href="@{/admin/search/doSearch(pageNum=${page.nextPage},pageSize=${page.pageSize},entity[keywords]=${keywords})}" title="下一页" th:if="${page.hasNextPage}">›</a></li>
+             <li><a th:href="@{/admin/search/doSearch(pageNum=${page.pages},pageSize=${page.pageSize},entity[keywords]=${keywords})}" title="未页" th:class="${page.isLastPage} ? 'paginationNotAllowed' : ''">»</a></li>
+         </ul>
+     </div>
+</section>
+<!-- jQuery 2.0.2 -->
+<script src="/resource/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/resource/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="/resource/js/plugins/iCheck/icheck.min.js"></script>
+<script src="/resource/js/coco-message/coco-message.js"></script>
+<script src="/resource/js/clipboard.min.js"></script>
+<script>
+	window.onload = function(){
+		renderCheckBox();
+	}
+	
+	function renderCheckBox(){
+		$('input').on('ifChecked', function(event) {
+		    $(this).parents('li').addClass("task-done");
+		    console.log('ok');
+		});
+		$('input').on('ifUnchecked', function(event) {
+		    $(this).parents('li').removeClass("task-done");
+		    console.log('not');
+		});
+		
+		$('input[type="checkbox"].flat-grey, input[type="radio"].flat-grey').iCheck({
+		    checkboxClass: 'icheckbox_flat-grey',
+		    radioClass: 'iradio_flat-grey'
+		});
+	}
+	
+	function copyArticleId(id){
+		var content = id;
+		var clipboard = new Clipboard('.copyArticleIdBtn',{
+			text: function() {
+				return content;
+			}
+		});
+		clipboard.on('success', function(e) {
+			cocoMessage.success("复制成功");
+		});
+	
+		clipboard.on('error', function(e) {
+			cocoMessage.success("复制失败");
+		});
+	}
+</script>
+</body>
+</html>

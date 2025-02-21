@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dreamer CMS - 后台登录</title>
+    <link href="/resource/css/custom-login.css" rel="stylesheet" />
+</head>
+
+<body>
+<canvas></canvas>
+<div class="login">
+	<h1>Dreamer CMS</h1>
+	<form method="post" id="loginForm">
+		<input id="publicKey" type="hidden" th:value="${publicKey}" />
+		<div class="login-form-row">
+			<input type="text" name="username" placeholder="用户名" required="required" />
+		</div>
+		<div class="login-form-row">
+			<input type="password" name="password" placeholder="密码" required="required" />
+		</div>
+		<div class="login-form-row">
+			<div class="login-form-vcode"><img alt="图片验证码" width="100" height="39" src="" id="vcode"></div>
+			<div class="login-form-vcode-input"><input type="text" name="vcode" placeholder="验证码" required="required" /></div>
+			<div class="clear"></div>
+		</div>
+		<div class="login-form-row">
+			<button type="button" class="btn btn-primary btn-block btn-large" onclick="login();">登录</button>
+		</div>
+	</form>
+</div>
+<div class="copyright">Copyright © 2018 I Teach You，我教你！  冀ICP备19026223号</div>
+<script src="/resource/js/jquery.min.js"></script>
+<script src="/resource/js/jsencrypt/jsencrypt.min.js"></script>
+<script src="/resource/js/coco-message/coco-message.js"></script>
+<script src="/resource/js/vector.js"></script>
+<script>
+	if (window.frames.length != parent.frames.length) {
+		window.parent.location.href = "/admin/u/logout";
+	}
+    $(function () {
+    	$('input[name="username"]').focus();
+    	
+    	$("#loginForm").keyup(function(event){
+    		if(event.keyCode ==13){
+    			login();
+    		}
+    	});
+    	
+    	$("#vcode").attr("src","/admin/u/getVerifyCode?t=" + new Date().getTime());
+    	
+    	$("#vcode").click(function(){
+    		var t = new Date().getTime();
+    		$(this).attr("src","/admin/u/getVerifyCode?t=" + t);
+    	});
+	});
+    function login(){
+		// 创建RSA加密器
+		var encryptor = new JSEncrypt();
+        encryptor.setPublicKey($('#publicKey').val());
+        
+		var username = $('input[name="username"]').val();
+		var password = $('input[name="password"]').val();
+		var vcode = $('input[name="vcode"]').val();
+		
+		var data = {
+			username : encryptor.encrypt(username),
+			password : encryptor.encrypt(password),
+			vcode : vcode,
+			rememberMe : false
+		};
+
+		$.ajax({
+			url : "/admin/u/login",
+			contentType : 'application/json',
+			data : JSON.stringify(data),
+			type : "POST",
+			dataType : "JSON",
+			success : function(result) {
+				if(result.success){
+					sessionStorage.setItem("dreamer-cms-user", JSON.stringify(result.data));
+					setTimeout(function() {
+						//登录返回
+						window.location.href = "/admin/u/toIndex";
+					}, 500);
+				}else{
+					cocoMessage.error(result.info);
+				}
+			}
+		});
+	}
+</script>
+</body>
+</html>
