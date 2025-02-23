@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE foo[
+    <!ELEMENT xxe EMPTY>
+]>
+<user>
+    <name>pwn2own</name>
+    <sex>female</sex>
+    <age>18</age>
+</user>
