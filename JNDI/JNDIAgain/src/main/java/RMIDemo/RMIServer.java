@@ -8,5 +8,6 @@ public class RMIServer {
         RemoteObj remoteObj = new RemoteObjImpl();
         Registry registry = LocateRegistry.createRegistry(1099);
         registry.bind("sayHello", remoteObj);
+        System.out.println("RMI Server running  ...");
     }
 }
