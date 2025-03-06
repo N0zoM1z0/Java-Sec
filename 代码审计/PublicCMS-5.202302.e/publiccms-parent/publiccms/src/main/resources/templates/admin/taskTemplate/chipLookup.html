@@ -1,0 +1,26 @@
+<#macro chipTree filepath prefix suffix>
+    <@tools.fileList type='task' path=filepath>
+        <#list list as a>
+            <li>
+                <#local path=filepath+'/'+a.fileName>
+            <#if a.directory>
+                <a href="javascript:;" onclick="return false;">${a.fileName} </a>
+                <ul>
+                    <@chipTree path prefix suffix/>
+                </ul>
+            <#else>
+                <a href="javascript:;" onclick="JUI.instances[$('textarea.code',navTab.getCurrentPanel()).data('id')].replaceSelection('${(prefix+path+suffix)?js_string}');$.pdialog.closeCurrent();return false;">
+                    ${a.fileName}
+                </a>
+            </#if>
+            </li>
+        <#else>
+            <li><a><@t.page 'empty_directory'/></a></li>
+        </#list>
+    </@tools.fileList>
+</#macro>
+<div class="pageFormContent" layoutH>
+    <ul class="tree treeFolder">
+        <@chipTree '' '<@include path="' '"/>'/>
+    </ul>
+</div>

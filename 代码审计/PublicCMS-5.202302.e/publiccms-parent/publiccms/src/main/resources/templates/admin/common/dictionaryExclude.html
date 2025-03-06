@@ -1,0 +1,5 @@
+[
+    <@cms.dictionaryExcludeValue dictionaryId=id excludeDictionaryId=excludeDictionaryId values=values>
+        <#list map as k,v><#if (v.excludeValues)?has_content><#list v.excludeValues?split(',') as a>"${a}"<#sep>,</#list><#sep>,</#if></#list>
+    </@cms.dictionaryExcludeValue>
+]

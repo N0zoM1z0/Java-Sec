@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.datagear</groupId>
+		<artifactId>datagear</artifactId>
+		<version>5.1.0</version>
+	</parent>
+
+	<artifactId>datagear-management</artifactId>
+	<name>datagear-management</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.datagear</groupId>
+			<artifactId>datagear-connection</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.datagear</groupId>
+			<artifactId>datagear-persistence</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.datagear</groupId>
+			<artifactId>datagear-analysis</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis-spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-antrun-plugin</artifactId>
+			    <version>${maven-antrun-plugin.version}</version>
+			    <executions>
+			    	<!-- 拷贝LICENSE文件 -->
+			    	<execution>
+			    		<id>copyLICENSE</id>
+			    		<phase>prepare-package</phase>
+			    		<goals>
+			    			<goal>run</goal>
+			    		</goals>
+			    		<configuration>
+			    			<tasks>
+			    				<copy file="../COPYING" todir="${project.build.outputDirectory}" />
+			    				<copy file="../COPYING.LESSER" todir="${project.build.outputDirectory}" />
+			    				<copy file="../LICENSE" todir="${project.build.outputDirectory}" />
+			    				<copy file="../NOTICE" todir="${project.build.outputDirectory}" />
+			    			</tasks>
+			    		</configuration>
+			    	</execution>
+			    </executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

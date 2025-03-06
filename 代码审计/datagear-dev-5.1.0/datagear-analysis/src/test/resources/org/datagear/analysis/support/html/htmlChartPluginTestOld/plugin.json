@@ -1,0 +1,23 @@
+{
+	id : 'pie-chart',
+	nameLabel :
+	{
+		value : '饼图',
+		localeValues :
+		{
+			'en' : 'pie chart',
+			'zh' : '饼图中文'
+		}
+	},
+	chartRenderer:
+	{
+		render: function(chart)
+		{
+			var str = "this is render function";
+		},
+		update: function(chart, results)
+		{
+			var str = "this is update function";
+		}
+	}
+}

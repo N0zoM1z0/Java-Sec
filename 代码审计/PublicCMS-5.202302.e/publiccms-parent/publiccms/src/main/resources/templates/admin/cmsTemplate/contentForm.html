@@ -1,0 +1,93 @@
+<@cms.category id=categoryId!>
+    <#assign category=object/>
+    <@cms.model id=modelId!>
+        <#assign
+            model=object
+            fieldList=model.fieldList![]
+            requiredFieldList=model.requiredFfieldList![]
+        />
+<#assign formContent>
+    <#if category.allowContribute>
+<#noparse><#if user?has_content></#noparse>
+<form method="post" action="<#noparse>${site.dynamicPath}</#noparse>content/save">
+    <input type="hidden" name="_csrf" value="<#noparse><@tools.csrfToken/></#noparse>"/>
+    <input name="returnUrl" type="hidden" value="${site.dynamicPath}"/>
+    <input name="categoryId" type="hidden" value="${category.id!}"/>
+    <input name="modelId" type="hidden" value="${model.id!}"/>
+<#if fieldList?seq_contains('author')>
+    <input name="author" type="hidden" value="<#noparse>${(user.nickname)!}</#noparse>"/>
+</#if>
+    <p>
+        <label>${(model.fieldTextMap['title'])!}:</label>
+        <input name="title" type="text" size="60" required="true" maxlength="255"/>
+    </p>
+<#if fieldList?seq_contains('description')>
+    <p>
+        <label>${(model.fieldTextMap['description'])!}:</label>
+        <textarea name="text" cols="80" rows="20" maxlength="300"></textarea>
+    </p>
+</#if>
+<#if model.onlyUrl>
+    <p>
+        <label>${(model.fieldTextMap['url'])!}:</label>
+        <input name="url" type="text" size="60" maxlength="1000"/>
+    </p>
+</#if>
+<#if fieldList?seq_contains('content')>
+    <p>
+        <label>${(model.fieldTextMap['content'])!}:</label>
+        <textarea name="text" cols="80" rows="20"></textarea>
+    </p>
+</#if>
+    <#include "../include_page/extendData.html"/>
+    <@sys.extendFieldList extendId=category.extendId>
+        <@extendData name='categoryExtendDataList' extendList=list extendValues=attribute type='customform'/>
+    </@sys.extendFieldList>
+    <@extendData name='modelExtendDataList' extendList=model.extendList extendValues=attribute type='customform'/>
+<#noparse>
+    <@sys.configData code="safe">
+        <#if object.captcha?has_content && object.captcha?split(",")?seq_contains("contribute")>
+    <p>
+        <input name="captcha" required="true" type="text" autocomplete="off" placeholder="Captcha" title="Captcha"/>
+        <img src="${site.dynamicPath}getCaptchaImage?${.now?long}" alt="captcha" onclick="this.src=this.src+'&'+new Date().getTime()"/>
+    </p>
+        </#if>
+    </@sys.configData>
+</#noparse>
+    <p><input type="submit" value="<@t.page 'button.save'/>"/></p>
+</form>
+<#noparse>
+<#else>
+please <a href="${site.dynamicPath}login.html">login</a>
+</#if></#noparse>
+    <#else>
+<@t.message 'verify.custom.contribute'/>
+    </#if>
+</#assign>
+    </@cms.model>
+</@cms.category>
+<div class="pageFormContent" layoutH>
+    <dl>
+        <dt><@t.page 'category'/>:</dt>
+        <dd>
+            ${(category.name)!}
+        </dd>
+    </dl>
+    <dl>
+        <dt><@t.page 'model'/>:</dt>
+        <dd>
+            ${(model.name)!}
+        </dd>
+    </dl>
+    <dl class="nowrap">
+        <dt><@t.page 'source_code'/>:</dt>
+        <dd>
+            <textarea  class="code" mode="freemarkermixed"><@html_escape>${(formContent)!}</@html_escape></textarea>
+        </dd>
+    </dl>
+</div>
+<div class="formBar">
+    <ul>
+        <li><button type="button" class="button close"><@t.page 'button.close'/></button></li>
+    </ul>
+</div>

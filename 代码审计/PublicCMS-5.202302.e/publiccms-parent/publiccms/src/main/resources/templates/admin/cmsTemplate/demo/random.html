@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Random recommendation</title>
+</head>
+<body>
+    <header data-diy="page">
+        <h1>${(site.name)!}</h1>
+    </header>
+    <nav data-diy="category">
+        <a href="${site.useStatic?then(site.sitePath,site.dynamicPath)}">Home</a>
+<@cms.categoryList>
+    <#list page.list as a>
+        <a href="${a.url!}" target="_blank" data-diy-item="${a.id}">${a.name}</a>
+    </#list>
+</@cms.categoryList>
+    </nav>
+    <main>
+<@cms.contentList pageSize=10>
+    <@cms.contentList pageIndex=getRandom(page.totalPage) pageSize=10>
+        <ul data-diy="content">
+        <#list page.list as a>
+            <li data-diy-item="${a.id}">
+                <h3><a href="<#if a.onlyUrl>${site.dynamicPath}content/redirect?id=${a.id}<#else>${a.url!}</#if>" target="_blank">${a.title}</a></h3>
+                <p>
+                    <#if a.cover?has_content><img src="${a.cover}" alt="${a.title}"/></#if>
+                    ${a.description!}
+                </p>
+            </li>
+        </#list>
+        </ul>
+    </@cms.contentList>
+</@cms.contentList>
+    </main>
+    <footer>
+        Copyright &copy; ${.now?string('yyyy')}
+    </footer>
+    <script>
+    var templatePath='${.current_template_name?keep_after('/')}';
+    </script>
+    <script src="${site.dynamicPath}resource/js/cms.support.js"></script>
+    <script>
+        var ca = cmsAnalytics();
+        var url='${site.dynamicPath}api/visit/record';
+        if("string" ==typeof itemString){
+            url=url+"?"+itemString;
+        }
+        ca.setDomain('${site.sitePath?keep_after('//')?keep_before('/')?keep_before(':')}');
+        ca.setPath('/');
+        ca.report(url);
+    </script>
+</body>
+</html>

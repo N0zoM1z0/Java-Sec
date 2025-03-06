@@ -1,0 +1,53 @@
+<@trade.accountList pageIndex=pageNum orderField=orderField orderType=orderType pageSize=numPerPage>
+<div class="pageHeader card">
+    <form class="pagerForm" autocomplete="off" onsubmit="return navTabSearch(this);" method="post">
+        <#include "../include_page/parameters.html"/>
+    </form>
+</div>
+<@sys.authorized roleIds=admin.roles urls='tradeAccount/add,tradeAccount/rechargeParameters,tradeAccountHistory/list'><#assign authorizedMap=map/></@sys.authorized>
+<div class="card">
+    <div class="panelBar">
+        <ul class="toolBar">
+        <#if authorizedMap['tradeAccount/add']>
+            <li><a href="tradeAccount/add.html" target="navTab" rel="tradeAccount/add"><i class="icon-plus-sign-alt icon-large"></i><@t.page 'account.add'/></a></li>
+        </#if>
+        </ul>
+    </div>
+    <table class="table" width="100%" layoutH orderField="${orderField!}" orderType="${orderType!}">
+        <thead>
+            <tr>
+                <th><@t.page 'id'/></th>
+                <th><@t.page 'user.nickname'/></th>
+                <th orderField="amount"><@t.page 'amount'/></th>
+                <th orderField="updateDate"><@t.page 'update_date'/></th>
+                <th><@t.page 'operate'/></th>
+            </tr>
+        </thead>
+        <tbody>
+            <#list page.list as a>
+                <@t.merge 'userIds' a.id!/>
+            </#list>
+            <@sys.user ids=t.userIds!><#assign userMap=map!/></@sys.user>
+            <#list page.list as a>
+            <tr>
+                <td>${a.id!}</td>
+                <td class="exclude-translate center">
+                    ${(userMap[a.id?string].nickname)!}
+                </td>
+                <td>${a.amount!}</td>
+                <td>${a.updateDate!}</td>
+                <td class="wrap">
+                <#if authorizedMap['tradeAccount/rechargeParameters']>
+                    <a href="tradeAccount/rechargeParameters.html?id=${a.id}" class="btnText green" target="dialog" mask="true"><@t.page 'button.recharge'/></a>
+                </#if>
+                <#if authorizedMap['tradeAccountHistory/list']>
+                    <a href="tradeAccountHistory/list.html?id=${a.id}" class="btnText" target="navTab" rel="tradeAccountHistory/list"><@t.page 'account.history'/></a>
+                </#if>
+                </td>
+            </tr>
+            </#list>
+        </tbody>
+    </table>
+    <#include "../include_page/page.html"/>
+</div>
+</@trade.accountList>

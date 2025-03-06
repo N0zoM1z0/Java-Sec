@@ -1,0 +1,43 @@
+<#if parentId?has_content>
+<ul>
+    <@sys.deptList parentId=parentId pageSize=500>
+        <#list page.list as a>
+            <li>
+                <a href="sysUser/lookup_list.html?deptId=${a.id}&field=${field!'userId'}&nicknameField=${nicknameField!'nickname'}" class="exclude-translate" target="ajax" rel="user_list">${a.name!}</a>
+            </li>
+        <#else>
+            <li><a><@t.page 'empty_directory'/></a></li>
+        </#list>
+    </@sys.deptList>
+</ul>
+<#else>
+<div class="pageContent">
+    <div class="unitBox leftPageContent">
+        <ul class="tree treeFolder" layoutH>
+            <li>
+                <a href="sysUser/lookup_list.html?field=${field!'userId'}&nicknameField=${nicknameField!'nickname'}" class="exclude-translate" target="ajax" rel="user_list"><@t.page 'dept.parent'/></a>
+                <ul>
+            <@sys.deptList pageSize=500>
+                <#list page.list as a>
+                    <li>
+                        <a href="sysUser/lookup_list.html?deptId=${a.id}&field=${field!'userId'}&nicknameField=${nicknameField!'nickname'}" class="exclude-translate" target="ajax" rel="user_list">${a.name!}</a>
+                    </li>
+                <#else>
+                    <li><a><@t.page 'empty_directory'/></a></li>
+                </#list>
+            </@sys.deptList>
+                </ul>
+            </li>
+         </ul>
+    </div>
+    <div id="user_list" class="unitBox rightPageContent">
+        <#include "lookup_list.html"/>
+    </div>
+    <div class="formBar">
+        <ul>
+            <li><button type="button" class="button" onclick="$.bringBack({'${field!'userId'}':'','${nicknameField!'nickname'}':''});return false;"><@t.page 'button.clear_select'/></button></li>
+            <li><button class="close button" type="button"><@t.page 'button.close'/></li>
+        </ul>
+    </div>
+</div>
+</#if>

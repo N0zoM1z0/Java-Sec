@@ -1,0 +1,94 @@
+<#if !startCreateDate?has_content>
+    <#assign startCreateDate=(.now?long-7*24*3600*1000)?number_to_date/>
+</#if>
+<@visit.historyList sessionId=sessionId url=url startCreateDate=startCreateDate endCreateDate=endCreateDate
+            orderType=orderType pageIndex=pageNum pageSize=numPerPage>
+<div class="pageHeader card">
+    <form class="pagerForm" action="visit/history.html" autocomplete="off" onsubmit="return navTabSearch(this);" method="post">
+        <#include "../include_page/parameters.html"/>
+        <div class="searchBar">
+            <ul class="searchContent">
+                <li>
+                    <label><@t.page 'visit.session'/>:</label>
+                    <input type="text" name="sessionId" value="${sessionId!}" size="40"/>
+                </li>
+                <li>
+                    <label><@t.page 'url'/>:</label>
+                    <input type="text" name="url" value="${url!}" size="40"/>
+                </li>
+                <li>
+                    <label><@t.page 'visit.visit_date'/>:</label>
+                    <input type="text" name="startCreateDate" class="date" size="10" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" value="${startCreateDate!}"/>
+                    <a class="inputDateButton" href="javascript:void(0);"></a>
+                    <span>-</span>
+                    <input type="text" name="endCreateDate" class="date" size="10" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d+1}" value="${endCreateDate!}"/>
+                    <a class="inputDateButton" href="javascript:void(0);"></a>
+                </li>
+            </ul>
+            <div class="subBar">
+                <ul>
+                    <li>
+                        <button type="submit" class="buttonActive"><@t.page 'button.search'/></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="card">
+    <div class="panelBar">
+        <ul class="toolBar">
+        </ul>
+    </div>
+    <table class="table" width="100%" layoutH orderField="${orderField!}" orderType="${orderType!}">
+        <thead>
+            <tr>
+                <th width="20">ID</th>
+                <th width="50"><@t.page 'visit.session'/></th>
+                <th width="180"><@t.page 'title'/>/<@t.page 'url'/></th>
+                <th width="100"><@t.page 'visit.screen'/></th>
+                <th width="50"><@t.page 'visit.item'/></th>
+                <th width="70"><@t.page 'visit.ip'/></th>
+                <th width="50" orderField="createDate"><@t.page 'visit.visit_date'/></th>
+            </tr>
+        </thead>
+        <tbody>
+            <#list page.list as a>
+            <tr>
+                <td>${a.id!}</td>
+                <td><a href="visit/view.html?id=${a.id}" target="dialog" rel="operateTask">${a.sessionId!}</a></td>
+                <td>
+                    <div class="box">
+                        <p>${a.title!}</p>
+                        <p>
+                            <a href="cmsDiy/preview.html?url=${((a.url)?url)!}" target="navTab" rel="cmsDiy/preview"  icon="<i class='bi bi-palette2 icon-large'></i>" title="<@t.page 'diy.preview'/>">${a.url!}</a>
+                            <a href="${a.url!}" target="_blank"><i class="icon-external-link"></i></a>
+                        </p>
+                        <#if a.refererUrl?has_content><p><@t.page 'visit.referer'/>:${a.refererUrl!}</p></#if>
+                    </div>
+                </td>
+                <td class="exclude-translate">
+                    <div class="box">
+                    <@tools.userAgent userAgent=a.userAgent>
+                        <p>${object.browserType!}:${object.browserGroup!} ${object.browserVersion!}</p>
+                        <p>${object.deviceType!}:${a.screenWidth!}*${a.screenHeight!}</p>
+                    </@tools.userAgent>
+                    </div>
+                </td>
+                <td>
+                    ${a.itemType!}${a.itemId?has_content?then(':','')}${a.itemId!}
+                </td>
+                <td>
+                    <div class="box">
+                        <p>${a.ip!}</p>
+                        <p>${(getIpRegion(a.ip).address)!}</p>
+                    </div>
+                </td>
+                <td>${a.createDate!}</td>
+            </tr>
+            </#list>
+        </tbody>
+    </table>
+    <#include "../include_page/page.html"/>
+</div>
+</@visit.historyList>

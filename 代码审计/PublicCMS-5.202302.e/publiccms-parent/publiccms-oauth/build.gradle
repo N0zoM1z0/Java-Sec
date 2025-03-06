@@ -1,0 +1,12 @@
+configurations {
+    instrumentedJars {
+        extendsFrom implementation
+    }
+}
+
+dependencies {
+    implementation project(path:':publiccms-core', configuration: 'instrumentedJars')
+    implementation project(':publiccms-core')
+
+    runtimeOnly "jakarta.servlet:jakarta.servlet-api:${servletVersion}"
+}

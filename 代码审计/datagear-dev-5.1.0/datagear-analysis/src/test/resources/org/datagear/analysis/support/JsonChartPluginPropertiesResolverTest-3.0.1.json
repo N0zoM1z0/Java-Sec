@@ -1,0 +1,154 @@
+{
+	id : "pie-chart",
+	"nameLabel" :
+	{
+		value : '饼图',
+		localeValues :
+		{
+			'en' : 'pie chart',
+			'zh' : '饼图中文'
+		}
+	},
+	descLabel :
+	{
+		value : '饼图描述',
+		localeValues :
+		{
+			'en' : 'pie chart desc',
+			'zh' : '饼图描述中文'
+		}
+	},
+	manualLabel :
+	{
+		value : '饼图指南',
+		localeValues :
+		{
+			'en' : 'pie chart manual',
+			'zh' : '饼图指南中文'
+		}
+	},
+	icons :
+	{
+		'LIGHT' :  'icon-0.png',
+		'DARK' :  'icon-1.png'
+	},
+	attributes :
+	[
+  		{
+			name : 'title',
+			type : 'string',
+			nameLabel :
+			{
+				value : '标题',
+				localeValues :
+				{
+					'en' : 'title',
+					'zh' : '标题中文'
+				}
+			},
+			descLabel :
+			{
+				value : '标题描述',
+				localeValues :
+				{
+					'en' : 'title desc',
+					'zh' : '标题描述中文'
+				}
+			},
+			defaultValue : 'pie chart',
+			constraints :
+			{
+				required : true,
+				maxlength : 20,
+				minlength : 10
+			}
+		},
+		{
+			name : 'interval',
+			type : 'number',
+			nameLabel :
+			{
+				value : '间隔',
+				localeValues :
+				{
+					'en' : 'interval',
+					'zh' : '间隔中文'
+				}
+			},
+  			descLabel :
+  			{
+  				value : '间隔描述',
+  				localeValues :
+  				{
+  					'en' : 'interval desc',
+  					'zh' : '间隔描述中文'
+  				}
+  			},
+  			defaultValue : '5',
+  			constraints :
+  			{
+  				required : false,
+  				max : 30,
+  				min : 5
+  			}
+		}
+	],
+	dataSigns :
+	[
+  		{
+			name : 'x-value',
+			required : false,
+			multiple : false,
+			nameLabel :
+			{
+				value : 'X值',
+				localeValues :
+				{
+					'en' : 'X value',
+					'zh' : 'X值中文'
+				}
+			},
+			descLabel :
+			{
+				value : 'X值描述',
+				localeValues :
+				{
+					'en' : 'X value desc',
+					'zh' : 'X值描述中文'
+				}
+			}
+		},
+		{
+			name : 'y-value',
+			required : true,
+			multiple : true,
+			nameLabel :
+			{
+				value : 'Y值',
+				localeValues :
+				{
+					'en' : 'Y value',
+					'zh' : 'Y值中文'
+				}
+			},
+  			descLabel :
+  			{
+  				value : 'Y值描述',
+  				localeValues :
+  				{
+  					'en' : 'Y value desc',
+  					'zh' : 'Y值描述中文'
+  				}
+  			}
+		}
+	],
+	version : "0.1.0",
+	order : 2,
+	category :
+	{
+		name : 'line',
+		nameLabel : "nameLabel",
+		descLabel : "descLabel",
+		order: 41
+	}
+}

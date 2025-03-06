@@ -1,0 +1,39 @@
+<div class="pageFormContent" layoutH>
+    <h2 class="contentTitle"><@t.page 'recommended_to'/></h2>
+    <div class="unit">
+<@cms.contentRelatedList relatedContentId=contentId>
+        <p>
+            <label><@t.page 'content'/>:</label><label><@t.page 'total_count' page.totalCount/></label>
+        </p>
+        <p>
+    <#list page.list as a>
+        <@t.merge 'contentIds' a.contentId!/>
+    </#list>
+    <@cms.content ids=t.contentIds!><#assign contentMap=map!/></@cms.content>
+    <#list page.list as a>
+          <#if a.relationType?has_content><@cms.dictionary id=a.relationType><label>${object.name}:</label></@cms.dictionary><#if a.relation?has_content><@cms.dictionaryData dictionaryId=a.relationType value=a.relation><label>${object.text}:</label></@cms.dictionaryData></#if></#if><a href="${a.url}" class="exclude-translate" target="_blank">${(contentMap[a.contentId?string].title)!}</a> <a href="cmsContent/unrelated?id=${a.id}&_csrf=<@tools.csrfToken admin=true/>" title="<@t.page 'confirm.delete'/>" target="ajaxTodo" callback="$.pdialog.closeCurrent()"><@t.page 'button.delete'/></a><br/>
+    </#list>
+        </p>
+</@cms.contentRelatedList>
+    </div>
+    <div class="divider"></div>
+    <div class="unit">
+<@cms.placeList itemType='content' itemId=contentId>
+        <p>
+            <label><@t.page 'place'/>:</label><label><@t.page 'total_count' page.totalCount/></label>
+            <a class="button" href="cmsPlace/push.html?itemType=content&itemId=${contentId}" target="dialog" mask="true"><@t.page 'button.push'/></a>
+        </p>
+        <p>
+    <#list page.list as a>
+        ${a.path[0..a.path?last_index_of('/')]}<@tools.placeMetadata path=a.path>${(object.alias)!}</@tools.placeMetadata> (${a.clicks}) <a href="cmsPlace/delete?ids=${a.id}&_csrf=<@tools.csrfToken admin=true/>&path=${(a.path?url)!}" title="<@t.page 'confirm.delete'/>" target="ajaxTodo" callback="$.pdialog.closeCurrent()"><@t.page 'button.delete'/></a><br/>
+    </#list>
+        </p>
+</@cms.placeList>
+    </div>
+    <div class="divider"></div>
+</div>
+<div class="formBar">
+    <ul>
+        <li><button type="button" class="button close"><@t.page 'button.close'/></button></li>
+    </ul>
+</div>

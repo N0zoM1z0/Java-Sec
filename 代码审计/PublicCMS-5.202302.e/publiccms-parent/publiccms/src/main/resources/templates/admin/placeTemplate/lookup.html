@@ -1,0 +1,47 @@
+<#macro chipTree filepath prefix suffix>
+    <@tools.fileList path='include'+filepath orderField='createDate'>
+        <#list list as a>
+            <li>
+                <#local path=filepath+'/'+a.fileName>
+            <#if a.directory>
+                <a href="javascript:;" onclick="return false;">${a.fileName} </a>
+                <ul>
+                    <@chipTree path prefix suffix/>
+                </ul>
+            <#else>
+                <@tools.placeMetadata path=path>
+                    <a href="javascript:;" onclick="JUI.instances[$('textarea.code',navTab.getCurrentPanel()).data('id')].replaceSelection('${(prefix+path+suffix)?js_string} ${(object.alias)?has_content?then('<#-- '+object.alias+' -->','')?js_string}');$.pdialog.closeCurrent();return false;">
+                        ${(object.alias)?has_content?then(object.alias+' ('+a.fileName+')',a.fileName)}
+                    </a>
+                </@tools.placeMetadata>
+            </#if>
+            </li>
+        <#else>
+            <li><a><@t.page 'empty_directory'/></a></li>
+        </#list>
+    </@tools.fileList>
+</#macro>
+<div class="pageFormContent" layoutH>
+    <ul class="tree treeFolder">
+        <li>
+            <a href="javascript:;" onclick="return false;"><@t.page 'diy'/></a>
+            <ul>
+    <@tools.diyMetadataList itemType="region">
+        <#list list as a>
+            <#if a.categoryType?has_content>
+                <li><a href="javascript:;" onclick="JUI.instances[$('textarea.code',navTab.getCurrentPanel()).data('id')].replaceSelection('${r'<div data-diy="region" data-diy-id="'+a.id+'">'+r'\n    '+r'<@tools.includeRegion id="'+a.id+'" categoryId=category.id/> '+(a.name)?has_content?then('<#-- '+a.name+' -->','')+r'\n</div>'}');$.pdialog.closeCurrent();return false;">${a.name}(<@t.page 'category_page'/>)</a></li>
+            <#else>
+                <li><a href="javascript:;" onclick="JUI.instances[$('textarea.code',navTab.getCurrentPanel()).data('id')].replaceSelection('${r'<div data-diy="region" data-diy-id="'+a.id+'">'+r'\n    '+r'<@tools.includeRegion id="'+a.id+'"/> '+(a.name)?has_content?then('<#-- '+a.name+' -->','')+r'\n</div>'}');$.pdialog.closeCurrent();return false;">${a.name}</a></li>
+            </#if>
+        </#list>
+    </@tools.diyMetadataList>
+            </ul>
+        </li>
+<@chipTree '' '<@tools.includePlace path="' '"/>'/>
+    </ul>
+</div>
+<div class="formBar">
+    <ul>
+        <li><button type="button" class="button close"><@t.page 'button.close'/></button></li>
+    </ul>
+</div>

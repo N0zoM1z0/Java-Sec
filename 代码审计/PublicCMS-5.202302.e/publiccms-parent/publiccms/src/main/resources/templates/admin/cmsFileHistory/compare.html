@@ -1,0 +1,46 @@
+<@tools.fileHistoryContent type=type path=path+'/'+fileName><#assign a=object/></@tools.fileHistoryContent>
+<#assign
+    editorType={'css':'css','js':'javascript','xml':'xml'}
+    fileType=path?keep_after_last('.')?lower_case
+/>
+<div class="pageFormContent" layoutH>
+    <div class="unit">
+        <table class="compare">
+            <tr>
+                <td><@t.page 'compare.history'/></td>
+                <td><@t.page 'compare.now'/></td>
+                <td><@t.page 'compare'/></td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea name="old" class="code" readOnly="readOnly" mode="${(!type?has_content || 'template'=type)?then('freemarkermixed',editorType[fileType]?has_content?then(editorType[fileType],'htmlmixed'))}">${a!}</textarea>
+                </td>
+                <td>
+                    <textarea name="new" class="code"  readOnly="readOnly" mode="${(!type?has_content || 'template'=type)?then('freemarkermixed',editorType[fileType]?has_content?then(editorType[fileType],'htmlmixed'))}"></textarea>
+                </td>
+                <td>
+                    <div class="clearfix">
+                        <label>
+                            <select name="comparetype">
+                            <#list ['chars','words','lines','sentence','css'] as o>
+                                <option value="${o}"<#if 'css'=fileType&&'css'=o> selected="selected"</#if>><@t.page 'compare.type.'+o/></option>
+                            </#list>
+                            </select>
+                        </label>
+                    </div>
+                    <pre class="result-box"></pre>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+    $('form',navTab.getCurrentPanel()).trigger(JUI.eventType.editorSync);
+    $('textarea[name=new]',$.pdialog.getCurrent()).val($('[name=content]',navTab.getCurrentPanel()).val());
+    </script>
+</div>
+<div class="formBar">
+    <ul>
+        <li><a href="javascript:;" onclick="$.bringBack({'content':$('textarea[name=content]',$.pdialog.getCurrent()).val()});" class="button"><i class="icon-ok"></i><@t.page 'select'/></a></li>
+        <li><button type="button" class="button close"><@t.page 'button.close'/></button></li>
+    </ul>
+</div>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<title>看板</title>
+<@import />
+<@theme />
+<style type="text/css">
+.chart-wrapper{
+    width: 30%;
+    height: 300px;
+    display: inline-block;
+}
+</style>
+<script type="text/javascript" src="customResource.js"></script>
+<script type="text/javascript">
+var dashboardRenderer =
+{
+	render : function(dashboard)
+	{
+		for(var i=0; i<dashboard.charts.length; i++)
+			dashboard.charts[i].render();
+	}
+};
+</script>
+</head>
+<body>
+	<@dashboard>
+	<div class="dashboard" role="dashboard">
+		<h1>Hello dashboard!</h1>
+		<div class="chart-wrapper">
+			<@chart widget="chart-widget-01" />
+		</div>
+		<div class="chart-wrapper">
+			<@chart widget="chart-widget-01" />
+		</div>
+		<div class="chart-wrapper">
+			<@chart widget="chart-widget-01" var="chart01" elementId="element01" />
+		</div>
+		<div class="chart-wrapper">
+			<@chart widget="chart-widget-01" />
+		</div>
+		<div class="chart-wrapper">
+			<@chart widget="chart-widget-01" var="chart02" />
+		</div>
+		<div class="chart-wrapper">
+			<@chart widget="chart-widget-01" />
+		</div>
+	</div>
+	</@dashboard>
+</body>
+</html>

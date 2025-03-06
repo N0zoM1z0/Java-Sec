@@ -1,0 +1,24 @@
+configurations {
+    instrumentedJars {
+        extendsFrom implementation
+    }
+}
+
+dependencies {
+    implementation  project(path:':publiccms-common', configuration: 'instrumentedJars')
+    implementation  project(':publiccms-common')
+
+    implementation "com.zaxxer:HikariCP:${hikariCPVersion}"
+    implementation "eu.bitwalker:UserAgentUtils:${userAgentUtilsVersion}"
+    implementation "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
+    
+    implementation "com.drewnoakes:metadata-extractor:${extractorVersion}"
+
+    implementation "org.mybatis:mybatis-spring:${mybatisSpringVersion}"
+    implementation "org.mybatis.dynamic-sql:mybatis-dynamic-sql:${dynamicSqlVersion}"
+    implementation "com.github.pagehelper:pagehelper:${pageHelperVersion}"
+    
+    implementation "jakarta.mail:jakarta.mail-api:${mailApiVersion}"
+    implementation "com.sun.mail:jakarta.mail:${mailVersion}"
+    implementation "jakarta.servlet:jakarta.servlet-api:${servletVersion}"
+}

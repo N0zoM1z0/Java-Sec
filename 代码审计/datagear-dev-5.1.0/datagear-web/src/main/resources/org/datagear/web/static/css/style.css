@@ -1,0 +1,939 @@
+/*
+ * Copyright 2018-present datagear.tech
+ *
+ * This file is part of DataGear.
+ *
+ * DataGear is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Lesser General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ *
+ * DataGear is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along with DataGear.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
+ /*滚动条*/
+ *::-webkit-scrollbar{
+	width: 0.8rem;
+	height: 0.8rem;
+}
+*::-webkit-scrollbar-thumb{
+	border-radius: var(--border-radius);
+	background-color: var(--surface-200);
+}
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-corner{
+	border-radius: var(--border-radius);
+	background-color: var(--surface-100);
+}
+
+.logo{
+	display: inline-block;
+	width: 8.5rem;
+	height: 1rem;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	font-size: 1rem;
+	line-height: 1rem;
+	text-indent: -999px;
+	opacity: 1;
+}
+
+a.link,
+a.link:link,
+a.link:visited,
+a.link:active{
+	text-decoration: none;
+}
+a.link:hover{
+	text-decoration: underline;
+}
+a.img-link:hover{
+	opacity: 0.8;
+}
+
+label[title]:not(.no-tip)::after,
+.tip-label[title]::after{
+	display: inline-block;
+	content: "?";
+	margin-left: 0.1em;
+	font-size: 0.8em;
+	margin-top: 0.1em;
+	width: 1em;
+	height: 1em;
+	text-align: center;
+	line-height: 1em;
+	border-radius: 2em;
+	border-width: 1px;
+	border-style: solid;
+	opacity: 0.7;
+}
+label.align-tip{
+	/*添加这个样式可以使上面的提示图标居中显示*/
+	display: flex;
+    align-items: center;
+}
+.state-active{
+	color: var(--primary-color);
+	box-shadow: inset 0 0 2px 2px var(--primary-color);
+}
+.highlight-text{
+	color: var(--primary-color);
+	background-color: var(--surface-c);
+	border-radius: var(--border-radius);
+	padding: 0.1rem 0.2rem;
+	margin-left: 0.1rem;
+	margin-right: 0.1rem;
+}
+.bg-none{
+	background-color: none !important;
+	background: none !important;
+}
+.z-99{
+	z-index: 99;
+}
+.opacity-hide{
+	opacity: 0 !important;
+	z-index: -99 !important;
+}
+.opacity-hide-absolute{
+	opacity: 0 !important;
+	z-index: -99 !important;
+	overflow: hidden !important;
+	/*设为absolute可不占当前空间*/
+	position: absolute;
+}
+.border-1px-transparent{
+	border: 1px solid transparent;
+}
+
+.new-version-tip.p-button,
+.new-version-tip > .p-menuitem-content > .p-menuitem-link > span{
+	position: relative;
+}
+.new-version-tip.p-button::after,
+.new-version-tip > .p-menuitem-content > .p-menuitem-link > span::after{
+	content: "";
+	width: 8px;
+	height: 8px;
+	background: var(--red-500);
+	border-radius: 10px;
+    position: absolute;
+}
+.new-version-tip.p-button::after{
+    top: 4px;
+    right: 4px;
+}
+.new-version-tip > .p-menuitem-content > .p-menuitem-link > span::after{
+	top: -4px;
+	right: -8px;
+}
+
+/*圆形按钮sm*/
+.p-button-sm.p-button.p-button-icon-only.p-button-rounded{
+	font-size: .875rem !important;
+	width: 2rem !important;
+    height: 2rem !important;
+    padding: 0.251rem 0.251rem !important;
+}
+/*圆形按钮xs*/
+.p-button-xs.p-button.p-button-icon-only.p-button-rounded{
+	font-size: .75rem !important;
+	width: 1.5rem !important;
+	height: 1.5rem !important;
+	padding: 0.2rem 0.2rem !important;
+}
+.p-button-xs.p-button.p-button-icon-only{
+	font-size: .75rem !important;
+	width: 1.5rem !important;
+	height: 1.5rem !important;
+	padding: 0.2rem 0.2rem !important;
+}
+.p-splitbutton.border-left-noround,
+.p-splitbutton.border-left-noround .p-splitbutton-defaultbutton{
+	border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.text-sm .p-button,
+.text-sm.p-button{
+	font-size: .875rem;
+}
+.text-xs .p-button,
+.text-xs.p-button{
+	font-size: .75rem;
+}
+
+/*带更多菜单按钮的tabview*/
+.p-tabview.contextmenu-tabview .p-tabview-nav-container .p-tabview-nav-link{
+	padding-right: 2rem;
+}
+.p-tabview.contextmenu-tabview .p-tabview-nav-container .context-menu-btn{
+	position: absolute;
+	right: 0.2rem;
+}
+/*普通字体粗细*/
+.p-tabview.light-tabview .p-tabview-nav li .p-tabview-nav-link{
+	font-weight: normal;
+	padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+}
+.p-tabview.xs-tabview .p-tabview-nav li .p-tabview-nav-link{
+	font-weight: normal;
+	padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.p-tabview.xs-tabview .p-tabview-panels{
+	padding: 0.3rem;
+}
+
+/*竖向tabmenu*/
+.p-tabmenu.vertical-tabmenu{
+	padding: 0.25em;
+}
+.p-tabmenu.vertical-tabmenu .p-tabmenu-nav{
+	flex-direction: column;
+	background-color: var(--surface-card);
+	border: 0;
+}
+.p-tabmenu.vertical-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link,
+.p-tabmenu.vertical-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link{
+	border-width: 0 !important;
+}
+.p-tabmenu.vertical-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-icon{
+	margin-right: 0;
+	margin-bottom: 0.5em;
+}
+.p-tabmenu.vertical-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-text{
+	text-align: center;
+}
+.p-tabmenu.vertical-tabmenu .p-tabmenu-nav .p-tabmenuitem{
+	margin-bottom: 0.5em;
+}
+.p-tabmenu.vertical-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link{
+	background-color: var(--surface-card);
+	flex-direction: column;
+}
+.p-tabmenu.vertical-tabmenu.collapse .p-tabmenu-nav .p-tabmenuitem .p-menuitem-icon{
+	margin-bottom: 0;
+}
+.p-tabmenu.vertical-tabmenu.collapse .p-tabmenu-nav .p-menuitem-text{
+	display: none;
+}
+.p-tabmenu.vertical-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link{
+	background-color: var(--surface-200);
+	color: var(--primary-color);
+	border-radius: var(--border-radius);
+}
+
+/*轻量菜单条*/
+.p-menubar.light-menubar{
+	background: none;
+	padding: 0.1rem 0.2rem;
+}
+.p-menubar.light-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link{
+	padding: 0.5rem 0.8rem;
+}
+.p-menubar.no-root-icon-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-icon{
+	margin-right: 0;
+}
+
+/*error菜单条目*/
+.p-contextmenu .p-error .p-menuitem-content,
+.p-contextmenu .p-error .p-menuitem-link,
+.p-contextmenu .p-error .p-menuitem-link .p-menuitem-text,
+.p-menu .p-error .p-menuitem-content,
+.p-menu .p-error .p-menuitem-link,
+.p-menu .p-error .p-menuitem-link .p-menuitem-text,
+.p-menubar .p-error .p-menuitem-content,
+.p-menubar .p-error .p-menuitem-link,
+.p-menubar .p-error .p-menuitem-link .p-menuitem-text,
+.p-tieredmenu .p-error .p-menuitem-content,
+.p-tieredmenu .p-error .p-menuitem-link,
+.p-tieredmenu .p-error .p-menuitem-link .p-menuitem-text{
+	color: inherit;
+}
+
+/*左侧弹出子菜单*/
+.p-tieredmenu.left-submenu-list .p-menuitem-active>.p-submenu-list{
+	left: -100%;
+}
+
+.flex-tieredmenu-wrapper .p-tieredmenu{
+	width: auto;
+	/*最小宽度与默认一致*/
+	min-width: 12.5rem;
+}
+
+/*表格遮罩层*/
+.p-datatable-loading-overlay{
+	opacity: .5;
+}
+
+/*对话框*/
+.p-dialog .p-dialog-header{
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+.p-dialog.ajax-dialog .p-dialog-content{
+	padding-bottom: 1rem;
+}
+.p-dialog-top .p-dialog,
+.p-dialog-bottom .p-dialog,
+.p-dialog-left .p-dialog,
+.p-dialog-right .p-dialog,
+.p-dialog-topleft .p-dialog,
+.p-dialog-topright .p-dialog,
+.p-dialog-bottomleft .p-dialog,
+.p-dialog-bottomright .p-dialog{
+	/*默认侧边对话框留有间隙，但是点击标题会自动移除间隙导致抖动，所以这里重设间隙为0*/
+	margin: 0 !important;
+}
+
+/*上中提示框*/
+.p-toast-top-center{
+	top: 3px !important;
+}
+.p-toast-top-center.p-toast{
+	min-width: 30% !important;
+	max-width: 80% !important;
+	width: auto !important;
+}
+/*没有detail的提示框*/
+.p-toast-message-content.empty-detail{
+	padding-top: 0.7rem !important;
+	padding-bottom: 0.7rem !important;
+}
+.p-toast-message-content.empty-detail .p-toast-detail{
+	display: none !important;
+}
+
+.p-chip{
+	min-height: 2rem;
+}
+
+/**无边框卡片*/
+.p-card.no-border{
+	box-shadow: none;
+	border-radius: none;
+}
+
+.p-datatable.table-sm .p-datatable-thead > tr > th,
+.p-datatable.table-sm .p-datatable-tbody > tr > td,
+.table-sm .p-datatable .p-datatable-thead > tr > th,
+.table-sm .p-datatable .p-datatable-tbody > tr > td{
+	padding: 0.5rem 1rem;
+}
+.p-datatable.table-sm .p-datatable-tbody > tr > td .p-row-toggler,
+.p-datatable.table-sm .p-datatable-tbody > tr > td .p-row-editor-init,
+.p-datatable.table-sm .p-datatable-tbody > tr > td .p-row-editor-save,
+.p-datatable.table-sm .p-datatable-tbody > tr > td .p-row-editor-cancel,
+.table-sm .p-datatable .p-datatable-tbody > tr > td .p-row-toggler,
+.table-sm .p-datatable .p-datatable-tbody > tr > td .p-row-editor-init,
+.table-sm .p-datatable .p-datatable-tbody > tr > td .p-row-editor-save,
+.table-sm .p-datatable .p-datatable-tbody > tr > td .p-row-editor-cancel{
+	font-size: .75rem !important;
+	width: 1.5rem !important;
+	height: 1.5rem !important;
+	padding: 0.2rem 0.2rem !important;
+}
+.p-datatable-table th,
+.p-datatable-table td{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.p-datatable .p-column-resizer::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    width: 1px;
+    height: 0.8em;
+    overflow: hidden;
+    margin-top: -0.4em;
+    background: var(--surface-d);
+}
+.p-datatable-table .col-check{
+	min-width: 3.5em;
+	max-width: 3.5em;
+	width: 3.5em;
+}
+.p-datatable-table .col-id{
+	min-width: 15em;
+}
+.p-datatable-table .col-row-number{
+	min-width: 5em;
+	max-width: 7em;
+	overflow: hidden;
+}
+.p-datatable-table .col-row-number-sm{
+	min-width: 5em;
+	max-width: 5em;
+	overflow: hidden;
+}
+.p-datatable-table .col-edit-btn{
+	min-width: 6rem;
+	max-width: 6rem;
+}
+.p-datatable-table .col-name{
+	width: 12em;
+	min-width: 12em;
+}
+.p-datatable-table .col-desc{
+	width: 15em;
+	min-width: 15em;
+}
+.p-datatable-table .col-user{
+	width: 10em;
+	min-width: 10em;
+}
+.p-datatable-table .col-datetime{
+	min-width: 12em;
+}
+.p-datatable-table .col-version{
+	min-width: 8em;
+}
+.p-datatable-table .col-boolean{
+	min-width: 6em;
+	max-width: 6em;
+}
+.p-datatable-table .col-last{
+	max-width: 50%;
+}
+/*无边框面板*/
+.p-panel.no-panel-border .p-panel-header,
+.p-panel.no-panel-border .p-panel-content{
+	border-width: 0;
+}
+.p-fieldset.fieldset-sm .p-fieldset-legend{
+	padding-top: 0.7rem;
+	padding-bottom: 0.7rem;
+	font-weight: normal;
+}
+.p-fieldset.fieldset-sm .p-fieldset-content{
+	padding: 0.6rem;
+	padding-bottom: 0.1rem;
+}
+.p-divider.divider-z-0 .p-divider-content{
+	z-index: 0 !important;
+}
+.p-colorpicker.preview-h-full .p-colorpicker-preview{
+	height: 100%;
+}
+
+/*单行阶段*/
+.inline-steps .p-steps .p-steps-item .p-menuitem-link,
+.inline-steps.p-steps .p-steps-item .p-menuitem-link{
+	flex-direction: row;
+	align-items: center;
+	background: var(--surface-a);
+	z-index: 1;
+	padding-left: 0.3rem;
+	padding-right: 0.3rem;
+}
+.inline-steps .p-steps .p-steps-item .p-menuitem-link .p-steps-title,
+.inline-steps.p-steps .p-steps-item .p-menuitem-link .p-steps-title{
+	margin-top: 0;
+	padding-left: 0.5rem;
+}
+.inline-steps .p-steps .p-steps-item:before,
+.inline-steps.p-steps .p-steps-item:before{
+	margin-top: 0;
+	z-index: 0;
+}
+
+/*弹性选项卡*/
+.flex-tabview.p-tabview > .p-tabview-nav-container{
+	/* flex-shrink-0 */
+	flex-shrink: 0 !important;
+}
+.flex-tabview.p-tabview > .p-tabview-panels{
+	/* flex-grow-1 */
+	flex-grow: 1 !important;
+	/* overflow-auto */
+	overflow: auto !important;
+	/* pb-0 */
+	padding-bottom: 0rem !important;
+	/* pl-1 */
+	padding-left: 0.25rem !important;
+	/* pr-1 */
+	padding-right: 0.25rem !important;
+	/* pt-2 */
+	padding-top: 0.5rem !important;
+}
+.flex-tabview.p-tabview > .p-tabview-panels > .p-tabview-panel{
+	/* h-full */
+	height: 100% !important;
+	/* overflow-auto */
+	overflow: auto !important;
+}
+
+.flex-card.p-card > .p-card-body{
+	/* h-full */
+	height: 100% !important;
+	/* overflow-auto */
+	overflow: auto !important;
+	/* flex */
+	display: flex !important;
+	/* flex-column */
+	flex-direction: column !important;
+}
+.flex-card.p-card > .p-card-body > .p-card-content{
+	/* flex-grow-1 */
+	flex-grow: 1 !important;
+	/* overflow-auto */
+	overflow: auto !important;
+}
+
+/*横向操作组*/
+.h-opts > *{
+	margin-left: 0.15em;
+	margin-right: 0.15em;
+}
+.h-opts > *:first-child{
+	margin-left: 0;
+}
+.h-opts > *:last-child{
+	margin-right: 0;
+}
+
+/*表单验证信息*/
+.field{
+	margin-bottom: 1.2rem;
+}
+.validate-msg{
+	position: relative;
+	height: 0px;
+}
+.validate-msg .validate-proxy,
+.validate-msg .validate-normalizer{
+	width: 0;
+	height: 0;
+	display: none;
+}
+.validate-msg .p-error{
+	position: absolute;
+	top: -0.15em;
+}
+
+.fileupload-wrapper .fileupload-info{
+	min-height: 1.5rem;
+}
+
+/*代码编辑器*/
+.code-editor-wrapper{
+	padding: 1px 1px;
+}
+.code-editor-wrapper .code-editor{
+	width: 100%;
+	height: 100%;
+	padding: 0 0;
+	margin: 0 0;
+}
+.code-editor-wrapper .code-editor .CodeMirror{
+	height: 100%;
+}
+.CodeMirror-hints{
+	/*防止在弹出对话框中的提示被遮挡*/
+	z-index: 999999;
+	font-size: inherit;
+}
+.CodeMirror-hint{
+	padding: 0.1em 0.1em;
+}
+.CodeMirror-hints .code-completion-comment{
+	padding-left: 1em;
+    opacity: 0.6;
+    filter: Alpha(Opacity=60);
+}
+.CodeMirror{
+	background: inherit;
+	color: inherit;
+}
+.CodeMirror-gutters{
+	border-right: 1px solid var(--surface-border);
+	background-color: var(--surface-ground);
+	color: inherit;
+}
+.CodeMirror-cursor{
+	border-left: 1px solid var(--text-color);
+}
+.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler{
+	background-color: var(--surface-100);
+}
+
+.page-main .page-foot{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.p-dialog .page-foot,
+.page-main-panel .page-foot,
+.p-tabview-panels .page-foot,
+.page-hide-foot .page-foot{
+	display: none;
+}
+
+.p-dialog > .p-dialog-content > .page-manager,
+.p-dialog > .p-dialog-content .page-manager-wrapper > .page-manager{
+	height: calc(90vh - 6rem) !important;
+}
+.p-overlaypanel > .p-overlaypanel-content > .page-manager,
+.p-overlaypanel > .p-overlaypanel-content .page-manager-wrapper > .page-manager{
+	height: 50vh !important;
+}
+
+/*表单页*/
+.page-form .page-form-content.no-max-height{
+	max-height: unset;
+}
+.page-form form.readonly .hide-if-readonly,
+.page-form form.readonly .page-form-foot{
+	display: none !important;
+}
+.page-form form.readonly.show-foot .page-form-foot{
+	display: flex !important;
+}
+.page-form .page-form-content,
+.page-form form.readonly.show-foot .page-form-content{
+	/*屏幕高度 - 表单foot高度*/
+	max-height: calc(100vh - 5rem);
+}
+.page-form form.readonly .page-form-content{
+	/*屏幕高度 - 底部留白高度*/
+	max-height: calc(100vh - 1rem);
+}
+.p-dialog .page-form .page-form-content,
+.p-dialog .page-form form.readonly.show-foot .page-form-content{
+	/*对话框高度 - 对话框header高度 - 表单foot高度*/
+	max-height: calc(90vh - 6rem - 5rem);
+}
+.p-dialog .page-form form.readonly .page-form-content{
+	/*对话框高度 - 对话框header高度 - 底部留白高度*/
+	max-height: calc(90vh - 6rem - 1rem);
+}
+
+.plugin-info .plugin-icon{
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+.plugin-info.inline .plugin-icon{
+	width: 2rem;
+	height: 2rem;
+}
+.plugin-info.inline .plugin-name{
+	padding-left: 0.25rem;
+}
+.plugin-info.block{
+	min-height: 8rem;
+}
+.plugin-info.block .plugin-icon{
+	width: 6rem;
+	height: 6rem;
+	margin-bottom: 0.5rem;
+}
+
+.page-manager-dtbsSource .p-tree.dtbsSource-tree .p-tree-wrapper,
+.page-manager-dtbsSource .p-tree.dtbsSource-tree .p-tree-wrapper .p-tree-container{
+	height: 100% !important;
+	overflow: auto;
+}
+
+.page-form-dtbsSource .properties-wrapper .properties-table .p-datatable-wrapper{
+	min-height: 5rem;
+}
+
+/*隐藏嵌套页的主页头，比如登录页*/
+.p-dialog .page-main-header,
+.page-main-panel .page-main-header,
+.p-tabview-panels .page-main-header{
+	display: none;
+}
+
+/*数据源URL构建器编辑页面*/
+.page-form-dtbsSource-ub .code-editor-wrapper{
+	/*屏幕高度 - 表单foot高度 - 其他元素高度*/
+	height: calc(100vh - 5rem - 7rem);
+}
+.p-dialog .page-form-dtbsSource-ub .code-editor-wrapper{
+	/*对话框高度 - 表单foot高度 - 对话框header高度*/
+	height: calc(90vh - 5rem - 6rem - 7rem);
+}
+
+/*看板全局资源编辑页*/
+.page-form-db-g-r .code-editor-wrapper{
+	/*屏幕高度 - 表单foot高度 - 其他元素高度*/
+	height: calc(100vh - 5rem - 8rem);
+}
+.p-dialog .page-form-db-g-r .code-editor-wrapper{
+	/*对话框高度 - 对话框header高度 - 表单foot高度 - 其他元素高度*/
+	height: calc(90vh - 6rem - 5rem - 8rem);
+}
+
+/*数据集预览参数日期选择器*/
+/*主体*/
+.xdsoft_datetimepicker{
+	color: var(--text-color);
+	background: var(--surface-overlay);
+	border-color: var(--surface-border);
+	box-shadow: 0px 0px 6px var(--surface-600);
+	-webkit-box-shadow: 0px 0px 6px var(--surface-600);
+}
+/*前景色*/
+.xdsoft_datetimepicker .xdsoft_calendar td,
+.xdsoft_datetimepicker .xdsoft_calendar th{
+	color: var(--text-color);
+}
+/*按钮*/
+.xdsoft_datetimepicker .xdsoft_label i,
+.xdsoft_datetimepicker .xdsoft_next,
+.xdsoft_datetimepicker .xdsoft_prev,
+.xdsoft_datetimepicker .xdsoft_today_button{
+	color: var(--text-color);
+}
+/*年、月*/
+.xdsoft_datetimepicker .xdsoft_label{
+	background: var(--surface-overlay);
+}
+/*年、月下拉框*/
+.xdsoft_datetimepicker .xdsoft_label>.xdsoft_select{
+	color: var(--text-color);
+	background: var(--surface-overlay);
+	border-color: var(--surface-border);
+	box-shadow: 0px 0px 6px var(--surface-600);
+	-webkit-box-shadow: 0px 0px 6pxvar(--surface-600);
+}
+/*时间框*/
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box{
+	border-color: var(--surface-border);
+}
+/*时间条目*/
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box>div>div{
+	color: var(--text-color);
+	border-color: var(--surface-border);
+}
+/*悬停*/
+.xdsoft_datetimepicker .xdsoft_calendar td:hover,
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box>div>div:hover,
+.xdsoft_datetimepicker .xdsoft_label>.xdsoft_select>div>.xdsoft_option:hover{
+	color: var(--text-color) !important;
+	background: var(--surface-ground) !important;
+}
+/*今天*/
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_today{
+	color: var(--text-color) !important;
+    background: var(--surface-ground) !important;
+	font-weight: bold;
+}
+/*选中*/
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default,
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current,
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box>div>div.xdsoft_current,
+.xdsoft_datetimepicker .xdsoft_label>.xdsoft_select>div>.xdsoft_option.xdsoft_current{
+	color: var(--primary-color-text) !important;
+	background: var(--primary-color) !important;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+/**年份选择器确定按钮*/
+.xdsoft_datetimepicker .xdsoft_save_selected.xdsoft_save_selected_year{
+	color: var(--text-color) !important;
+	border: 1px solid var(--surface-border) !important;
+    background: var(--surface-ground) !important;
+}
+.xdsoft_datetimepicker .xdsoft_save_selected.xdsoft_save_selected_year:hover{
+	color: var(--text-color) !important;
+	border: 1px solid var(--surface-border) !important;
+    background: var(--surface-hover) !important;
+}
+
+.panel-content-size-sm{
+	width: 38vw;
+	height: 50vh;
+}
+.panel-content-size-xs{
+	width: 35vw;
+	height: 40vh;
+}
+.panel-content-size-xxs{
+	width: 30vw;
+	height: 30vh;
+}
+.panel-content-size-xs-mwh{
+	max-width: 35vw;
+	max-height: 40vh;
+}
+.panel-content-size-xs-minw{
+	min-width: 35vw;
+}
+
+/*数据集编辑页*/
+.page-form-dataSet .code-editor-wrapper{
+	height: 50vh;
+}
+.page-form-dataSet .params-wrapper .params-table .p-datatable-wrapper,
+.page-form-dataSet .fields-wrapper .fields-table .p-datatable-wrapper{
+	min-height: 20vh;
+}
+
+.dataset-paramvalue-panel .paramvalue-form-wrapper .dg-dspv-form-content{
+	/*panel-content-size-sm的高度 - 按钮高度和内间距 */
+	height: calc(50vh - 5rem);
+	overflow: auto;
+	box-sizing: border-box;
+	margin-bottom: 0.8rem;
+}
+.dataset-paramvalue-panel .paramvalue-form-wrapper .dg-dspv-form-content .dg-dspv-form-item-label{
+	margin-bottom: 0.3rem;
+}
+.dataset-paramvalue-panel .paramvalue-form-wrapper .dg-dspv-form-content .dg-dspv-form-item-value{
+	margin-bottom: 0.6rem;
+}
+.dataset-paramvalue-panel .paramvalue-form-wrapper .dg-dspv-form-foot{
+	text-align: center;
+}
+
+.page-form-chart .plugin-info{
+	height: 2em;
+}
+.page-form-chart .plugin-info .plugin-icon{
+	width: 2rem;
+	height: 2rem;	
+}
+.page-form-chart .chart-datasets{
+	min-height: 20vh;
+}
+.page-form-chart .p-fieldset.fieldset-sm .p-fieldset-legend{
+	min-width: 9rem;
+}
+.page-form-chart .p-fieldset.fieldset-sm .p-fieldset-legend .p-fieldset-legend-text{
+	justify-content: flex-start;
+}
+.chart-attr-values-form .page-form-content textarea{
+	height: 5rem;
+}
+.chart-form-chart-attr-values .chart-attr-values-form .page-form-content{
+	min-width: 40vw;
+    max-width: 60vw;
+}
+
+.page-form-dashboard .p-tabview .p-tabview-panels{
+	padding: 0.5rem 0 0 0;
+}
+.page-form-dashboard .resource-contents-wrapper{
+	/*屏幕高度 - 表单foot高度 - 间隙高度*/
+	height: calc(100vh - 5rem - 2.6rem);
+}
+.p-dialog .page-form-dashboard .resource-contents-wrapper{
+	/*对话框高度 - 表单foot高度 - 对话框header高度 - 其他元素高度*/
+	height: calc(90vh - 5rem - 6rem - 2.6rem);
+}
+.page-form-dashboard .resource-contents-wrapper .res-editor-wrapper{
+	/*.resource-contents-wrapper高度 - 按钮区高度*/
+	height: calc(100vh - 5rem - 2.6rem - 6rem);
+}
+.p-dialog .page-form-dashboard .resource-contents-wrapper .res-editor-wrapper{
+	/*.resource-contents-wrapper高度 - 按钮区高度*/
+	height: calc(90vh - 5rem - 6rem - 2.6rem - 6rem);
+}
+.page-form-dashboard .resource-contents-wrapper .resource-list-wrapper{
+	/*.resource-contents-wrapper高度 - 卡片高度*/
+	height: calc(100vh - 5rem - 2.6rem - 3.5rem);
+}
+.p-dialog .page-form-dashboard .resource-contents-wrapper .resource-list-wrapper{
+	/*.resource-contents-wrapper高度 - 卡片高度*/
+	height: calc(90vh - 5rem - 6rem - 2.6rem - 3.5rem);
+}
+.page-form-dashboard .res-editor-wrapper .visual-editor-ele-path-wrapper{
+	position: absolute;
+	left: 0.4rem;
+	top: 0.2rem;
+	right: 0.3rem;
+	z-index: 2;
+	overflow: hidden;
+}
+.page-form-dashboard .res-editor-wrapper .visual-editor-iframe-wrapper{
+	position: absolute;
+    left: 0;
+    top: 1.3rem;
+    right: 0;
+    bottom: 0;
+    overflow: scroll;
+}
+.page-form-dashboard .res-editor-wrapper .visual-editor-iframe{
+	position: absolute;
+    left: 0.3rem;
+    top: 0.3rem;
+    width: 80%;
+    height: 80%;
+    border-width: 0;
+    background: #FFF;
+}
+.page-form-dashboard .p-menubar.ve-menubar .p-menuitem-link{
+	padding-top: 0.6rem;
+	padding-bottom: 0.6rem;
+}
+.page-form-dashboard .p-menubar.ve-menubar .p-submenu-list > .p-menuitem-active > .p-submenu-list{
+	top: -430%;
+}
+.dashboard-select-chart-wrapper > .p-dialog-header .p-dialog-header-icons{
+	display: none;
+}
+.dashboard-select-chart-wrapper > .p-dialog-header .dialog-btns{
+	display: block;
+}
+.dashboard-select-global-res-wrapper > .p-dialog-header .p-dialog-header-icons{
+	display: none;
+}
+.dashboard-select-global-res-wrapper > .p-dialog-header .dialog-btns{
+	display: block;
+}
+.dashboard-ve-style-panel .page-form .page-form-content{
+	max-height: unset;
+}
+.dashboard-ve-style-panel .ve-style-tabpanel-content{
+	width: 36vw;
+	/*对话框高度 - 表单foot高度 - 对话框header高度 - 选项卡条高度*/
+	height: calc(90vh - 5rem - 6rem - 4rem);
+}
+.dashboard-form-chart-attr-values .chart-attr-values-form .page-form-content{
+	min-width: 40vw;
+    max-width: 60vw;
+}
+
+.current-analysis-project-wrapper .ap-name-btn{
+	min-width: 16%;
+	max-width: 60%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/*SQL工作台页*/
+.page-sqlpad .sqlpad-tabs-wrapper .p-tabview-nav > li:first-child .p-tabview-title{
+	/*加宽消息卡片宽度，便于选中*/
+	padding-left: 1em;
+	padding-right: 1em;
+}
+.page-sqlpad .sqlpad-tabs-wrapper .p-tabview-panel{
+	position: absolute;
+    top: 3rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
+}
+.page-sqlpad .sqlpad-tabs-wrapper .result-message .execution-message{
+	white-space: nowrap;
+}
+.page-sqlpad .sqlpad-tabs-wrapper .result-message .execution-message *{
+	display: inline-block;
+	white-space: nowrap;
+}
+.page-sqlpad .sqlpad-tabs-wrapper .result-message .execution-message .sql-value{
+	width: 20rem;
+	overflow: hidden;
+}

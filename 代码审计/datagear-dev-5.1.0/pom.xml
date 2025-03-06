@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.datagear</groupId>
+	<artifactId>datagear</artifactId>
+	<version>5.1.0</version>
+	<packaging>pom</packaging>
+
+	<name>datagear</name>
+	<url>http://www.datagear.tech</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<springboot.version>2.7.18</springboot.version>
+		<javax.json.version>1.1.4</javax.json.version>
+		<commons-csv.version>1.9.0</commons-csv.version>
+		<poi.version>4.1.2</poi.version>
+		<poi-ooxml.version>4.1.2</poi-ooxml.version>
+		<mybatis.version>3.3.1</mybatis.version>
+		<mybatis-spring.version>1.3.1</mybatis-spring.version>
+		<commons-fileupload.version>1.4</commons-fileupload.version>
+		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+		<maven-war-plugin.version>3.3.2</maven-war-plugin.version>
+		<maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+		<maven-antrun-plugin.version>1.4</maven-antrun-plugin.version>
+		<mysql-connector-java.version>8.0.28</mysql-connector-java.version>
+	</properties>
+	
+	<modules>
+    	<module>datagear-meta</module>
+		<module>datagear-connection</module>
+    	<module>datagear-persistence</module>
+		<module>datagear-dataexchange</module>
+		<module>datagear-management</module>
+    	<module>datagear-util</module>
+		<module>datagear-analysis</module>
+		<module>datagear-web</module>
+		<module>datagear-webapp</module>
+	</modules>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-connector-java.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-parent</artifactId>
+				<version>${springboot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${maven-jar-plugin.version}</version>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Built-By>datagear.tech</Built-By>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<!-- 统一更新子模块版本号为父模块版本号插件 -->
+			<!-- mvn -N versions:update-child-modules -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<generateBackupPoms>false</generateBackupPoms>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-antrun-plugin</artifactId>
+			    <version>${maven-antrun-plugin.version}</version>
+			    <executions>
+			    	<execution>
+			    		<id>default-cli</id>
+			    		<goals>
+			    			<goal>run</goal>
+			    		</goals>
+			    		<configuration>
+			    			<tasks>
+			    				<!-- 替换util模块Global.PRODUCT_VERSION版本号 -->
+								<replaceregexp file="datagear-util/src/main/java/org/datagear/util/Global.java" encoding="UTF-8" match="VERSION = &quot;\d+(\.\d+){1,2}(\-\w+){0,1}&quot;" replace="VERSION = &quot;${project.version}&quot;"/>
+								
+			    				<!-- 为management模块的datagear.sql添加版本号行 -->
+			    				<echo file="datagear-management/src/main/resources/org/datagear/management/ddl/datagear.sql" encoding="UTF-8" append="true">
+${line.separator}
+/*-----------------------------------------*/
+/*--version[${project.version}], DO NOT EDIT THIS LINE!*/
+/*-----------------------------------------*/
+${line.separator}
+</echo>
+								<!-- 为web模块的changelog.txt添加版本号行 -->
+			    				<echo file="datagear-web/src/main/resources/org/datagear/web/changelog.txt" encoding="UTF-8" append="true">
+${line.separator}
+-----------------------------------------
+--v${project.version}
+-----------------------------------------
+${line.separator}
+</echo>
+			    			</tasks>
+			    		</configuration>
+			    	</execution>
+			    </executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

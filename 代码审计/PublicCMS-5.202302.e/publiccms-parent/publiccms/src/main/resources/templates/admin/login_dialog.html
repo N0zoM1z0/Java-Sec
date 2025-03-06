@@ -1,0 +1,30 @@
+<form action="loginDialog?callbackType=closeCurrent" method="post" autocomplete="off" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+    <input type="hidden" name="encoding" value="sha512"/>
+    <div class="pageFormContent" layoutH>
+        <dl class="nowrap">
+            <dt><@t.page 'user.username'/>:</dt>
+            <dd><input type="text" name="username" title="<@t.page 'user.username'/>"/></dd>
+        </dl>
+        <dl class="nowrap">
+            <dt><@t.page 'password'/>:</dt>
+            <dd><input type="password" name="password" escape="true" title="<@t.page 'password'/>"/></dd>
+        </dl>
+        <@sys.configData code="safe">
+            <#if object.captcha?has_content && object.captcha?split(",")?seq_contains("management_system")>
+        <dl class="nowrap">
+            <dt><@t.page 'password'/>:</dt>
+            <dd><input type="text" name="captcha" title="<@t.page 'captcha'/>"/><label><img src="${base+adminContextPath}/getCaptchaImage?${.now?long}" alt="<@t.page 'captcha'/>" onclick="this.src=this.src+'&'+new Date().getTime()"/></label></dd>
+        </dl>
+            </#if>
+        </@sys.configData>
+    </div>
+    <div class="formBar">
+        <ul>
+            <li><button type="submit" class="buttonActive" title="ctrl+s"><@t.page 'login'/></button></li>
+            <li><button type="button" class="button close"><@t.page 'button.close'/></button></li>
+        </ul>
+    </div>
+<script>
+    $('input[name=username]')[0].focus();
+</script>
+</form>

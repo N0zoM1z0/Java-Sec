@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="<@t.page 'lang'/>">
+<head>
+    <meta charset="utf-8">
+    <title><@t.page 'file.view'/></title>
+    <style>
+.container{width:95%;}
+.row{display: flex;}
+.col-md-1{width:8.33%;}
+.col-md-2{width:16.66%;}
+.col-md-3{width:24.99%;}
+.col-md-4{width:33.32%;}
+.col-md-5{width:41.65%;}
+.col-md-6{width:50%;}
+.col-md-7{width:58.34%;}
+.col-md-8{width:66.66%;}
+.col-md-9{width:75%;}
+.col-md-10{width:83.33%;}
+.col-md-11{width:91.66%;}
+.col-md-12{width:100%;}
+    </style>
+    <script src="${base}/resource/plugins/jquery/jquery.min.js"></script>
+<script>  
+function callback(fileUrl){  
+    var parentWindow = ( window.parent == window ) ? window.opener : window.parent;  
+    parentWindow.CKEDITOR.tools.callFunction(${CKEditorFuncNum}, fileUrl);  
+    window.close();
+}
+</script>
+</head>
+<body>
+<div class="container theme-showcase" role="main">
+    <div class="page-header">
+        <h1><@t.page 'webfile'/></h1>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5"><@t.page 'file.name'/></div>
+        <div class="col-md-2"><@t.page 'modified_date'/></div>
+        <div class="col-md-2"><@t.page 'create_date'/></div>
+        <div class="col-md-2"><@t.page 'file.size'/></div>
+    </div>
+<#if path?has_content>
+    <div class="row">
+        <div class="col-md-1">
+            [<@t.page 'directory'/>]
+        </div>
+        <div class="col-md-5">
+            <a href="?path=${path?keep_before_last('/')}&CKEditorFuncNum=${CKEditorFuncNum!}&type=${type!}" target="_self"><@t.page 'button.return'/></a>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+</#if>
+<#assign
+    imageSuffix=["png","gif","jpg","jpeg","bmp"]
+    flashSuffix=["swf","fla"]
+/>
+<@tools.fileList type='file' path=path>
+    <#list list as a>
+    <div class="row">
+        <#assign filePath=path?has_content?then(path+'/','/')+a.fileName/>
+        <div class="col-md-1">
+            <#if a.directory>[<@t.page 'directory'/>]</#if>
+        </div>
+        <div class="col-md-5">
+            <#if a.directory>
+                <a href="?path=${filePath}&CKEditorFuncNum=${CKEditorFuncNum!}&type=${type!}" target="_self">${a.fileName}</a>
+            <#else>
+                <#if 'image'=type&&imageSuffix?seq_contains(a.fileName?keep_after_last('.'))||'flash'=type&&flashSuffix?seq_contains(a.fileName?keep_after_last('.'))>
+                    <a href="javascript:callback('${site.sitePath+filePath}');">${a.fileName}</a>
+                <#else>
+                    ${a.fileName}
+                </#if>
+            </#if>
+        </div>
+        <div class="col-md-2">
+            ${a.lastModifiedTime?date}
+        </div>
+        <div class="col-md-2">
+            ${a.creationTime?date}
+        </div>
+        <div class="col-md-2">
+            <@t.fileSize a.size/>
+        </div>
+    </div>
+    </#list>
+</@tools.fileList>
+</div>
+</body>
+</html>

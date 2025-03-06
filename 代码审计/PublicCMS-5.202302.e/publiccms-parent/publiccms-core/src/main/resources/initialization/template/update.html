@@ -1,0 +1,10 @@
+<#if message?has_content&&'success'=message>
+    <h3>The database upgrade is complete</h3>
+    <p style="color:#FF0000">Congratulations, PublicCMS has been installed,<a href="../">click here to go to the home page</a></p>
+<#else>
+    <h3>Database upgrade failed</h3>
+    <p class="error">${error!}</p>
+    <p><a href="./">Reconfigure</a></p>
+</#if>
+<p>Upgrade logs:</p>
+<p><textarea rows="20" style="width:100%">${history!}</textarea></p>

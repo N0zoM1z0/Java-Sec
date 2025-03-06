@@ -1,0 +1,15 @@
+configurations {
+    instrumentedJars {
+        extendsFrom implementation
+    }
+}
+dependencies {
+    implementation project(path:':publiccms-core', configuration: 'instrumentedJars')
+    implementation project(':publiccms-core')
+
+    // https://mvnrepository.com/artifact/com.alipay.sdk/alipay-easysdk
+    implementation "com.alipay.sdk:alipay-easysdk:2.2.2"
+    // https://mvnrepository.com/artifact/com.github.wechatpay-apiv3/wechatpay-apache-httpclient
+    implementation "com.github.wechatpay-apiv3:wechatpay-apache-httpclient:0.4.9"
+    runtimeOnly "jakarta.servlet:jakarta.servlet-api:${servletVersion}"
+}

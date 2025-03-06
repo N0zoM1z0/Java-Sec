@@ -1,0 +1,164 @@
+<a class="button float" href="report/user.html" target="navTab" rel="report/user"><i class="icon-refresh"></i><@t.page 'button.refresh'/></a>
+<div class="pageFormContent" layoutH>
+    <fieldset>
+        <legend><@t.page 'report.user'/></legend>
+        <div class="unit clearfix">
+            <div id="register" class="chart" data-id="registerChart" style="width:50%;"></div>
+            <div id="login" class="chart" data-id="loginChart" style="width:50%;"></div>
+            <div id="operate" class="chart" data-id="operateChart" style="width:50%;"></div>
+            <div id="userComment" class="chart" data-id="userCommentChart" style="width:50%;"></div>
+         </div>
+    </fieldset>
+</div>
+<script>
+registerChart=echarts.init(document.getElementById("register"));
+registerChart.setOption({
+    title: {
+        text: "<@t.page 'register'/>",
+        subtext: "<@t.page 'total'/>:<@sys.userList pageSize=0>${page.totalCount}</@sys.userList>",
+        x:"center"
+    },
+    tooltip : {
+        trigger: "axis"
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    grid: {
+        left: "3%",
+        right: "4%",
+        bottom: "3%",
+        containLabel: true
+    },
+    xAxis: {
+        type: "category",
+        boundaryGap: false,
+        data: [<#list 30..0 as a>"${(.now?long-a*86400000)?number_to_date?string('MM-dd')}"<#sep>,</#list>]
+    },
+    yAxis: {
+        type: "value"
+    },
+    series: [
+    {
+           name:"<@t.page 'register'/>",
+           type:"line",
+           smooth: true,
+           data:[<#list 30..0 as a><@sys.userList startRegisteredDate=(.now?long-a*86400000)?number_to_date?string endRegisteredDate=(.now?long-(a-1)*86400000)?number_to_date?string>${page.totalCount}</@sys.userList><#sep>,</#list>],
+           areaStyle: {}
+       }]
+});
+loginChart=echarts.init(document.getElementById("login"));
+loginChart.setOption({
+    title: {
+        text: "<@t.page 'login'/>",
+        x:"center"
+    },
+    tooltip : {
+        trigger: "axis"
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    grid: {
+        left: "3%",
+        right: "4%",
+        bottom: "3%",
+        containLabel: true
+    },
+    xAxis: {
+        type: "category",
+        boundaryGap: false,
+        data: [<#list 30..0 as a>"${(.now?long-a*86400000)?number_to_date?string('MM-dd')}"<#sep>,</#list>]
+    },
+    yAxis: {
+        type: "value"
+    },
+    series: [
+    {
+        name:"<@t.page 'login'/>",
+        type:"line",
+        smooth: true,
+        data:[<#list 30..0 as a><@log.loginList startCreateDate=(.now?long-a*86400000)?number_to_date?string endCreateDate=(.now?long-(a-1)*86400000)?number_to_date?string>${page.totalCount}</@log.loginList><#sep>,</#list>],
+        areaStyle: {}
+    }]
+});
+operateChart=echarts.init(document.getElementById("operate"));
+operateChart.setOption({
+    title: {
+        text: "<@t.page 'operate'/>",
+        x:"center"
+    },
+    tooltip : {
+        trigger: "axis"
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    grid: {
+        left: "3%",
+        right: "4%",
+        bottom: "3%",
+        containLabel: true
+    },
+    xAxis: {
+        type: "category",
+        boundaryGap: false,
+        data: [<#list 30..0 as a>"${(.now?long-a*86400000)?number_to_date?string('MM-dd')}"<#sep>,</#list>]
+    },
+    yAxis: {
+        type: "value"
+    },
+    series: [
+    {
+        name:"<@t.page 'operate'/>",
+        type:"line",
+        smooth: true,
+        data:[<#list 30..0 as a><@log.operateList channel='web_manager' startCreateDate=(.now?long-a*86400000)?number_to_date?string endCreateDate=(.now?long-(a-1)*86400000)?number_to_date?string>${page.totalCount}</@log.operateList><#sep>,</#list>],
+        areaStyle: {}
+    }]
+});
+userCommentChart=echarts.init(document.getElementById("userComment"));
+userCommentChart.setOption({
+    title: {
+        text: "<@t.page 'comment'/>",
+        subtext: "<@t.page 'total'/>:<@cms.commentList pageSize=0>${page.totalCount}</@cms.commentList>",
+        x:"center"
+    },
+    tooltip : {
+        trigger: "axis"
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    grid: {
+        left: "3%",
+        right: "4%",
+        bottom: "3%",
+        containLabel: true
+    },
+    xAxis: {
+        type: "category",
+        boundaryGap: false,
+        data: [<#list 30..0 as a>"${(.now?long-a*86400000)?number_to_date?string('MM-dd')}"<#sep>,</#list>]
+    },
+    yAxis: {
+        type: "value"
+    },
+    series: [
+    {
+        name:"<@t.page 'operate'/>",
+        type:"line",
+        smooth: true,
+        data:[<#list 30..0 as a><@log.operateList operate='save.cmsComment' startCreateDate=(.now?long-a*86400000)?number_to_date?string endCreateDate=(.now?long-(a-1)*86400000)?number_to_date?string>${page.totalCount}</@log.operateList><#sep>,</#list>],
+        areaStyle: {}
+    }]
+});
+</script>

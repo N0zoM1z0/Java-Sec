@@ -1,0 +1,11 @@
+<#if message?has_content&&'success'=message>
+    <h3>The database is initialized</h3>
+    <p style="color:#FF0000">Congratulations, PublicCMS has been installed,<a href="../">click here to go to the home page</a></p>
+<#else>
+    <h3>Database initialization failed</h3>
+    <p class="error">${error!}</p>
+    <p><a href="./">Reconfigure</a></p>
+    <div>
+        <pre>${history!}</pre>
+    </div>
+</#if>

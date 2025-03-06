@@ -1,0 +1,47 @@
+<#macro pageTree filepath=''>
+    <@tools.fileList path=filepath>
+        <#list list as a>
+            <@t.merge 'pages' filepath+'/'+a.fileName/>
+            <#if !a.directory><@t.merge 'paths' filepath+'/'+a.fileName/></#if>
+        </#list>
+        <@sys.lock userId=admin.id itemType='page' itemIds=t.paths><#assign lockMap=map!/></@sys.lock>
+        <#if lockMap?has_content>
+            <#list lockMap as k,lock>
+                <#if lock.userId?has_content><@t.merge 'userIds' lock.userId/></#if>
+            </#list>
+        </#if>
+        <@sys.deptItem itemType='page' deptId=admin.deptId!'' itemIds=t.pages!><#assign deptPageMap=map!/></@sys.deptItem>
+        <@sys.user ids=t.userIds!><#assign userMap=map!/></@sys.user>
+        <#list list as a>
+            <#local path=filepath+'/'+a.fileName>
+            <#if (deptPageMap[path])?has_content&&deptPageMap[path]>
+                <li>
+                <#if a.directory>
+                    <a href="javascript:;" onclick="return false;"<#if lockMap?has_content && lockMap[path]?has_content><#assign lockUser=(userMap[lockMap[path].userId?string].nickname)!''/> title="<@t.page 'lock.message' lockUser/> ${lockMap[path].createDate}"</#if>><#if lockMap[path]?has_content><i class="icon-lock icon-large"></i></#if>${a.fileName}</a>
+                    <ul><@pageTree path/></ul>
+                <#else>
+                    <a href="cmsPage/metadata.html?path=${(path?url)!}" target="ajax" rel="pageBox">
+                        <@tools.metadata path=path>
+                            ${(object.alias)?has_content?then(object.alias+' ('+a.fileName+')',a.fileName)}
+                        </@tools.metadata>
+                    </a>
+                </#if>
+                </li>
+            </#if>
+        <#else>
+            <li><a><@t.page 'empty_directory'/></a></li>
+        </#list>
+    </@tools.fileList>
+</#macro>
+<div class="pageContent">
+    <div class="leftPageContent">
+        <ul class="tree treeFolder" layoutH>
+            <@pageTree/>
+        </ul>
+    </div>
+    <div id="pageBox" class="unitBox rightPageContent">
+        <#if path?has_content>
+            <#include "metadata.html"/>
+        </#if>
+    </div>
+</div>

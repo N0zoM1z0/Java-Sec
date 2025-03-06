@@ -1,0 +1,62 @@
+<@cms.userSurveyList userId=userId surveyId=surveyId orderField=orderField orderType=orderType pageIndex=pageNum pageSize=numPerPage>
+<div class="pageHeader card">
+    <form class="pagerForm" action="cmsUserSurvey/list.html" autocomplete="off" onsubmit="return navTabSearch(this);" method="post">
+        <#include "../include_page/parameters.html"/>
+        <input type="hidden" name="surveyId" value="${surveyId!}"/>
+        <div class="searchBar">
+            <ul class="searchContent">
+                <li>
+                    <label><@t.page 'survey'/>:</label>
+                    <label><@cms.survey id=surveyId>${object.title!}</@cms.survey></label>
+                </li>
+                <li>
+                    <label><@t.page 'content.promulgator'/>:</label>
+                    <#include "../include_page/userId.html"/>
+                </li>
+            </ul>
+            <div class="subBar">
+                <ul>
+                    <li>
+                        <button type="submit" class="buttonActive"><@t.page 'button.search'/></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="card">
+    <table class="table" width="100%" layoutH orderField="${orderField!}" orderType="${orderType!}">
+        <thead>
+            <tr>
+                <th><@t.page 'survey'/></th>
+                <th><@t.page 'user'/></th>
+                <th orderField="score"><@t.page 'content.score'/></th>
+                <th orderField="createDate"><@t.page 'create_date'/></th>
+                <th><@t.page 'operate'/></th>
+            </tr>
+        </thead>
+        <tbody>
+            <#list page.list as a>
+                <@t.merge 'surveyIds' a.id.surveyId!/>
+                <@t.merge 'userIds' a.id.userId!/>
+            </#list>
+
+            <@cms.survey ids=t.surveyIds!><#assign surveyMap=map!/></@cms.survey>
+            <@sys.user ids=t.userIds!><#assign userMap=map!/></@sys.user>
+        
+            <#list page.list as a>
+            <tr>
+                <td><a href="cmsSurvey/view.html?id=${a.id.surveyId}" class="exclude-translate" target="dialog" rel="viewSurvey${a.id.surveyId}">${(surveyMap[a.id.surveyId?string].title)!}</a></td>
+                <td class="exclude-translate">${(userMap[a.id.userId?string].nickname)!}</td>
+                <td>${a.score!}</td>
+                <td>${a.createDate!}</td>
+                <td>
+                    <a href="cmsUserSurvey/add.html?userId=${a.id.userId}&surveyId=${a.id.surveyId!}" class="edit btnText blue" target="navTab" rel="cmsuserSurvey/edit"><i class="icon-eye-open"></i><@t.page 'button.view'/></a>
+                </td>
+            </tr>
+            </#list>
+        </tbody>
+    </table>
+    <#include "../include_page/page.html"/>
+</div>
+</@cms.userSurveyList>

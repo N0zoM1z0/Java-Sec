@@ -1,0 +1,104 @@
+<@tools.diyMetadata itemType='module' itemId=id><#assign a=object/></@tools.diyMetadata>
+<form method="post" action="cmsDiy/saveModule?navTabId=cmsDiy/list" autocomplete="off" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+    <input type="hidden" name="_csrf" value="<@tools.csrfToken admin=true/>"/>
+    <div class="formBar card">
+        <ul>
+        <#if a?has_content>
+             <li><a class="button" href="cmsDiy/delete?itemType=module&id=${(id?url)!}&navTabId=cmsDiy/list&_csrf=<@tools.csrfToken admin=true/>" title="<@t.page 'confirm.delete'/>" target="ajaxTodo"><i class="icon-trash icon-large"></i><@t.page 'button.delete'/></a></li>
+        </#if>
+            <li><button type="submit" class="buttonActive" title="ctrl+s"<#if id?has_content> lock-url="common/lock?itemType=module&itemId=${(id?url)!}" close-url="common/unlock?itemType=module&itemId=${(id?url)!}"</#if>><@t.page 'button.save'/></button></li>
+        </ul>
+    </div>
+    <div class="card">
+        <div class="pageFormContent" layoutH>
+            <dl class="nowrap">
+                <dt><@t.page 'id'/>:</dt></dt>
+                <dd>
+                    <input name="id" class="required" type="text" size="50" value="${(a.id)!getUUID()}"/>
+                </dd>
+            </dl>
+            <dl class="nowrap">
+                <dt><@t.page 'region'/>:</dt></dt>
+                <dd>
+                    <select name="region" class="combox">
+                        <option value><@t.page 'all'/></option>
+                 <@tools.diyMetadataList itemType="region">
+                    <#list list as r>
+                        <option value="${(r.id)!}"<#if (a.region)?has_content&&a.region=r.id> selected="selected"</#if>>${r.name!}</option>
+                    </#list>
+                </@tools.diyMetadataList>
+                    </select>
+                </dd>
+            </dl>
+            <dl class="nowrap">
+                <dt><@t.page 'name'/>:</dt></dt>
+                <dd>
+                    <input name="name" class="required" type="text" maxlength="40" size="20" value="${(a.name)!}"/>
+                </dd>
+            </dl>
+            <dl class="nowrap">
+                <dt><@t.page 'cover'/>:</dt>
+                <dd>
+                    <input name="cover" value="${(a.cover)!}" maxlength="300" size="50" type="text"/>
+                    <a class="btnAttach" href="common/upload.html?field=cover&fileTypes=image" lookupGroup="" width="1000" height="600"><@t.page 'cover'/></a>
+                    <a class="view icon-eye-open" ref="cover" data-prefix="${site.sitePath}" href="javascript:void(0);" target="_blank"><@t.page 'button.view'/></a>
+                    <#include "../include_page/preview.html"/>
+                    <@preview 'module' 'input[name=cover]'/>
+                </dd>
+            </dl>
+            <dl class="nowrap">
+                <dt><@t.page 'place'/>:</dt></dt>
+                <dd>
+                    <input name="place" type="text" maxlength="255" size="50" value="${(a.place)!}" class="required"/>
+                    <a class="btnLook" href="placeTemplate/lookupPlace.html?field=place" lookupGroup=""><@t.page 'template.select'/></a>
+                    <label><input name="clone" type="checkbox"/><@t.page 'button.copy'/></label>
+                </dd>
+            </dl>
+            <dl class="nowrap clone hide">
+                <dt><@t.page 'file_path'/>:</dt></dt>
+                <dd>
+                    <input name="filePath" type="text" maxlength="255" size="50" value="${(a.filePath)!r"/${(category.code)!'diy'}/${getUUID()}.html"}"/>
+                </dd>
+            </dl>
+            <dl class="nowrap">
+                <dt><@t.page 'template.fragment'/>:</dt></dt>
+                <dd>
+                    <input name="fragment" type="text" maxlength="255" size="50" value="${(a.fragment)!}" class="required"/>
+                    <a class="btnLook" href="cmsTemplate/lookup.htmlPlace?field=fragment" lookupGroup=""><@t.page 'template.select'/></a>
+                </dd>
+            </dl>
+            <script>
+            $('input[name=place]',navTab.getCurrentPanel()).change(function(){
+                if($(this).val()){
+                    $('input[name=fragment]',navTab.getCurrentPanel()).removeClass("required").parent().parent().hide();
+                } else {
+                    $('input[name=fragment]',navTab.getCurrentPanel()).addClass("required").parent().parent().show();
+                }
+            });
+            $('input[name=fragment]',navTab.getCurrentPanel()).change(function(){
+                if($(this).val()){
+                    $('input[name=place]',navTab.getCurrentPanel()).removeClass("required").parent().parent().hide();
+                    $('.clone',navTab.getCurrentPanel()).addClass("hide");
+                } else {
+                    $('input[name=place]',navTab.getCurrentPanel()).addClass("required").parent().parent().show();
+                    $('.clone',navTab.getCurrentPanel()).removeClass("hide");
+                }
+            });
+            <#if (a.place)?has_content>$('input[name=place]',navTab.getCurrentPanel()).trigger("change");</#if>
+            <#if (a.fragment)?has_content>$('input[name=fragment]',navTab.getCurrentPanel()).trigger("change");</#if>
+            $('input[name=clone]',navTab.getCurrentPanel()).click(function(){
+                if($(this).is(':checked')) {
+                    $('.clone',navTab.getCurrentPanel()).show();
+                    $('.clone input[type=text]',navTab.getCurrentPanel()).addClass('required');
+                } else {
+                    $('.clone',navTab.getCurrentPanel()).hide();
+                    $('.clone input[type=text]',navTab.getCurrentPanel()).removeClass('required');
+                }
+            });
+            <#if (a.clone)?has_content && a.clone>
+                $('input[name=clone]',navTab.getCurrentPanel()).click();
+            </#if>
+            </script>
+        </div>
+    </div>
+</form>

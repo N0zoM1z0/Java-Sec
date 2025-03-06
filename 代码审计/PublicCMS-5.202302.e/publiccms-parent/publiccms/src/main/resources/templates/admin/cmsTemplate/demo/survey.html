@@ -1,0 +1,128 @@
+<@cms.survey id=id;survey>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>${survey.title!}</title>
+    <meta name="description" content="${survey.description!}"/>
+</head>
+<body>
+    <header data-diy="page">
+        <h1>${(site.name)!}</h1>
+    </header>
+    <nav data-diy="category">
+        <a href="${site.dynamicPath}">Home</a>
+<@cms.categoryList>
+    <#list page.list as a>
+        <a href="${a.url!}" target="_blank" data-diy-item="${a.id}">${a.name}</a>
+    </#list>
+</@cms.categoryList>
+    </nav>
+    <main>
+        <h1>${survey.title!}</h1>
+        <p>${survey.description!}</p>
+        <p>started on ${survey.startDate!},end on:${(survey.endDate)!}</p>
+        <#assign available=false/>
+        <#if survey.startDate lt .now && .now lt survey.endDate>
+            <#assign available=true/>
+        </#if>
+        <p>server time : ${.now} <#if available>working</#if></p>
+        <#macro message code>${springMacroRequestContext.getMessage(code)}</#macro>
+        <#if user?has_content>
+            <@cms.userSurvey userId=user.id surveyId=survey.id>
+                <#assign available=false/>
+                <p>You have already participated!</p>
+            </@cms.userSurvey>
+        <#else>
+            <#assign available=false/>
+            <p>Please <a href="${site.dynamicPath}login.html?returnUrl=${(site.dynamicPath+'survey.html?id='+survey.id)?url}">login</a></p>
+        </#if>
+        <form action="${site.dynamicPath}survey/save" method="POST">
+            <input name="_csrf" type="hidden" value="<@tools.csrfToken/>"/>
+            <input name="surveyId" type="hidden" value="${survey.id}"/>
+            <input name="returnUrl" type="hidden" value="${site.dynamicPath}survey.html?id=${survey.id}"/>
+            <ul>
+        <@cms.surveyQuestionList surveyId=survey.id pageSize=500>
+            <#list page.list as a>
+                <li>
+                    <h3>[<@message 'page.question.type.'+a.questionType/>] ${a.title!} <#if 'exam'=survey.surveyType>(${a.score!})</#if></h3>
+                <#if a.cover?has_content>
+                    <p>
+                        <img src="${(a.cover)!}" alt="${a.title!}"/>
+                    </p>
+                </#if>
+                    <p>
+                        <input name="answerList[${a?index}].id.questionId" type="hidden" value="${a.id}">
+                    <#switch a.questionType>
+                        <#case 'radio'>
+                            <@cms.surveyQuestionItemList questionId=a.id pageSize=500>
+                                <#list page.list as i>
+                                    <label><input name="answerList[${a?index}].answer" type="radio" value="${i.id}"<#if a?is_first> required="required"</#if><#if !available> disabled="true"</#if>/>${i.title}</label>
+                                </#list>
+                            </@cms.surveyQuestionItemList>
+                        <#break>
+                        <#case 'select'>
+                            <@cms.surveyQuestionItemList questionId=a.id pageSize=500>
+                                <select name="answerList[${a?index}].answer"<#if !available> disabled="true"</#if>>
+                                    <#list page.list as i>
+                                        <option value="${i.id}">${i.title}</option>
+                                    </#list>
+                                </select>
+                            </@cms.surveyQuestionItemList>
+                        <#break>
+                        <#case 'checkbox'>
+                            <@cms.surveyQuestionItemList questionId=a.id pageSize=500>
+                                <#list page.list as i>
+                                    <label><input name="answerList[${a?index}].answer" type="checkbox" value="${i.id}"<#if !available> disabled="true"</#if>/>${i.title}</label>
+                                </#list>
+                            </@cms.surveyQuestionItemList>
+                        <#break>
+                        <#case 'text'>
+                            <textarea name="answerList[${a?index}].answer" maxlength="150" cols="80" rows="4" required="required"<#if !available> disabled="true"</#if>></textarea>
+                        <#break>
+                        <#case 'file'>
+                            <input name="answerList[${a?index}].answer" type="text" maxlength="150" required="required" placeholder="file URL"<#if !available> disabled="true"</#if>/>
+                        <#break>
+                        <#case 'picture'>
+                            <input name="answerList[${a?index}].answer" type="text" maxlength="150" required="required" placeholder="picture URL"<#if !available> disabled="true"</#if>/>
+                        <#break>
+                    </#switch>
+                    </p>
+                </li>
+            </#list>
+        </@cms.surveyQuestionList>
+            </ul>
+        <#if available>
+            <@sys.configData code="safe">
+                <#if object.captcha?has_content && object.captcha?split(",")?seq_contains("survey")>
+            <p>
+                <input name="captcha" type="text" autocomplete="off" placeholder="Captcha" title="Captcha"/>
+                <img src="${site.dynamicPath}getCaptchaImage?${.now?long}" alt="captcha" onclick="this.src=this.src+'&'+new Date().getTime()"/>
+            </p>
+                </#if>
+            </@sys.configData>
+        </#if>
+            <p><input type="submit" value="Submit"<#if !available> disabled="true"</#if>/></p>
+        </form>
+    </main>
+    <footer>
+        Copyright &copy; ${.now?string('yyyy')}
+    </footer>
+    <script>
+    var itemString="itemType=survey&itemId=${survey.id}";
+    var templatePath='${.current_template_name?keep_after('/')}';
+    </script>
+    <script src="${site.dynamicPath}resource/js/cms.support.js"></script>
+    <script>
+        var ca = cmsAnalytics();
+        var url='${site.dynamicPath}api/visit/record';
+        if("string" ==typeof itemString){
+            url=url+"?"+itemString;
+        }
+        ca.setDomain('${site.sitePath?keep_after('//')?keep_before('/')?keep_before(':')}');
+        ca.setPath('/');
+        ca.report(url);
+    </script>
+</body>
+</html>
+</@cms.survey>

@@ -1,0 +1,8 @@
+<#if message?has_content&&'success'=message>
+    <h3>Database configuration</h3>
+    <#include "install_form.html"/>
+<#else>
+    <h3>Data misconfiguration</h3>
+    <p class="error">${error!}</p>
+    <p><a href="./">Reconfigure</a></p>
+</#if>

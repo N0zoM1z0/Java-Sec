@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<title>看板</title>
+<script type="text/javascript">
+var dashboardRenderer =
+{
+	render : function(dashboard)
+	{
+		for(var i=0; i<dashboard.charts.length; i++)
+		{
+			var chart = dashboard.charts[i];
+			chart.plugin.chartRenderer.render(chart);
+		}
+	}
+};
+</script>
+</head>
+<body class="dg-dashboard">
+	<div class="dg-chart" dg-chart-widget="chart-widget-01"></div>
+	
+	<div id="element_1" class="dg-chart" dg-chart-widget="chart-widget-01"  ></div>
+	
+	<div class="dg-chart" dg-chart-widget="chart-widget-03"></div>
+	
+	<div  id="element_2"  class="dg-chart"  dg-chart-widget="chart-widget-01" ></div>
+	
+	<div  class="dg-chart"  dg-chart-widget="chart-widget-05"></div>
+	
+	<div class="dg-chart" dg-chart-widget="chart-widget-01"></div>
+</body>
+</html>

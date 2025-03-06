@@ -1,0 +1,48 @@
+<@log.operate id=id>
+    <#assign a=object/>
+    <@sys.user id=a.userId><#assign u=object/></@sys.user>
+    <@sys.dept id=a.deptId><#assign dept=object/></@sys.dept>
+</@log.operate>
+<div class="pageFormContent" layoutH>
+    <dl>
+        <dt><@t.page 'user.id'/>:</dt>
+        <dd>
+            ${(a.userId)!}
+        </dd>
+    </dl>
+    <dl>
+        <dt><@t.page 'user.nickname'/>:</dt>
+        <dd>
+            ${(u.nickname)!}
+        </dd>
+    </dl>
+    <dl>
+        <dt><@t.page 'dept'/>:</dt>
+        <dd>
+            ${(dept.name)!}
+        </dd>
+    </dl>
+    <dl>
+        <dt><@t.page 'operate'/>:</dt>
+        <dd>
+            <@t.message 'operate.'+a.operate/>
+        </dd>
+    </dl>
+    <dl>
+        <dt><@t.page 'log.create_date'/>:</dt>
+        <dd>
+            ${(a.createDate)!}
+        </dd>
+    </dl>
+    <dl class="nowrap">
+        <dt><@t.page 'log.content'/>:</dt>
+        <dd>
+            <textarea name="content" cols="80" rows="20">${(a.content)!}</textarea>
+        </dd>
+    </dl>
+</div>
+<div class="formBar">
+    <ul>
+        <li><button type="button" class="button close"><@t.page 'button.close'/></button></li>
+    </ul>
+</div>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.datagear.management.domain.Authorization">
+
+	<insert id="insert">
+		INSERT INTO DATAGEAR_AUTHORIZATION
+			(
+			AUTH_ID, AUTH_RESOURCE, AUTH_RESOURCE_TYPE, AUTH_PRINCIPAL, AUTH_PRINCIPAL_TYPE,
+			AUTH_PERMISSION, AUTH_ENABLED
+			)
+		VALUES
+			(
+			#{entity.id}, #{entity.resource}, #{entity.resourceType}, #{entity.principal}, #{entity.principalType},
+			#{entity.permission}, #{entity.enabled, jdbcType=VARCHAR}
+			)
+	</insert>
+	
+	<update id="update">
+		UPDATE DATAGEAR_AUTHORIZATION SET
+			AUTH_RESOURCE = #{entity.resource},
+			AUTH_RESOURCE_TYPE = #{entity.resourceType},
+			AUTH_PRINCIPAL = #{entity.principal},
+			AUTH_PRINCIPAL_TYPE = #{entity.principalType},
+			AUTH_PERMISSION = #{entity.permission},
+			AUTH_ENABLED = #{entity.enabled, jdbcType=VARCHAR}
+		WHERE
+			AUTH_ID = #{entity.id}
+	</update>
+	
+	<delete id="deleteById">
+		DELETE FROM DATAGEAR_AUTHORIZATION
+		WHERE
+			AUTH_ID = #{id}
+	</delete>
+	
+	<delete id="deleteByIdsForResource">
+		DELETE FROM DATAGEAR_AUTHORIZATION
+		WHERE
+			AUTH_RESOURCE_TYPE = #{resourceType}
+			AND AUTH_RESOURCE = #{resource}
+			AND
+			(
+				<foreach item="id" collection="ids" separator=" OR ">AUTH_ID = #{id}</foreach>
+			)
+	</delete>
+	
+	<delete id="deleteByResource">
+		DELETE FROM DATAGEAR_AUTHORIZATION
+		WHERE
+			AUTH_RESOURCE_TYPE = #{resourceType}
+			AND
+			(
+				<foreach item="item" collection="resources" separator=" OR ">AUTH_RESOURCE = #{item}</foreach>
+			)
+	</delete>
+	
+	<select id="getById" resultType="org.datagear.management.domain.Authorization">
+		SELECT
+			T.*
+		FROM
+			(<include refid="queryView" />) T
+		WHERE
+			T.${_iq_}id${_iq_} = #{id}
+	</select>
+	
+	<select id="query" resultType="org.datagear.management.domain.Authorization">
+		SELECT
+			T.*
+		FROM
+			(<include refid="queryView" />) T
+		WHERE
+			<include refid="queryCondition" />
+		<include refid="common.queryOrder" />
+	</select>
+	
+	<select id="pagingQueryCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			(<include refid="queryView" />) T
+		WHERE
+			<include refid="queryCondition" />
+	</select>
+	
+	<select id="pagingQuery" resultType="org.datagear.management.domain.Authorization">
+		<include refid="common.pagingQueryHead" />
+			SELECT
+				T.*
+			FROM
+				(<include refid="queryView" />) T
+			WHERE
+				<include refid="queryCondition" />
+			<include refid="common.queryOrder" />
+		<include refid="common.pagingQueryFoot" />
+	</select>
+	
+	<sql id="queryView">
+		SELECT
+			A.AUTH_ID AS ${_iq_}id${_iq_},
+			A.AUTH_RESOURCE AS ${_iq_}resource${_iq_},
+			A.AUTH_RESOURCE_TYPE AS ${_iq_}resourceType${_iq_},
+			A.AUTH_PRINCIPAL AS ${_iq_}principal${_iq_},
+			A.AUTH_PRINCIPAL_TYPE AS ${_iq_}principalType${_iq_},
+			A.AUTH_PERMISSION AS ${_iq_}permission${_iq_},
+			A.AUTH_ENABLED AS ${_iq_}enabled${_iq_},
+			A.AUTH_CREATE_TIME AS ${_iq_}createTime${_iq_},
+			(
+				CASE A.AUTH_PRINCIPAL_TYPE
+					WHEN 'ALL' THEN '${queryContext.principalAllLabel}'
+					WHEN 'ANONYMOUS' THEN '${queryContext.principalAnonymousLabel}'
+					WHEN 'ROLE' THEN C.ROLE_NAME
+					WHEN 'USER' THEN D.USER_NAME
+					ELSE A.AUTH_PRINCIPAL
+				END
+			) AS ${_iq_}principalName${_iq_},
+			<choose><when test="queryContext.permissionLabels != null">
+			(
+				CASE A.AUTH_PERMISSION
+					<foreach collection="queryContext.permissionLabels" item="item">
+					WHEN ${item.value} THEN '${item.label}'
+					</foreach>
+					ELSE ''
+				END
+			)
+			</when><otherwise>
+			A.AUTH_PERMISSION
+			</otherwise></choose>
+			 AS ${_iq_}permissionLabel${_iq_}
+		FROM
+			DATAGEAR_AUTHORIZATION A
+		LEFT JOIN
+			DATAGEAR_ROLE C
+		ON
+			A.AUTH_PRINCIPAL_TYPE = 'ROLE' AND A.AUTH_PRINCIPAL = C.ROLE_ID
+		LEFT JOIN
+			DATAGEAR_USER D
+		ON
+			A.AUTH_PRINCIPAL_TYPE = 'USER' AND A.AUTH_PRINCIPAL = D.USER_ID
+		WHERE
+			1 = 1
+		<if test="queryContext.resourceType != null">
+		AND A.AUTH_RESOURCE_TYPE = '${queryContext.resourceType}'
+		</if>
+		<if test="queryContext.resource != null">
+		AND A.AUTH_RESOURCE = '${queryContext.resource}'
+		</if>
+	</sql>
+	
+	<sql id="queryCondition">
+		1 = 1
+		<choose><when test="queryContext.resource != null">
+			<if test="queryKeyword != null">
+			AND  ${_iq_}principalName${_iq_} LIKE #{queryKeyword}
+			</if>
+		</when><otherwise>
+			<if test="queryKeyword != null">
+			AND
+			(
+				${_iq_}resource${_iq_} LIKE #{queryKeyword} OR ${_iq_}principalName${_iq_} LIKE #{queryKeyword}
+			)
+			</if>
+		</otherwise></choose>
+	</sql>
+</mapper>

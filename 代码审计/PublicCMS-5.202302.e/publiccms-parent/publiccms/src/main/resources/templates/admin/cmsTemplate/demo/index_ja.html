@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>${metadata.alias!}</title>
+    <style>
+        nav a.selected{border-bottom:1px solid #f099f0;}
+    </style>
+</head>
+<body>
+    <header data-diy="page">
+        <h1>${(site.name)!}</h1>
+    </header>
+    <nav data-diy="category">
+        <a href="${site.useStatic?then(site.sitePath,site.dynamicPath)}" data-id="home">ホームページ</a>
+<@cms.categoryList>
+    <#list page.list as a>
+        <a href="${a.url!}" target="_blank" data-id="${a.id}" data-diy-item="${a.id}">${a.name}</a>
+    </#list>
+</@cms.categoryList>
+    </nav>
+    <main>
+        <h2>最新のコンテンツ</h2>
+        <div class="content">
+<@cms.contentList onlyUrl=false pageSize=10>
+    <#list page.list as a>
+        <article>
+            <h3><a href="${a.url!}" target="_blank">${a.title}</a></h3>
+            <p>
+                <#if a.cover?has_content><img src="${a.cover}" alt="${a.title}"/></#if>
+                ${a.description!}
+            </p>
+        </article>
+    </#list>
+</@cms.contentList>
+        </div>
+        <aside data-diy="content">
+            <h3>人気のコンテンツ</h3>
+            <ul>
+<@cms.contentList orderField='clicks' pageSize=10>
+    <#list page.list as a>
+                <li data-diy-item="${a.id}"><a href="<#if a.onlyUrl>${site.dynamicPath}content/redirect?id=${a.id}<#else>${a.url!}</#if>" target="_blank">${a.title}</a><span>${a.clicks}</span></li>
+    </#list>
+</@cms.contentList>
+            </ul>
+        </aside>
+    </main>
+    <footer>
+        <#if base??>
+            <a href="?locale=zh_CN">中文</a>
+            <a href="?locale=en">English</a>
+        </#if>
+        Copyright &copy; ${.now?string('yyyy')}
+    </footer>
+    <script>
+    var templatePath='${.current_template_name?keep_after('/')}';
+    </script>
+    <script src="${site.dynamicPath}resource/js/cms.support.js"></script>
+    <script>
+        var nav = document.querySelectorAll('nav a[data-id="home"]');
+        if(nav.length){
+            nav[0].className="selected";
+        }
+
+        var ca = cmsAnalytics();
+        var url='${site.dynamicPath}api/visit/record';
+        if("string" ==typeof itemString){
+            url=url+"?"+itemString;
+        }
+        ca.setDomain("${site.sitePath?keep_after('//')?keep_before('/')?keep_before(':')}");
+        ca.setPath('/');
+        ca.report(url);
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<@sys.authorized roleIds=admin.roles urls='sysConfigData/import,sysConfigData/export,sysConfigData/edit'><#assign authorizedMap=map/></@sys.authorized>
+<div class="card">
+    <div class="panelBar">
+        <ul class="toolBar">
+        <#if authorizedMap['sysConfigData/import']>
+            <li><a href="sysConfigData/import.html" target="dialog" mask="true" width="500" height="250"><i class="icon-upload-alt icon-large"></i><@t.page 'import'/></a></li>
+        </#if>
+        </ul>
+    </div>
+<@sys.configList>
+    <table class="table" width="100%" layoutH>
+        <thead>
+            <tr>
+                <th width="100"><@t.page 'code'/></th>
+                <th width="300"><@t.page 'description'/></th>
+                <th width="100"><@t.page 'operate'/></th>
+            </tr>
+        </thead>
+        <tbody>
+            <#list list as a>
+                <@t.merge 'configs' a.code/>
+            </#list>
+            <@sys.deptItem itemType='config' deptId=admin.deptId!'' itemIds=t.configs!><#assign deptConfigMap=map!/></@sys.deptItem>
+    <#list list as a>
+        <#if (deptConfigMap[a.code])?has_content&&deptConfigMap[a.code]><@t.merge 'codes' a.code/></#if>
+    </#list>
+    <@sys.lock userId=admin.id itemType='config' itemIds=t.codes><#assign lockMap=map!/></@sys.lock>
+    <#if lockMap?has_content>
+        <#list lockMap as k,lock>
+            <#if lock.userId?has_content><@t.merge 'userIds' lock.userId/></#if>
+        </#list>
+    </#if>
+    <@sys.user ids=t.userIds><#assign userMap=map!/></@sys.user>
+    <#list list as a>
+        <#if (deptConfigMap[a.code])?has_content&&deptConfigMap[a.code]>
+            <tr>
+                <td <#if lockMap[a.code]?has_content><#assign lockUser=(userMap[lockMap[a.code].userId?string].nickname)!''/>title="<@t.page 'lock.message' lockUser/> ${lockMap[a.code].createDate!}"</#if>>
+                    <#if lockMap[a.code]?has_content><i class="icon-lock icon-large"></i></#if>${(a.code)!}
+                </td>
+                <td>${(a.description)!}</td>
+                <td class="wrap">
+                <#if authorizedMap['sysConfigData/edit']>
+                    <a href="sysConfigData/edit.html?code=${a.code!}" class="edit btnText blue" target="navTab" rel="sysConfigData/edit"><i class="icon-edit"></i><@t.page 'config_data.edit'/></a>
+                </#if>
+                <#if authorizedMap['sysConfigData/export']>
+                    <a href="sysConfigData/export?code=${a.code}&_csrf=<@tools.csrfToken admin=true/>" class="edit btnText" target="_blank"><i class="icon-download-alt icon-large"></i><@t.page 'button.export'/></a>
+                </#if>
+                </td>
+            </tr>
+        </#if>
+    </#list>
+        </tbody>
+    </table>
+</@sys.configList>
+</div>

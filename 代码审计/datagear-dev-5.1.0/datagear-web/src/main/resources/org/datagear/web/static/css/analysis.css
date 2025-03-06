@@ -1,0 +1,583 @@
+/*
+ * Copyright 2018-present datagear.tech
+ *
+ * This file is part of DataGear.
+ *
+ * DataGear is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU Lesser General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ *
+ * DataGear is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along with DataGear.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@CHARSET "UTF-8";
+
+/*图表展示页面的图表元素样式*/
+.dg-chart-for-show-chart{
+	position: absolute !important;
+	left: 0 !important;
+	top: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	width: 100% !important;
+	height: 100% !important;
+}
+.dg-chart-for-indication{
+	/*为图表元素设置最小尺寸，避免看板中插入图表元素时由于没设尺寸无法显示的问题*/
+	min-width: 10px;
+	min-height: 10px;
+}
+.dg-position-relative{
+	position: relative;
+}
+
+/*表格图表*/
+.dg-chart-table{}
+.dg-chart-table .dg-chart-table-title{
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	font-size: 1.1em;
+	font-weight: bold;
+	text-align: center;
+}
+.dg-chart-table .dg-chart-table-content{
+	position: absolute;
+	left: 1px;
+	top: 1.6em;
+	right: 1px;
+	bottom: 1px;
+}
+.dg-chart-table.dg-hide-title .dg-chart-table-title{
+	display: none;
+}
+.dg-chart-table.dg-hide-title .dg-chart-table-content{
+	top: 0.1em;
+}
+.dg-chart-table .dg-chart-table-content table.dataTable thead th,
+.dg-chart-table .dg-chart-table-content table.dataTable thead td,
+.dg-chart-table .dg-chart-table-content table.dataTable tbody th,
+.dg-chart-table .dg-chart-table-content table.dataTable tbody td{
+	padding: 0.5em 18px;
+	text-align: left;
+	white-space: nowrap;
+}
+.dg-chart-table .dg-chart-table-content table.dataTable td.dataTables_empty{
+	display: none;/*隐藏初始未加载数据时的空行，避免影响样式*/
+}
+.dg-chart-table .dg-chart-table-content .dataTables_wrapper .dataTables_info{
+	padding-top: 0.5em;
+}
+.dg-chart-table .dg-chart-table-content .dataTables_wrapper .dataTables_length{
+	float: none;
+	margin-left: 1em;
+	display: inline-block;
+	padding-top: 0.5em;
+}
+.dg-chart-table .dg-chart-table-content .dataTables_wrapper .dataTables_paginate .fg-button{
+	padding: 0.2em 0.41em;
+}
+.dg-chart-table .dg-chart-table-content .dataTables_wrapper .dataTables_length select{
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+}
+/*设置固定列后，在某些版本浏览器固定列会出现横向滚动条，所以这里通过此样式将滚动条隐藏*/
+.dg-chart-table .dg-chart-table-content .DTFC_LeftBodyLiner,
+.dg-chart-table .dg-chart-table-content .DTFC_RightBodyLiner{
+	overflow-x: hidden;
+}
+/*DataTables-1.11.3版本内置的jquery-ui CSS标题右上角会多一个白线，这里设置不可见*/
+.dg-chart-table .dataTables_wrapper .dtfc-right-top-blocker{
+	opacity: 0;
+	filter: Alpha(Opacity=0);
+}
+/*排序图标*/
+.dg-chart-table .dg-chart-table-content table.dataTable thead th.sorting div.DataTables_sort_wrapper span{
+	position: absolute;
+	top: 50%;
+	margin-top: -2px;
+	right: -14px;
+	width: 4px;
+	height: 4px;
+	background: #333;
+	opacity: 0.6;
+	filter: Alpha(Opacity=60);
+}
+.dg-chart-table .dg-chart-table-content table.dataTable thead th.sorting_asc div.DataTables_sort_wrapper span{
+	width: 0;
+	height: 0;
+	margin-top: -3px;
+	border-left: 3px solid transparent;
+	border-right: 3px solid transparent;
+	border-bottom: 6px solid #333;
+	background: none;
+	opacity: 1;
+	filter: Alpha(Opacity=100);
+}
+.dg-chart-table .dg-chart-table-content table.dataTable thead th.sorting_desc div.DataTables_sort_wrapper span{
+	width: 0;
+	height: 0;
+	margin-top: -3px;
+	border-left: 3px solid transparent;
+	border-right: 3px solid transparent;
+	border-top: 6px solid #333;
+	background: none;
+	opacity: 1;
+	filter: Alpha(Opacity=100);
+}
+
+/*标签卡图表*/
+.dg-chart-label{}
+.dg-chart-label.dg-hide-name .label-name,
+.dg-chart-label .dg-hide-name .label-name{
+	display: none !important;/*防止被dg-chart-label-inline样式覆盖*/
+}
+.dg-chart-label .dg-chart-label-item .label-name{
+	text-align: center;
+}
+.dg-chart-label .dg-chart-label-item .label-value{
+	text-align: center;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+.dg-chart-label.dg-chart-label-inline .dg-chart-label-item,
+.dg-chart-label.dg-chart-label-inline .dg-chart-label-item .label-name,
+.dg-chart-label.dg-chart-label-inline .dg-chart-label-item .label-value{
+	display: inline-block;
+}
+.dg-chart-label.dg-chart-label-flex{
+	display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.dg-chart-label.dg-chart-label-flex.dg-chart-label-flex-around{
+    justify-content: space-around;
+}
+.dg-chart-label.dg-chart-label-flex.dg-chart-label-flex-start{
+    justify-content: flex-start;
+}
+.dg-chart-label.dg-chart-label-flex.dg-chart-label-flex-end{
+    justify-content: flex-end;
+}
+.dg-chart-label.dg-chart-label-flex.dg-chart-label-flex-center{
+    justify-content: center;
+}
+.dg-chart-label.dg-chart-label-flex.dg-chart-label-flex-between{
+    justify-content: space-between;
+}
+
+/*下拉框图表*/
+.dg-chart-select{}
+.dg-chart-select .dg-chart-select-select.dg-fill-parent{
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+}
+
+/**原始数据图表*/
+.dg-chart-rawdata{
+	position: relative;
+}
+.dg-chart-rawdata .dg-chart-rawdata-title{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 1.6em;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+.dg-chart-rawdata .dg-chart-rawdata-content{
+	position: absolute;
+	left: 0;
+	top: 1.6em;
+	right: 0;
+	bottom: 0;
+	overflow: auto;
+}
+.dg-chart-rawdata .dg-chart-rawdata-ds,
+.dg-chart-rawdata .dg-chart-rawdata-ds-name,
+.dg-chart-rawdata .dg-chart-rawdata-ds-data{
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+.dg-chart-rawdata .dg-chart-rawdata-ds-name{
+	font-weight: bold;
+}
+.dg-chart-rawdata .dg-chart-rawdata-ds-data{
+	padding: 0.2em 1em;
+}
+.dg-chart-rawdata .dg-chart-rawdata-ds-data-item{
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
+}
+
+/*数据集参数值表单*/
+.dg-dspv-form{}
+.dg-dspv-form .dg-dspv-form-content{
+	padding: 0.41em 0.41em;
+}
+.dg-dspv-form .dg-dspv-form-content .dg-dspv-form-item{
+	padding-top: 0.35em;
+	padding-bottom: 0.35em;
+}
+.dg-dspv-form .dg-dspv-form-content .dg-dspv-form-item .dg-dspv-form-item-label{
+	padding-bottom: 0.2em;
+}
+.dg-dspv-form .dg-dspv-form-content .dg-dspv-form-item .dg-dspv-form-item-label label{
+	/*添加这个样式可以使下面的提示图标居中显示*/
+	display: flex;
+    align-items: center;
+}
+.dg-dspv-form .dg-dspv-form-content .dg-dspv-form-item .dg-dspv-form-item-label label[title]::after{
+	display: inline-block;
+	content: "?";
+	margin-left: 0.1em;
+	font-size: 0.8em;
+	margin-top: 0.1em;
+	width: 1em;
+	height: 1em;
+	text-align: center;
+	line-height: 1em;
+	border-radius: 2em;
+	border-width: 1px;
+	border-style: solid;
+	opacity: 0.7;
+}
+.dg-dspv-form .dg-dspv-form-content .dg-dspv-form-item .dg-dspv-form-radio-wrapper,
+.dg-dspv-form .dg-dspv-form-content .dg-dspv-form-item .dg-dspv-form-checkbox-wrapper{
+	white-space: nowrap;
+	display: inline-block;
+	padding-right: 0.41em;
+}
+.dg-dspv-form .dg-dspv-form-content .dg-dspv-form-item .dg-dspv-form-item-value input[type=text],
+.dg-dspv-form .dg-dspv-form-content .dg-dspv-form-item .dg-dspv-form-item-value textarea,
+.dg-dspv-form .dg-dspv-form-content .dg-dspv-form-item .dg-dspv-form-item-value select,
+.dg-dspv-form .dg-dspv-form-content .dg-dspv-form-item .dg-dspv-form-inputs-wrapper{
+	width: 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	padding: 0.3em 0.3em;
+	border-radius: 3px;
+	border-width: 1px;
+	border-style: solid;
+}
+.dg-dspv-form .dg-dspv-form-content .dg-dspv-form-item .dg-dspv-form-inputs-wrapper{
+	border: 1px solid transparent;
+}
+.dg-dspv-form .dg-dspv-form-content .dg-validation-required,
+.dg-dspv-form .dg-dspv-form-content .dg-validation-number{
+	border-color: red !important;
+}
+.dg-dspv-form .dg-dspv-form-foot{
+	padding-top: 0.3em;
+	text-align: center;
+}
+.dg-dspv-form button,
+.dg-dspv-form input[type=button],
+.dg-dspv-form input[type=submit],
+.dg-dspv-form .button{
+	padding: 0.41em 2em;
+	border-radius: 3px;
+	border-width: 1px;
+	border-style: solid;
+}
+.dg-dspv-form .dg-form-invalid{
+	border-color: red !important;
+}
+
+/*图表展示页面设置框*/
+.dg-chart-setting-box{
+	position: absolute;
+	right: 0.1em;
+	top: 0.1em;
+}
+.dg-chart-setting-box .dg-chart-setting-panel,
+.dg-chart-setting-box button{
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border-top-left-radius: 3px;
+}
+.dg-chart-setting-box .dg-chart-setting-button{
+	font-size: 0.8em !important;
+	padding: 0.1em 0.2em !important;
+	margin: 0 0 0 0.41em !important;
+	border-width: 1px;
+	border-style: solid;
+}
+.dg-chart-setting-box .dg-chart-setting-panel{
+	position: absolute;
+	right: 0;
+	border-width: 1px;
+	border-style: solid;
+	padding: 0.41em 0.8em 0.6em 0.8em;
+	user-select: text;
+	-webkit-user-select: text;
+	z-index: 100;
+}
+.dg-chart-setting-box .dg-chart-setting-panel .dg-chart-setting-panel-closebtn{
+	padding-left: 0.5em !important;
+    padding-right: 0.5em !important;
+    padding-top: 0.2em !important;
+    padding-bottom: 0.2em !important;
+    font-size: 0.8em !important;
+}
+.dg-chart-setting-box .dg-chart-setting-panel .dg-chart-setting-panel-head{
+	font-weight: bold;
+	white-space: nowrap;
+	padding-bottom: 0.41em;
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dg-chart-setting-box .dg-chart-setting-panel .dg-chart-setting-panel-content{
+	overflow: auto;
+	font-size: 0.9em;
+}
+.dg-chart-setting-box .dg-chart-setting-panel .dg-chart-setting-panel-foot{
+	padding-top: 0.41em;
+	text-align: center;
+}
+.dg-chart-setting-box .dg-chart-setting-panel .dg-chart-setting-panel-head button,
+.dg-chart-setting-box .dg-chart-setting-panel .dg-chart-setting-panel-head input[type=button],
+.dg-chart-setting-box .dg-chart-setting-panel .dg-chart-setting-panel-head input[type=submit],
+.dg-chart-setting-box .dg-chart-setting-panel .dg-chart-setting-panel-foot button,
+.dg-chart-setting-box .dg-chart-setting-panel .dg-chart-setting-panel-foot input[type=button],
+.dg-chart-setting-box .dg-chart-setting-panel .dg-chart-setting-panel-foot input[type=submit]{
+	font-weight: normal;
+	padding-left: 2em;
+	padding-right: 2em;
+	border-width: 1px;
+	border-style: solid;
+}
+.dg-chart-setting-box .dg-chart-setting-panel .dg-datasetbind-section{
+	border-width: 1px;
+	border-style: solid;
+	padding: 0.5em 0.5em;
+	margin: 0.5em 0;
+	border-radius: 3px;
+}
+.dg-chart-setting-box .dg-chart-setting-panel .dg-datasetbind-section-head{
+	font-weight: bold;
+	overflow: hidden;
+	white-space: nowrap;
+	padding: 0.2em 0em;
+}
+.dg-chart-setting-box .dg-chart-setting-panel .dg-dspv-form input,
+.dg-chart-setting-box .dg-chart-setting-panel .dg-dspv-form select,
+.dg-chart-setting-box .dg-chart-setting-panel .dg-dspv-form textarea
+.dg-chart-setting-box .dg-chart-setting-panel .dg-dspv-form button{
+	font-size: 1em;
+	border-width: 1px;
+	border-style: solid;
+	padding: 0.3em 0;
+}
+.dg-chart-setting-box .dg-chart-setting-panel button,
+.dg-chart-setting-box .dg-chart-setting-panel input[type=submit],
+.dg-chart-setting-box .dg-chart-setting-panel input[type=button]{
+	padding: 0.4em 0.8em;
+	white-space: nowrap;
+	font-size: 1em;
+}
+.dg-chart-setting-box .dg-chart-setting-panel button.dg-param-value-form-invalid,
+.dg-chart-setting-box .dg-chart-setting-panel input[type=submit].dg-param-value-form-invalid,
+.dg-chart-setting-box .dg-chart-setting-panel input[type=button].dg-param-value-form-invalid{
+	border-color: red !important;
+}
+.dg-chart-setting-box .dg-chart-setting-panel.dg-chart-setting-data-panel .dg-chart-setting-panel-foot{
+	display: none;
+}
+.dg-chart-setting-box .dg-chart-setting-panel table.dataTable td.dataTables_empty{
+	display: none;/*隐藏初始未加载数据时的空行，避免影响样式*/
+}
+.dg-chart-setting-box .dg-chart-setting-panel table.dataTable thead th,
+.dg-chart-setting-box .dg-chart-setting-panel table.dataTable thead td{
+	padding: 0.41em 1em 0.41em 10px;
+	text-align: left;
+	white-space: nowrap;
+}
+.dg-chart-setting-box .dg-chart-setting-panel table.dataTable tbody th,
+.dg-chart-setting-box .dg-chart-setting-panel table.dataTable tbody td{
+	white-space: nowrap;
+}
+/*设置固定列后，在某些版本浏览器固定列会出现横向滚动条，所以这里通过此样式将滚动条隐藏*/
+.dg-chart-setting-box .dg-chart-setting-panel .DTFC_LeftBodyLiner,
+.dg-chart-setting-box .dg-chart-setting-panel .DTFC_RightBodyLiner{
+	overflow-x: hidden;
+}
+/*DataTables-1.11.3版本内置的jquery-ui CSS标题右上角会多一个白线，这里设置不可见*/
+.dg-chart-setting-box .dataTables_wrapper .dtfc-right-top-blocker{
+	opacity: 0;
+	filter: Alpha(Opacity=0);
+}
+
+/*datetimepicker组件扩展样式*/
+.xdsoft_datetimepicker .xdsoft_calendar td,
+.xdsoft_datetimepicker .xdsoft_calendar th{
+	background: none;
+    border-width: 0;
+}
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box>div>div{
+	background: none;
+}
+.xdsoft_datetimepicker .xdsoft_month{
+	width: 60px;
+    margin-left: 20px;
+    text-decoration: underline;
+}
+.xdsoft_datetimepicker .xdsoft_year{
+	text-decoration: underline;
+}
+.xdsoft_datetimepicker .xdsoft_label i,
+.xdsoft_datetimepicker .xdsoft_next,
+.xdsoft_datetimepicker .xdsoft_prev,
+.xdsoft_datetimepicker .xdsoft_today_button{
+	background: none;
+	position: relative;
+}
+.xdsoft_datetimepicker .xdsoft_prev:before,
+.xdsoft_datetimepicker .xdsoft_next:before,
+.xdsoft_datetimepicker .xdsoft_today_button:before{
+    left: 0;
+    position: absolute;
+    top: 50%;
+    margin-top: -0.5em;
+    font-weight: bold;
+}
+.xdsoft_datetimepicker .xdsoft_prev:before{
+	content: "<";
+}
+.xdsoft_datetimepicker .xdsoft_next:before{
+	content: ">";
+}
+.xdsoft_datetimepicker .xdsoft_today_button:before{
+	content: "#";
+}
+.xdsoft_timepicker .xdsoft_prev:before{
+	content: "<";
+	left: 50%;
+    top: 0;
+    margin-left: -0.4em;
+	transform:rotate(90deg);
+	-ms-transform:rotate(90deg);
+	-moz-transform:rotate(90deg);
+	-webkit-transform:rotate(90deg);
+	-o-transform:rotate(90deg);
+}
+.xdsoft_timepicker .xdsoft_next:before{
+	content: ">";
+	left: 50%;
+    top: 0;
+    margin-left: -0.4em;
+	transform:rotate(90deg);
+	-ms-transform:rotate(90deg);
+	-moz-transform:rotate(90deg);
+	-webkit-transform:rotate(90deg);
+	-o-transform:rotate(90deg);
+}
+.xdsoft_datetimepicker .xdsoft_save_selected.xdsoft_save_selected_year{
+	width: auto;
+	padding: 0.3em 1em;
+	margin-top: 3px;
+	margin-right: 0.6em;
+	float: right;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border-top-left-radius: 3px;
+}
+
+/*看板表单*/
+.dg-dashboard-form.dg-dspv-form,
+.dg-dashboard-form.dg-dspv-form .dg-dspv-form-input,
+.dg-dashboard-form.dg-dspv-form .dg-dspv-form-item-value select[multiple] option{
+    background: transparent !important;
+}
+.dg-dashboard-form.dg-dspv-form .dg-dspv-form-content{
+	padding: 0 0;
+}
+/*单行表单：dg-inline*/
+.dg-dashboard-form.dg-dspv-form.dg-inline .dg-dspv-form-head,
+.dg-dashboard-form.dg-dspv-form.dg-inline .dg-dspv-form-content,
+.dg-dashboard-form.dg-dspv-form.dg-inline .dg-dspv-form-foot,
+.dg-dashboard-form.dg-dspv-form.dg-inline .dg-dspv-form-item{
+	display: inline;
+}
+.dg-dashboard-form.dg-dspv-form.dg-inline .dg-dspv-form-item{
+	padding-right: 0.8em;
+}
+.dg-dashboard-form.dg-dspv-form.dg-inline .dg-dspv-form-foot{
+	padding-left: 0.41em;
+}
+.dg-dashboard-form.dg-dspv-form.dg-inline .dg-dspv-form-item .dg-dspv-form-item-label,
+.dg-dashboard-form.dg-dspv-form.dg-inline .dg-dspv-form-item .dg-dspv-form-item-value{
+	display: inline-block;
+}
+.dg-dashboard-form.dg-dspv-form.dg-inline .dg-dspv-form-item .dg-dspv-form-item-label,
+.dg-dashboard-form.dg-dspv-form.dg-inline .dg-dspv-form-item .dg-dspv-form-item-value{
+	display: inline-block;
+}
+/*两列表单：dg-col-2*/
+.dg-dashboard-form.dg-dspv-form.dg-col-2 .dg-dspv-form-item{
+	display: inline-block;
+	width: 50%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	padding-left: 0.41em;
+	padding-right: 0.41em;
+}
+/*三列表单：dg-col-3*/
+.dg-dashboard-form.dg-dspv-form.dg-col-3 .dg-dspv-form-item{
+	display: inline-block;
+	width: 33.3%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	padding-left: 0.41em;
+	padding-right: 0.41em;
+}
+/*四列表单：dg-col-4*/
+.dg-dashboard-form.dg-dspv-form.dg-col-4 .dg-dspv-form-item{
+	display: inline-block;
+	width: 25%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	padding-left: 0.41em;
+	padding-right: 0.41em;
+}
+/*五列表单：dg-col-5*/
+.dg-dashboard-form.dg-dspv-form.dg-col-5 .dg-dspv-form-item{
+	display: inline-block;
+	width: 20%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	padding-left: 0.41em;
+	padding-right: 0.41em;
+}
+/*条目单行：dg-item-inline*/
+.dg-dashboard-form.dg-dspv-form.dg-item-inline .dg-dspv-form-item .dg-dspv-form-item-label,
+.dg-dashboard-form.dg-dspv-form.dg-item-inline .dg-dspv-form-item .dg-dspv-form-item-value{
+	display: inline-block;
+}

@@ -1,0 +1,226 @@
+<a class="button float" href="sysSite/monitor.html" target="navTab" rel="sysSite/monitor"><i class="icon-refresh"></i><@t.page 'button.refresh'/></a>
+<div class="pageFormContent">
+    <fieldset>
+        <legend><@t.page 'report.cms'/></legend>
+        <div class="unit clearfix">
+            <div id="memory_count" class="chart" data-id="memoryChart" style="width:50%;"></div>
+            <div id="disk" class="chart" data-id="diskChart" style="width:50%;"></div>
+        </div>
+        <div class="unit">
+            <div id="memory" class="chart" style="width:100%;height:300px;"></div>
+        </div>
+    </fieldset>
+</div>
+<@tools.disk>
+<script>
+var memoryChart={
+    chart:echarts.init(document.getElementById('memory')),
+    countChart:echarts.init(document.getElementById('memory_count')),
+    data:{
+        usedMemory:[],
+        unUsedMemory:[],
+        freeMemory:[]
+    },
+    time:[],
+    toDecimal:function(number) {  
+        var value = parseFloat(number);  
+        if (isNaN(value)) {  
+            return 0;  
+        }  
+        value = Math.round(number*100)/100;  
+        return value;  
+    },
+    resize:function(){
+        this.chart.resize();
+        this.countChart.resize();
+    }
+};
+memoryChart.chart.setOption({
+    title: {
+        text: "<@t.page 'report.memory.history'/>"
+    },
+    tooltip : {
+        trigger: "axis"
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    xAxis: {
+        type: "category",
+        boundaryGap: false,
+        data: memoryChart.time
+    },
+    yAxis: {
+        type: "value"
+    },
+    series: [
+        {
+            name:"<@t.page 'report.used'/>",
+            type:"line",
+            smooth: true,
+            stack: "temp",
+            areaStyle: {normal: {}},
+            data:memoryChart.data.usedMemory
+       },
+       {
+           name:"<@t.page 'report.unused'/>",
+           type:"line",
+           smooth: true,
+           stack: "temp",
+           areaStyle: {normal: {}},
+           data:memoryChart.data.unUsedMemory
+       },
+       {
+           name:"<@t.page 'report.memory.free'/>",
+           type:"line",
+           smooth: true,
+           stack: "temp",
+           areaStyle: {normal: {}},
+           data:memoryChart.data.freeMemory
+      }]
+});
+memoryChart.countChart.setOption({
+    title : {
+        text: "<@t.page 'report.memory'/>",
+        subtext: "<@t.page 'report.memory.use'/>",
+        x:"center"
+    },
+    tooltip : {
+        trigger: "item",
+        formatter: "{a} <br/>{b} : {c} ({d}%)",
+        position: [10, 10]
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    series : [
+        {
+            name: "<@t.page 'report.memory.use'/>",
+            type: "pie",
+            radius : "55%",
+            center: ["50%", "60%"],
+            data:[
+                {value:0, name:"<@t.page 'report.used'/>"},
+                {value:0, name:"<@t.page 'report.unused'/>"}
+            ]
+        }
+    ]
+});
+
+var diskChart = echarts.init(document.getElementById("disk"));
+diskChart.setOption({
+    title : {
+        text: "<@t.page 'report.disk'/>:<@t.fileSize totalSpace/>",
+        subtext: "${(rootPath?js_string)!}",
+        x:"center"
+    },
+    tooltip : {
+        trigger: "item",
+        formatter: "{a} <br/>{b} : {c} ({d}%)",
+        position: [10, 10]
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    series : [
+        {
+            name: "<@t.page 'report.disk.space'/>",
+            type: "pie",
+            radius : "55%",
+            center: ["50%", "60%"],
+            data:[
+                {value:"${(totalSpace-freeSpace)/1024/1024}", name:"<@t.page 'report.used'/>"},
+                {value:"${freeSpace/1024/1024}", name:"<@t.page 'report.unused'/>"}
+            ]
+        }
+    ]
+});
+
+function refreshMemory(){
+    if(document.getElementById("memory")){
+        $.ajax({
+            url:"sysSite/memory.html",
+            global:false,
+            dataType: "json",
+            success:function(data) {
+                memoryChart.time.push(data.time);
+                memoryChart.data.usedMemory.push(memoryChart.toDecimal((data.totalMemory-data.freeMemory)/1048576));
+                memoryChart.data.freeMemory.push(memoryChart.toDecimal((data.maxMemory-data.totalMemory)/1048576));
+                memoryChart.data.unUsedMemory.push(memoryChart.toDecimal(data.freeMemory/1048576));
+                if(memoryChart.time.length > 200){
+                    memoryChart.time.shift();
+                    memoryChart.data.usedMemory.shift();
+                    memoryChart.data.freeMemory.shift();
+                    memoryChart.data.unUsedMemory.shift();
+                }
+                memoryChart.countChart.setOption({
+                    title:{
+                        subtext: "<@t.page 'report.memory.use'/>:"+memoryChart.toDecimal(data.totalMemory/1048576)+"MB"
+                    },
+                    series: [{
+                         name: "<@t.page 'report.memory.use'/>",
+                         type: "pie",
+                         radius : "55%",
+                         center: ["50%", "60%"],
+                         data:[
+                             {value:memoryChart.toDecimal((data.totalMemory-data.freeMemory)/1048576), name:"<@t.page 'report.used'/>"},
+                             {value:memoryChart.toDecimal(data.freeMemory/1048576), name:"<@t.page 'report.unused'/>"}
+                         ]
+                     }]
+                });
+                memoryChart.chart.setOption({
+                    xAxis: {
+                        data: memoryChart.time
+                    },
+                    yAxis: {
+                        type: "value"
+                    },
+                    series: [
+                         {
+                            name:"<@t.page 'report.used'/>",
+                            type:"line",
+                            smooth: true,
+                            stack: "temp",
+                            areaStyle: {normal: {}},
+                            data:memoryChart.data.usedMemory
+                        },
+                        {
+                            name:"<@t.page 'report.unused'/>",
+                            type:"line",
+                            smooth: true,
+                            stack: "temp",
+                            areaStyle: {normal: {}},
+                            data:memoryChart.data.unUsedMemory
+                        },
+                        {
+                            name:"<@t.page 'report.memory.free'/>",
+                            type:"line",
+                            smooth: true,
+                            stack: "temp",
+                            areaStyle: {normal: {}},
+                            data:memoryChart.data.freeMemory
+                        }]
+                });
+            }
+        });
+    } else {
+        if(window.memoryInterval){
+            clearInterval(window.memoryInterval);
+        }
+    }
+}
+refreshMemory();
+if(window.memoryInterval){
+    clearInterval(window.memoryInterval);
+}
+window.memoryInterval=setInterval(function () {
+    refreshMemory();
+}, 10000);
+</script>
+</@tools.disk>

@@ -1,0 +1,121 @@
+<@sys.userList deptId=deptId startRegisteredDate=startRegisteredDate endRegisteredDate=endRegisteredDate startLastLoginDate=startLastLoginDate endLastLoginDate=endLastLoginDate
+            superuser=superuser emailChecked=emailChecked name=name
+            advanced=true disabled=disabled
+            orderField=orderField orderType=orderType pageIndex=pageNum pageSize=numPerPage>
+<div class="pageHeader card">
+    <form class="pagerForm" autocomplete="off" onsubmit="return navTabSearch(this);" method="post">
+        <#include "../include_page/parameters.html"/>
+        <div class="searchBar">
+            <ul class="searchContent">
+                <li>
+                    <label><@t.page 'name'/>:</label>
+                    <input type="text" name="name" value="${(name)!}"/>
+                </li>
+                <#include "../include_page/disabled.html"/>
+                <li>
+                    <select class="combox" name="superuser">
+                        <option value><@t.page 'user.type'/></option>
+                        <option value="false"${(superuser?has_content&&"false"=superuser)?then(' selected="true"','')?no_esc}><@t.page 'user.general'/></option>
+                        <option value="true"${(superuser?has_content&&"true"=superuser)?then(' selected="true"','')?no_esc}><@t.page 'admin'/></option>
+                    </select>
+                </li>
+                <li>
+                    <select class="combox" name="emailChecked">
+                        <option value><@t.page 'email.verification_status'/></option>
+                        <option value="false"${(emailChecked?has_content&&"false"=emailChecked)?then(' selected="true"','')?no_esc}><@t.page 'unverified'/></option>
+                        <option value="true"${(emailChecked?has_content&&"true"=emailChecked)?then(' selected="true"','')?no_esc}><@t.page 'verified'/></option>
+                    </select>
+                </li>
+                <li>
+                    <label><@t.page 'user.register_date'/>:</label>
+                    <input type="text" name="startRegisteredDate" class="date" size="10" autocomplete="off" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" value="${startRegisteredDate!}"/>
+                    <a class="inputDateButton" href="javascript:void(0);"></a>
+                    <span>-</span>
+                    <input type="text" name="endRegisteredDate" class="date" size="10" autocomplete="off" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d+1}" value="${endRegisteredDate!}"/>
+                    <a class="inputDateButton" href="javascript:void(0);"></a>
+                </li>
+                <li>
+                    <label><@t.page 'user.last_login_date'/>:</label>
+                    <input type="text" name="startLastLoginDate" class="date" size="10" autocomplete="off" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" value="${startLastLoginDate!}"/>
+                    <a class="inputDateButton" href="javascript:void(0);"></a>
+                    <span>-</span>
+                    <input type="text" name="endLastLoginDate" class="date" size="10" autocomplete="off" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d+1}" value="${endLastLoginDate!}"/>
+                    <a class="inputDateButton" href="javascript:void(0);"></a>
+                </li>
+            </ul>
+            <div class="subBar">
+                <ul>
+                    <li>
+                        <button type="submit" class="buttonActive"><@t.page 'button.search'/></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="card">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a href="sysDept/addUser.html?deptId=${deptId!}" target="navTab" rel="sysUser/add"><i class="icon-plus-sign-alt icon-large"></i><@t.page 'user.add'/></a></li>
+        </ul>
+    </div>
+    <table class="table" width="100%" layoutH orderField="${orderField!}" orderType="${orderType!}">
+        <thead>
+            <tr>
+                <th width="30"><@t.page 'id'/></th>
+                <th width="200"><@t.page 'user.username'/>/<@t.page 'user.nickname'/></th>
+                <th><@t.page 'email'/></th>
+                <th><@t.page 'email.verification_status'/></th>
+                <th><@t.page 'disabled'/></th>
+                <th><@t.page 'user.last_login_ip'/></th>
+                <th orderField="lastLoginDate"><@t.page 'user.last_login_date'/></th>
+                <th orderField="loginCount"><@t.page 'user.login_count'/></th>
+                <th orderField="registeredDate"><@t.page 'user.register_date'/></th>
+                <th><@t.page 'operate'/></th>
+            </tr>
+        </thead>
+        <tbody>
+            <#list page.list as a>
+            <tr>
+                <td>${a.id!}</td>
+                <td class="wrap">
+                    <#if a.cover?has_content>
+                        <div class="thumbnail">
+                            <img src="${a.cover!}"/>
+                        </div>
+                    </#if>
+                    <div class="box">
+                        <p class="exclude-translate"><@t.page 'user.username'/>:${(a.name)!}</p>
+                        <p class="exclude-translate"><@t.page 'user.nickname'/>:${(a.nickname)!} ${(a.superuser)?then('[<font color="red">'+t.pageMessage('admin')+'</font>]','')?no_esc}</p>
+                        <p><font color="red"><@t.page 'user.content_permissions.'+a.contentPermissions/></font></p>
+                    </div>
+                </td>
+                <td class="exclude-translate">${(a.email)!}</td>
+                <td>${a.emailChecked?then(t.pageMessage('verified'),t.pageMessage('unverified'))}</td>
+                <td>${(a.disabled)?then('<font color="red">'+t.pageMessage('disabled')+'</font>',t.pageMessage('normal'))?no_esc}</td>
+                <td>
+                    <div class="box">
+                        <p>${a.lastLoginIp!}</p>
+                        <p>${(getIpRegion(a.ip).address)!}</p>
+                    </div>
+                </td>
+                <td>${a.lastLoginDate!}</td>
+                <td>${a.loginCount!}</td>
+                <td>${a.registeredDate!}</td>
+                <td class="wrap">
+                    <a href="sysDept/addUser.html?id=${a.id}" class="edit btnText blue" target="navTab" rel="sysUser/edit"><i class="icon-edit"></i><@t.page 'user.edit'/></a>
+                    <#if a.disabled>
+                        <a href="sysDept/enableUser?id=${a.id}&_csrf=<@tools.csrfToken admin=true/>" class="btnText green" title="<@t.page 'confirm.enable'/>" target="ajaxTodo"><i class="icon-circle"></i><@t.page 'button.enable'/></a>
+                    <#else>
+                        <a href="sysDept/disableUser?id=${a.id}&_csrf=<@tools.csrfToken admin=true/>" class="btnText red" title="<@t.page 'confirm.disable'/>" target="ajaxTodo"><i class="icon-ban-circle"></i><@t.page 'button.disable'/></a>
+                    </#if>
+                    <a href="log/login.html?userId=${a.id}" class="btnText" target="navTab" rel="log/login"><@t.page 'log.login'/></a>
+                    <a href="log/operate.html?userId=${a.id}" class="btnText" target="navTab" rel="log/operate"><@t.page 'log.operate'/></a>
+                </td>
+            </tr>
+            </#list>
+        </tbody>
+    </table>
+    <#include "../include_page/page.html"/>
+</div>
+</@sys.userList>

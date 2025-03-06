@@ -1,0 +1,41 @@
+<#if parentId?has_content>
+    <ul>
+    <@cms.categoryList advanced=true parentId=parentId pageSize=500>
+        <#list page.list as a>
+            <li<#if a.childIds?has_content> _src="cmsContent/lookup.html?parentId=${a.id}&field=${field!'relatedContentId'}"</#if>>
+                <a href="cmsContent/lookup_list.html?categoryId=${a.id}&field=${field!'relatedContentId'}" class="exclude-translate" target="ajax" rel="content_list">${a.name!}</a>
+            </li>
+        </#list>
+    </@cms.categoryList>
+    </ul>
+<#else>
+<div class="pageContent">
+    <div class="unitBox leftPageContent">
+        <ul class="tree treeFolder" layoutH>
+            <li>
+                <a href="cmsContent/lookup_list.html" target="ajax" rel="content_list"><@t.page 'category'/></a>
+                <ul>
+                    <@cms.categoryList advanced=true parentId=parentId pageSize=500>
+                        <#list page.list as a>
+                            <li<#if a.childIds?has_content> _src="cmsContent/lookup.html?parentId=${a.id}&field=${field!'relatedContentId'}"</#if>>
+                                <a href="cmsContent/lookup_list.html?categoryId=${a.id}&field=${field!'relatedContentId'}" class="exclude-translate" target="ajax" rel="content_list">${a.name!}</a>
+                            </li>
+                        <#else>
+                            <li><a><@t.page 'empty_directory'/></a></li>
+                        </#list>
+                    </@cms.categoryList>
+                </ul>
+            </li>
+         </ul>
+    </div>
+    <div id="content_list" class="unitBox rightPageContent">
+        <#include "lookup_list.html"/>
+    </div>
+    <div class="formBar">
+        <ul>
+            <li><button class="button" type="button" onclick="$.bringBack({'${field!'relatedContentId'}':'', url:'', title:'', description:''}); return false;"><@t.page 'button.clear_select'/></li>
+            <li><button class="close button" type="button"><@t.page 'button.close'/></li>
+        </ul>
+    </div>
+</div>
+</#if>

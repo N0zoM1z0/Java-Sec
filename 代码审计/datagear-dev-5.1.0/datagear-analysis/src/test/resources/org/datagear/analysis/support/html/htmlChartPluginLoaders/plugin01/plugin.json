@@ -1,0 +1,15 @@
+{
+	id : 'plugin01',
+	nameLabel :
+	{
+		value : '折线图',
+		localeValues :
+		{
+			'en' : 'line chart',
+			'zh' : '折线中文'
+		}
+	},
+	icons : "icon-01.png",
+	order : 4,
+	chartRenderer : {}
+}

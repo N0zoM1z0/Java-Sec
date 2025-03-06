@@ -1,0 +1,46 @@
+plugins {
+    id "war"
+    id 'org.springframework.boot'
+}
+
+dependencies {
+    implementation project(path:':publiccms-core', configuration: 'instrumentedJars')
+    implementation project(':publiccms-core')
+    implementation project(path:':publiccms-oauth', configuration: 'instrumentedJars')
+    implementation project(':publiccms-oauth')
+    implementation project(path:':publiccms-cache', configuration: 'instrumentedJars')
+    implementation project(':publiccms-cache')
+    implementation project(path:':publiccms-analyzer', configuration: 'instrumentedJars')
+    implementation project(':publiccms-analyzer')
+    implementation project(path:':publiccms-trade', configuration: 'instrumentedJars')
+    implementation project(':publiccms-trade')
+
+    implementation "mysql:mysql-connector-java:${mysqlVersion}"
+    implementation "org.apache.logging.log4j:log4j-core:${log4jVersion}"
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4jVersion}"
+    implementation ("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
+        exclude group:"org.springframework.boot", module: 'spring-boot-starter-logging'
+    }
+    implementation fileTree('src/main/webapp/WEB-INF/lib')
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testImplementation "org.springframework:spring-test:${springVersion}"
+    testImplementation "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+    testImplementation ("org.hibernate:hibernate-tools:${hibernateToolsVersion}") {
+        exclude group:"org.eclipse.jdt", module: 'org.eclipse.jdt.core'
+    }
+
+    providedCompile "org.mybatis.generator:mybatis-generator-core:${mybatisGenerator}"
+    providedCompile "jakarta.servlet:jakarta.servlet-api:${servletVersion}"
+}
+war{
+    archiveFileName = "${project.name}.war"
+}
+eclipse {
+    wtp {
+        facet {
+            facets = facets
+            facet name: "jst.web", version: "3.0"
+            facet name: "wst.jsdt.web", version: "1.0"
+        }
+    }
+}

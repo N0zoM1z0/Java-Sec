@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.datagear.management.domain.DashboardShareSet">
+
+	<insert id="insert">
+		INSERT INTO DATAGEAR_DB_SHARE_SET
+			(
+			DSS_ID, DSS_ENABLE_PSD,
+			DSS_ANONYMOUS_PSD, DSS_PSD
+			)
+		VALUES
+			(
+			#{entity.id}, #{entity.enablePassword, jdbcType=VARCHAR},
+			#{entity.anonymousPassword, jdbcType=VARCHAR}, #{entity.password}
+			)
+	</insert>
+	
+	<update id="update">
+		UPDATE DATAGEAR_DB_SHARE_SET SET
+			DSS_ENABLE_PSD = #{entity.enablePassword, jdbcType=VARCHAR},
+			DSS_ANONYMOUS_PSD = #{entity.anonymousPassword, jdbcType=VARCHAR},
+			DSS_PSD = #{entity.password}
+		WHERE
+			DSS_ID = #{entity.id}
+	</update>
+	
+	<delete id="deleteById">
+		DELETE FROM DATAGEAR_DB_SHARE_SET
+		WHERE
+			DSS_ID = #{id}
+	</delete>
+	
+	<select id="getById" resultType="org.datagear.management.domain.DashboardShareSet">
+		SELECT
+			T.*
+		FROM
+			(<include refid="queryView" />) T
+		WHERE
+			T.${_iq_}id${_iq_} = #{id}
+	</select>
+	
+	<select id="query" resultType="org.datagear.management.domain.DashboardShareSet">
+		SELECT
+			T.*
+		FROM
+			(<include refid="queryView" />) T
+		WHERE
+			<include refid="queryCondition" />
+		<include refid="common.queryOrder" />
+	</select>
+	
+	<select id="pagingQueryCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			(<include refid="queryView" />) T
+		WHERE
+			<include refid="queryCondition" />
+	</select>
+	
+	<select id="pagingQuery" resultType="org.datagear.management.domain.DashboardShareSet">
+		<include refid="common.pagingQueryHead" />
+			SELECT
+				T.*
+			FROM
+				(<include refid="queryView" />) T
+			WHERE
+				<include refid="queryCondition" />
+			<include refid="common.queryOrder" />
+		<include refid="common.pagingQueryFoot" />
+	</select>
+	
+	<sql id="queryView">
+		SELECT
+			T.DSS_ID AS ${_iq_}id${_iq_},
+			T.DSS_ENABLE_PSD AS ${_iq_}enablePassword${_iq_},
+			T.DSS_ANONYMOUS_PSD AS ${_iq_}anonymousPassword${_iq_},
+			T.DSS_PSD AS ${_iq_}password${_iq_}
+		FROM
+			DATAGEAR_DB_SHARE_SET T
+	</sql>
+	
+	<sql id="queryCondition">
+		1 = 1
+	</sql>
+</mapper>

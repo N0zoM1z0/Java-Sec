@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="commonDataPermission">
+	
+	<!--
+		指定用户对特定资源类型数据权限查询视图
+		
+		使用示例：
+		<include refid="commonDataPermission.dataIdPermissionQueryViewHead" />
+		SELECT ID AS DP_AUTH_DATA_ID, CREATOR_ID AS DP_AUTH_DATA_CREATOR_ID FROM TABLE_0
+		<include refid="commonDataPermission.dataIdPermissionQueryViewFoot" />
+		或者
+		<include refid="commonDataPermission.dataIdPermissionQueryViewHead" />
+		SELECT ID AS DP_AUTH_DATA_ID FROM TABLE_0
+		<include refid="commonDataPermission.dataIdPermissionQueryViewFoot" />
+		
+		查询参数：
+		DP_CURRENT_USER 必填，当前查询用户，类型：org.datagear.management.domain.User
+		DP_ROLE_IDS 选填，当前查询用户的角色ID集合，类型：String集合
+		DP_RESOURCE_TYPE 必填，授权资源类型，类型：String
+		DP_RESOURCE_HAS_CREATOR 选填，资源表是否有创建用户，默认为false，类型：Boolean
+		DP_MAX_PERMISSION 必填，最大权限值，类型：int
+		DP_UNSET_PERMISSION 必填，未设置任何权限时的默认权限值，类型：int
+		
+		IDQV字段：
+		DP_AUTH_DATA_ID 必填，数据ID，类型：字符串
+		DP_AUTH_DATA_CREATOR_ID 选填，DP_RESOURCE_HAS_CREATOR为true时必填，资源的创建用户ID，类型：字符串类型
+		
+		结果集：
+		DATA_ID 数据ID
+		DATA_PERMISSION 当前用户对数据的权限值，参考Authorization.PERMISSION_*
+	-->
+	<sql id="dataIdPermissionQueryViewHead">
+		<choose><when test="DP_CURRENT_USER.admin == true">
+		SELECT
+			IDQV.DP_AUTH_DATA_ID AS DATA_ID,
+			${DP_MAX_PERMISSION} AS DATA_PERMISSION
+		FROM
+			(
+		</when><otherwise>
+		SELECT
+			IDPQV.DATA_ID,
+			${FUNC_MODINT}(${FUNC_MAX}(DISTINCT IDPQV.AUTH_PRIORITY_PERMISSION), 100) AS DATA_PERMISSION
+		FROM
+			(
+			SELECT
+				IDQV.DP_AUTH_DATA_ID AS DATA_ID,
+				(
+					CASE
+						<if test="DP_RESOURCE_HAS_CREATOR == true">
+						/*创建用户最高权限*/
+						WHEN IDQV.DP_AUTH_DATA_CREATOR_ID IS NOT NULL AND IDQV.DP_AUTH_DATA_CREATOR_ID = '${DP_CURRENT_USER.id}'
+							THEN (9000 + ${DP_MAX_PERMISSION})
+						</if>
+						/*这里不需加权，因为它级别最低，且有可能是负值*/
+						WHEN PQV.AUTH_RESOURCE_TYPE IS NULL
+							THEN ${DP_UNSET_PERMISSION}
+						ELSE
+							PQV.AUTH_PRIORITY_PERMISSION
+					END
+				) AS AUTH_PRIORITY_PERMISSION
+			FROM
+				(
+		</otherwise></choose>
+	</sql>
+	
+	<sql id="dataIdPermissionQueryViewFoot">
+		<choose><when test="DP_CURRENT_USER.admin == true">
+			) IDQV
+		</when><otherwise>
+				) IDQV
+			LEFT JOIN
+				(
+					<include refid="commonDataPermission.userOnResourceTypePermissionQueryView" />
+				) PQV
+			ON
+				PQV.AUTH_RESOURCE = IDQV.DP_AUTH_DATA_ID
+			) IDPQV
+		GROUP BY
+			IDPQV.DATA_ID
+		</otherwise></choose>
+	</sql>
+	
+	<!--
+		指定用户对特定资源类型的权限值（加权）查询视图
+		
+		查询参数：
+		与上述dataIdPermissionQueryViewHead一致
+	-->
+	<sql id="userOnResourceTypePermissionQueryView">
+		SELECT
+			AUTH.AUTH_RESOURCE,
+			AUTH.AUTH_RESOURCE_TYPE,
+			(
+				/*权限值优先级加权，范围越小优先级越高*/
+				CASE AUTH.AUTH_PRINCIPAL_TYPE
+					WHEN 'ALL'       THEN (1000 + AUTH.AUTH_PERMISSION)
+					WHEN 'ANONYMOUS' THEN (2000 + AUTH.AUTH_PERMISSION)
+					WHEN 'ROLE'      THEN (3000 + AUTH.AUTH_PERMISSION)
+					WHEN 'USER'      THEN (4000 + AUTH.AUTH_PERMISSION)
+					ELSE ${DP_UNSET_PERMISSION}
+				END
+			) AS AUTH_PRIORITY_PERMISSION
+		FROM
+			DATAGEAR_AUTHORIZATION AUTH
+		WHERE
+			AUTH.AUTH_ENABLED = 'true'
+			AND AUTH.AUTH_RESOURCE_TYPE = '${DP_RESOURCE_TYPE}'
+			AND
+			(
+				AUTH.AUTH_PRINCIPAL_TYPE = 'ALL'
+				<choose><when test="DP_CURRENT_USER.anonymous == true">
+				OR AUTH.AUTH_PRINCIPAL_TYPE = 'ANONYMOUS'
+				</when><otherwise>
+				<if test="DP_ROLE_IDS != null">
+				OR
+				(
+					AUTH.AUTH_PRINCIPAL_TYPE = 'ROLE'
+					AND AUTH.AUTH_PRINCIPAL IN
+					<foreach item="item" index="index" collection="DP_ROLE_IDS" open="(" separator="," close=")">
+					'${item}'
+					</foreach>
+				)
+				</if>
+				OR (AUTH.AUTH_PRINCIPAL_TYPE = 'USER' AND AUTH.AUTH_PRINCIPAL = '${DP_CURRENT_USER.id}')
+				</otherwise></choose>
+			)
+	</sql>
+	
+	<sql id="dataFilterCondition">
+		<if test="DP_DATA_FILTER != null and DP_CURRENT_USER != null">
+			<choose><when test="DP_DATA_FILTER == 'mine'">
+			AND ${_iq_}createUser.id${_iq_} = #{DP_CURRENT_USER.id}
+			</when><when test="DP_DATA_FILTER == 'other'">
+			AND ${_iq_}createUser.id${_iq_} != #{DP_CURRENT_USER.id}
+			</when><when test="DP_DATA_FILTER == 'all'">
+			</when>
+			</choose>
+		</if>
+	</sql>
+	
+</mapper>

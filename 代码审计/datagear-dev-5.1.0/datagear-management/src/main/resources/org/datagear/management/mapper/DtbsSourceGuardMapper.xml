@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.datagear.management.domain.DtbsSourceGuard">
+
+	<insert id="insert">
+		INSERT INTO DATAGEAR_SCHEMA_GUARD
+			(
+			SG_ID, SG_NAME, SG_PATTERN, SG_USER_PATTERN, SG_PROP_PATTERNS, SG_EMPTY_PPT_FA, SG_PROP_MATCH_MODE,
+			SG_PERMITTED, SG_PRIORITY, SG_ENABLED, SG_CREATE_TIME
+			)
+		VALUES
+			(
+			#{entity.id}, #{entity.name}, #{entity.pattern},
+			#{entity.userPattern, jdbcType=VARCHAR}, #{entity.propertyPatternsJson, jdbcType=VARCHAR},
+			#{entity.emptyPropertyPatternsForAll, jdbcType=VARCHAR}, #{entity.propertiesMatchMode, jdbcType=VARCHAR},
+			#{entity.permitted, jdbcType=VARCHAR}, #{entity.priority}, #{entity.enabled, jdbcType=VARCHAR}, #{entity.createTime}
+			)
+	</insert>
+	
+	<update id="update">
+		UPDATE DATAGEAR_SCHEMA_GUARD SET
+			SG_NAME = #{entity.name},
+			SG_PATTERN = #{entity.pattern},
+			SG_USER_PATTERN = #{entity.userPattern, jdbcType=VARCHAR},
+			SG_PROP_PATTERNS = #{entity.propertyPatternsJson, jdbcType=VARCHAR},
+			SG_EMPTY_PPT_FA = #{entity.emptyPropertyPatternsForAll, jdbcType=VARCHAR},
+			SG_PROP_MATCH_MODE = #{entity.propertiesMatchMode, jdbcType=VARCHAR},
+			SG_PERMITTED = #{entity.permitted, jdbcType=VARCHAR},
+			SG_PRIORITY = #{entity.priority},
+			SG_ENABLED = #{entity.enabled, jdbcType=VARCHAR}
+		WHERE
+			SG_ID = #{entity.id}
+	</update>
+	
+	<delete id="deleteById">
+		DELETE FROM DATAGEAR_SCHEMA_GUARD
+		WHERE
+			SG_ID = #{id}
+	</delete>
+	
+	<select id="getById" resultType="org.datagear.management.domain.DtbsSourceGuard">
+		SELECT
+			T.*
+		FROM
+			(<include refid="queryView" />) T
+		WHERE
+			T.${_iq_}id${_iq_} = #{id}
+	</select>
+	
+	<select id="getAll" resultType="org.datagear.management.domain.DtbsSourceGuard">
+		SELECT
+			T.*
+		FROM
+			(<include refid="queryView" />) T
+	</select>
+	
+	<select id="query" resultType="org.datagear.management.domain.DtbsSourceGuard">
+		SELECT
+			T.*
+		FROM
+			(<include refid="queryView" />) T
+		WHERE
+			<include refid="queryCondition" />
+		<include refid="common.queryOrder" />
+	</select>
+	
+	<select id="pagingQueryCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			(<include refid="queryView" />) T
+		WHERE
+			<include refid="queryCondition" />
+	</select>
+	
+	<select id="pagingQuery" resultType="org.datagear.management.domain.DtbsSourceGuard">
+		<include refid="common.pagingQueryHead" />
+			SELECT
+				T.*
+			FROM
+				(<include refid="queryView" />) T
+			WHERE
+				<include refid="queryCondition" />
+			<include refid="common.queryOrder" />
+		<include refid="common.pagingQueryFoot" />
+	</select>
+	
+	<sql id="queryView">
+		SELECT
+			A.SG_ID AS ${_iq_}id${_iq_},
+			A.SG_NAME AS ${_iq_}name${_iq_},
+			A.SG_PATTERN AS ${_iq_}pattern${_iq_},
+			A.SG_USER_PATTERN AS ${_iq_}userPattern${_iq_},
+			A.SG_PROP_PATTERNS AS ${_iq_}propertyPatternsJson${_iq_},
+			A.SG_EMPTY_PPT_FA AS ${_iq_}emptyPropertyPatternsForAll${_iq_},
+			A.SG_PROP_MATCH_MODE AS ${_iq_}propertiesMatchMode${_iq_},
+			A.SG_PERMITTED AS ${_iq_}permitted${_iq_},
+			A.SG_PRIORITY AS ${_iq_}priority${_iq_},
+			A.SG_ENABLED AS ${_iq_}enabled${_iq_},
+			A.SG_CREATE_TIME AS ${_iq_}createTime${_iq_}
+		FROM
+			DATAGEAR_SCHEMA_GUARD A
+	</sql>
+	
+	<sql id="queryCondition">
+		1 = 1
+		<if test="queryKeyword != null">
+		AND
+		(
+			${_iq_}name${_iq_} LIKE #{queryKeyword}
+		)
+		</if>
+	</sql>
+</mapper>

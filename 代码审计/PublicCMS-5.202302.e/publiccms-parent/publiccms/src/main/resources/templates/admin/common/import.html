@@ -1,0 +1,75 @@
+<form action="file/doImport" method="post" autocomplete="off" enctype="multipart/form-data" class="pageForm required-validate" onsubmit="return iframeCallback(this, $.bringBack)">
+    <input type="hidden" name="_csrf" value="<@tools.csrfToken admin=true/>"/>
+    <input type="hidden" name="titleField" value="${titleField!'title'}"/>
+    <input type="hidden" name="field" value="${field!'text'}"/>
+    <div class="pageFormContent layoutBox" layoutH>
+        <dl class="nowrap">
+            <dt><@t.page 'file'/>:</dt>
+            <dd>
+                <input type="file" name="file" class="required" size="30" accept="application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/msword,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+                <span class="info"><@t.page 'import_doc.support_type'/></span>
+            </dd>
+        </dl>
+        <dl class="nowrap iframe hide">
+            <dt><@t.page 'iframe'/>:</dt>
+            <dd>
+                <p><label><input type="checkbox" name="useIframe"><@t.page 'upload.useIframe'/></label></p>
+                <div class="iframeSize hide">
+                    <label><@t.page 'width'/></label><input name="width" data-required="true" type="text" value="100%"/>
+                    <label><@t.page 'height'/></label><input name="height" data-required="true" type="text" value="800px"/>
+                </div>
+            </dd>
+        </dl>
+        <dl class="nowrap font hide">
+            <dt><@t.page 'default_font'/>:</dt>
+            <dd>
+                <select name="defaultFontFamily" class="combox">
+                    <#list getFontList() as font>
+                    <option value="${font}">${font}</option>
+                    </#list>
+                </select>
+                <span class="info"><@t.page 'default_font.description'/></span>
+            </dd>
+        </dl>
+    </div>
+    <div class="formBar">
+        <ul>
+            <li><button type="submit" class="buttonActive" title="ctrl+s"><@t.page 'import'/></button></li>
+            <li><button type="button" class="button close"><@t.page 'button.close'/></button></li>
+        </ul>
+    </div>
+</form>
+<script>
+$(".pageFormContent",$.pdialog.getCurrent()).on("change","input[type=file]",function(){
+    if($(this).length && $(this)[0].files){
+        var filenames=$(this)[0].files[0].name.toLowerCase().split('.');
+        if('pdf' == filenames[filenames.length-1]){
+            $('.iframe',$.pdialog.getCurrent()).show();
+        } else {
+            $('.iframe',$.pdialog.getCurrent()).hide();
+        }
+        if('pptx' == filenames[filenames.length-1]||'ppt' == filenames[filenames.length-1]){
+            $('.font',$.pdialog.getCurrent()).show();
+            if ("function" === typeof $.cookie && $.cookie("import_font")) {
+                $("select[name=defaultFontFamily]",$.pdialog.getCurrent()).comboxVal($.cookie("import_font"));
+            }
+        } else {
+            $('.font',$.pdialog.getCurrent()).hide();
+        }
+    }
+});
+if ("function" === typeof $.cookie){
+    $("select[name=defaultFontFamily]",$.pdialog.getCurrent()).change(function(){
+        $.cookie("import_font",$(this).val());
+    });
+}
+$('input[name=useIframe]',$.pdialog.getCurrent()).click(function(){
+    if($(this).is(':checked')) {
+        $('.iframeSize',$.pdialog.getCurrent()).show();
+        $('.iframeSize input[data-required=true]',navTab.getCurrentPanel()).addClass('required');
+    } else {
+        $('.iframeSize',$.pdialog.getCurrent()).hide();
+        $('.iframeSize input[data-required=true]',navTab.getCurrentPanel()).removeClass('required');
+    }
+});
+</script>

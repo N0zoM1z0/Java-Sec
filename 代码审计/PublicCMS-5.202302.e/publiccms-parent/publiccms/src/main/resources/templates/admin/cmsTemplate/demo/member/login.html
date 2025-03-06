@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>${metadata.alias!}</title>
+    <style>
+        .red{color:#f00;}
+    </style>
+</head>
+<body>
+    <header data-diy="page">
+        <h1>${(site.name)!}</h1>
+    </header>
+    <nav data-diy="category">
+        <a href="${site.dynamicPath}">Home</a>
+<@cms.categoryList>
+    <#list page.list as a>
+        <a href="${a.url!}" target="_blank" data-diy-item="${a.id}">${a.name}</a>
+    </#list>
+</@cms.categoryList>
+    </nav>
+    <main data-diy="config" data-diy-id="site">
+        <#macro message code>${springMacroRequestContext.getMessage(code)}</#macro>
+        <#if error?has_content>
+            <p class="message red"><@message 'message.'+error/></p>
+        <#elseif message?has_content>
+            <p class="message"><@message "message."+message/></p>
+        <#else>
+            <#if user?has_content>
+                <p>${user.nickname},You are already logged in!<a href="javascript:logout();">You can logout</a></p>
+                <form name="logout" action="${site.dynamicPath}doLogout" method="post">
+                    <input type="hidden" name="userId" value="${(user.id)!}"/>
+                    <input type="hidden" name="returnUrl" value="${returnUrl!site.sitePath!}"/>
+                </form>
+                <#if !user.emailChecked>
+                    <form action="${site.dynamicPath}user/saveEmail" method="post" class="center login-form">
+                        <input type="hidden" name="_csrf" value="<@tools.csrfToken/>"/>
+                        <input type="hidden" name="returnUrl" value="${site.dynamicPath}login.html"/>
+                        <p>
+                            <input type="email" class="input-text" name="email" placeholder="Email" title="Email" value="${user.email!}"/>
+                            <input type="submit" class="button" value="Verify Email"/>
+                        </p>
+                    </form>
+                </#if>
+            <#else>
+                <form action="${site.dynamicPath}doLogin" method="post">
+                    <#if error?has_content>
+                        <p class="red">${springMacroRequestContext.getMessage(error,error)}</p>
+                    </#if>
+                    <p><input type="text" name="username" placeholder="User name" title="User name"/></p>
+                    <p><input type="password" name="password" placeholder="Password" title="Password"/></p>
+                    <@sys.configData code="safe">
+                        <#if object.captcha?has_content && object.captcha?split(",")?seq_contains("login")>
+                    <p>
+                        <input name="captcha" type="text" autocomplete="off" placeholder="Captcha" title="Captcha"/>
+                        <img src="${site.dynamicPath}getCaptchaImage?${.now?long}" alt="captcha" onclick="this.src=this.src+'&'+new Date().getTime()"/>
+                    </p>
+                        </#if>
+                    </@sys.configData>
+                    <p>
+                        <input type="hidden" name="returnUrl" value="${returnUrl!}"/>
+                        <input type="hidden" name="clientId" value="${clientId!}"/>
+                        <input type="hidden" name="uuid" value="${uuid!}"/>
+                        <input type="submit" value="Login"/>
+                    </p>
+                    <#if _oauthList?has_content&&_oauthList?is_directive>
+                    <div data-diy="config" data-diy-id="oauth">
+                        <@oauth.list>
+                            <p><#list list as o><a href="${site.dynamicPath}oauth/login/${o}">Login by ${o}</a><#sep> </#list></p>
+                        </@oauth.list>
+                    </div>
+                    </#if>
+                    <p>No account?<a href="register.html?clientId=${clientId!}&uuid=${uuid!}&returnUrl=${returnUrl!}">Please register</a></p>
+                </form>
+            </#if>
+        </#if>
+    </main>
+    <footer>
+        Copyright &copy; ${.now?string('yyyy')}
+    </footer>
+    <script src="${site.dynamicPath!}resource/plugins/jquery/jquery.min.js"></script>
+    <script>
+    function logout(){
+        $("form[name=logout]").submit();
+    }
+    </script>
+    <script>
+    var templatePath='${.current_template_name?keep_after('/')}';
+    </script>
+    <script src="${site.dynamicPath}resource/js/cms.support.js"></script>
+    <script>
+        var ca = cmsAnalytics();
+        var url='${site.dynamicPath}api/visit/record';
+        if("string" ==typeof itemString){
+            url=url+"?"+itemString;
+        }
+        ca.setDomain('${site.sitePath?keep_after('//')?keep_before('/')?keep_before(':')}');
+        ca.setPath('/');
+        ca.report(url);
+    </script>
+</body>
+</html>

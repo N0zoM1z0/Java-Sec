@@ -1,0 +1,108 @@
+<@tools.placeMetadata path=path>
+    <#assign a=object/>
+<#assign formContent>
+    <#if a.allowContribute>
+        <#assign
+            fieldList=a.fieldList![]
+            requiredFieldList=a.requiredFieldList![]
+        />
+<#if !a.allowAnonymous>
+<#noparse>
+<#if user?has_content>
+</#noparse>
+</#if>
+<form method="post" action="<#noparse>${site.dynamicPath}</#noparse>place/save">
+<#if !a.allowAnonymous>
+    <input type="hidden" name="_csrf" value="<#noparse><@tools.csrfToken/></#noparse>"/>
+</#if>
+    <input name="path" type="hidden" value="${(path)!}"/>
+    <input name="returnUrl" type="hidden" value="<#noparse>${site.dynamicPath}</#noparse>"/>
+    <p>
+        <label>${(a.fieldTextMap['title'])!}:</label>
+        <input name="title" type="text" size="60" required="true" maxlength="255"/>
+    </p>
+<#if fieldList?seq_contains('description')>
+    <p>
+        <label>${(a.fieldTextMap['description'])!}:</label>
+        <textarea name="description" maxlength="300"></textarea>
+    </p>
+</#if>
+<#if fieldList?seq_contains('url')>
+    <p>
+        <label>${(a.fieldTextMap['url'])!}:</label>
+        <input name="url" type="text" size="60" maxlength="1000"/>
+    </p>
+</#if>
+<#if fieldList?seq_contains('cover')>
+    <p>
+        <label>${(a.fieldTextMap['cover'])!}:</label>
+        <input name="cover" type="text" size="60" maxlength="1000"/>
+    </p>
+</#if>
+    <#include "../include_page/extendData.html"/>
+    <#assign extendValues=getPlaceAttribute((a.id)!)/>
+    <@extendData name='extendDataList' extendList=a.extendList extendValues=extendValues type='customform'/>
+<#noparse>
+    <@sys.configData code="safe">
+        <#if object.captcha?has_content && object.captcha?split(",")?seq_contains("contribute")>
+    <p>
+        <input name="captcha" required="true" type="text" autocomplete="off" placeholder="Captcha" title="Captcha"/>
+        <img src="${site.dynamicPath}getCaptchaImage?${.now?long}" alt="captcha" onclick="this.src=this.src+'&'+new Date().getTime()"/>
+    </p>
+        </#if>
+    </@sys.configData>
+</#noparse>
+    <p><input type="submit" value="<@t.page 'button.save'/>"/></p>
+</form>
+<#if a.adminIds?has_content>
+    ${'<#assign path=\''?no_esc+path+'\'/>'?no_esc}
+<#noparse>
+    <@tools.placeMetadata path=path><#assign a=object/></@tools.placeMetadata>
+    <#if user?has_content&&(a.adminIds)?has_content&&a.adminIds?seq_contains(user.id)>
+        <#macro merge name value><#if !.vars[name]?has_content><@"<#assign ${name}=''>"?interpret /></#if><#if value?has_content><@"<#assign ${name}=${name}+'${value},'>"?interpret /></#if></#macro>
+        <@cms.placeList path=path advanced=true pageIndex=pageNum pageSize=numPerPage>
+            <#list page.list as a>
+                <@merge 'userIds' a.userId!/>
+            </#list>
+            <@sys.user ids=userIds!><#assign userMap=map!/></@sys.user>
+            <#list page.list as a>
+                    <p>
+                        <a href="${a.url}" target="_blank">${a.title}</a> ${a.clicks} [${(userMap[a.userId?string].nickname)!}]
+                    <#if 2=a.status>
+                        <a href="${site.dynamicPath}place/check?id=${a.id}&returnUrl=${site.dynamicPath}&_csrf=<@tools.csrfToken/>">Check</a> 
+                    <#elseif 1=a.status>
+                        <a href="${site.dynamicPath}place/uncheck?id=${a.id}&returnUrl=${site.dynamicPath}&_csrf=<@tools.csrfToken/>">Uncheck</a> 
+                    </#if>
+                        <a href="${site.dynamicPath}place/delete?id=${a.id}&returnUrl=${site.dynamicPath}&_csrf=<@tools.csrfToken/>">Delete</a>
+                    </p>
+            </#list>
+        </@cms.placeList>
+    </#if>
+</#noparse>
+            <#if !a.allowAnonymous>
+<#noparse>
+<#else>
+please <a href="${site.dynamicPath}login.html">login</a>
+</#if>
+</#noparse>
+</#if>
+            </#if>
+        <#else>
+<@t.message 'verify.custom.contribute'/>
+    </#if>
+</#assign>
+</@tools.placeMetadata>
+<div class="pageFormContent" layoutH>
+    <dl class="nowrap">
+        <dt><@t.page 'place'/>:</dt>
+        <dd>
+            ${(path)!} ${(a.alias)!}
+        </dd>
+    </dl>
+    <dl class="nowrap">
+        <dt><@t.page 'source_code'/>:</dt>
+        <dd>
+            <textarea class="code" mode="freemarkermixed"><@html_escape>${(formContent)!}</@html_escape></textarea>
+        </dd>
+    </dl>
+</div>

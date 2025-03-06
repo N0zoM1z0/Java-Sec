@@ -1,0 +1,139 @@
+<@trade.orderList userId=userId paymentId=paymentId processed=processed status=status startCreateDate=startCreateDate endCreateDate=endCreateDate
+            orderType=orderType pageIndex=pageNum pageSize=numPerPage>
+<@sys.authorized roleIds=admin.roles urls='tradeOrder/confirm,tradeOrder/invalid,tradeOrder/process,tradeOrder/close,tradeOrder/export,tradeOrderHistory/list'><#assign authorizedMap=map/></@sys.authorized>
+<div class="pageHeader card">
+    <form class="pagerForm" action="tradeOrder/list.html" autocomplete="off" onsubmit="return navTabSearch(this);" method="post">
+        <#include "../include_page/parameters.html"/>
+        <div class="searchBar">
+            <ul class="searchContent">
+                <li>
+                    <label><@t.page 'user'/>:</label>
+                    <#include "../include_page/userId.html"/>
+                </li>
+                <li>
+                    <label><@t.page 'payment.id'/>:</label>
+                    <input type="text" name="paymentId" value="${paymentId!}"/>
+                </li>
+                <li>
+                    <label><@t.page 'status'/>:</label>
+                    <#list 0..4 as s>
+                        <label>
+                            <input <@t.compare status!'' s?string 'checked="checked"'/> name="status" value="${s}" type="checkbox"/>
+                            <@t.page 'status.order.'+s/>
+                        </label>
+                    </#list>
+                </li>
+                <li>
+                    <select class="combox" name="processed">
+                        <option value><@t.page 'order.process'/></option>
+                        <option value="false"${(processed?has_content&&"false"=processed)?then(' selected="true"','')?no_esc}><@t.page 'no'/></option>
+                        <option value="true"${(processed?has_content&&"true"=processed)?then(' selected="true"','')?no_esc}><@t.page 'yes'/></option>
+                    </select>
+                </li>
+                <li>
+                    <label><@t.page 'create_date'/>:</label>
+                    <input type="text" name="startCreateDate" class="date" size="10" autocomplete="off" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d}" value="${startCreateDate!}"/>
+                    <a class="inputDateButton" href="javascript:void(0);"></a>
+                    <span>-</span>
+                    <input type="text" name="endCreateDate" class="date" size="10" autocomplete="off" dateFmt="yyyy-MM-dd" maxDate="{%y}-%M-{%d+1}" value="${endCreateDate!}"/>
+                    <a class="inputDateButton" href="javascript:void(0);"></a>
+                </li>
+            </ul>
+            <div class="subBar">
+                <ul>
+                    <li>
+                        <button type="submit" class="buttonActive"><@t.page 'button.search'/></button>
+                    </li>
+                <#if authorizedMap['tradeOrder/export']>
+                    <li>
+                        <a class="button" href="tradeOrder/export?_csrf=<@tools.csrfToken admin=true/>" target="dwzExport" targetType="navTab"><i class="icon-download-alt icon-large"></i><@t.page 'button.export'/></a>
+                    </li>
+                </#if>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="card">
+    <table class="table" width="100%" layoutH orderField="${orderField!}" orderType="${orderType!}">
+        <thead>
+            <tr>
+                <th width="20"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+                <th><@t.page 'id'/></th>
+                <th><@t.page 'user'/></th>
+                <th><@t.page 'title'/></th>
+                <th><@t.page 'receiver'/></th>
+                <th><@t.page 'remark'/></th>
+                <th><@t.page 'status'/></th>
+                <th><@t.page 'order.process'/></th>
+                <th><@t.page 'payment'/></th>
+                <th orderField="createDate"><@t.page 'create_date'/></th>
+                <th><@t.page 'operate'/></th>
+            </tr>
+        </thead>
+        <tbody>
+            <#list page.list as a>
+                <@t.merge 'userIds' a.userId!/>
+                <@t.merge 'userIds' a.processUserId!/>
+            </#list>
+            <@sys.user ids=t.userIds!><#assign userMap=map!/></@sys.user>
+            <#list page.list as a>
+            <tr>
+                <td class="center"><input name="ids" value="${a.id}" type="checkbox"></td>
+                <td>${a.id!}</td>
+                <td class="exclude-translate">
+                    <div class="box">
+                        <p>${(userMap[a.userId?string].nickname)!}</p>
+                        <p>${a.ip!}</p>
+                        <p>${(getIpRegion(a.ip).address)!}</p>
+                    </div>
+                </td>
+                <td class="exclude-translate">${a.title!}</td>
+                <td class="exclude-translate">
+                    <div class="box">
+                        <p>${a.addressee!} <label><@t.page 'telephone'/>:</label>${a.telephone!}</p>
+                        <p><label><@t.page 'shipping_address'/>:</label>${a.address!}</p>
+                    </div>
+                </td>
+                <td>${a.remark!}</td>
+                <td><@t.page 'status.order.'+a.status/></td>
+                <td>
+                    <div class="box">
+                        <p>${a.processed?then(t.pageMessage('yes'),'')} ${a.processDate!}</p>
+                        <p class="exclude-translate"><#if a.processInfo?has_content><label><@t.page 'order.process_info'/>:</label></#if>${a.processInfo!}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="box">
+                        <p><#if a.paymentId?has_content><@trade.payment id=a.paymentId><a href="tradePayment/list.html?tradeType=product&serialNumber=${a.id}" target="navTab" rel="tradePayment/list"><@t.page 'status.payment.'+object.status/></a></@trade.payment></#if></p>
+                        <p>${a.paymentDate!}</p>
+                    </div>
+                </td>
+                <td>${a.createDate!}</td>
+                <td class="wrap">
+                    <a href="tradeOrder/view.html?id=${a.id}" class="btnText edit" target="dialog" rel="viewOrder${a.id}"><@t.page 'button.view'/></a>
+                <#if !a.confirmed && ( 0=a.status || 2=a.status)>
+                    <#if authorizedMap['tradeOrder/confirm']>
+                    <a href="tradeOrder/confirmParameters.html?id=${a.id}" class="btnText green" target="dialog" mask="true"><@t.page 'order.confirm'/></a>
+                    </#if>
+                    <#if authorizedMap['tradeOrder/invalid']>
+                    <a href="tradeOrder/invalid?id=${a.id}&_csrf=<@tools.csrfToken admin=true/>" class="btnText red" title="<@t.page 'confirm.invalid_order'/>" target="ajaxTodo"><@t.page 'order.invalid'/></a>
+                    </#if>
+                </#if>
+                <#if 2=a.status && a.confirmed && !a.processed && authorizedMap['tradeOrder/process']>
+                    <a href="tradeOrder/processParameters.html?id=${a.id}" class="btnText green" target="dialog" mask="true"><@t.page 'order.process'/></a>
+                </#if>
+                <#if (!a.confirmed && 0=a.status || 1=a.status || 3=a.status ) && authorizedMap['tradeOrder/close']>
+                    <a href="tradeOrder/close?id=${a.id}&_csrf=<@tools.csrfToken admin=true/>" class="btnText warn" title="<@t.page 'confirm.close_order'/>" target="ajaxTodo"><@t.page 'button.close'/></a>
+                </#if>
+                <#if authorizedMap['tradeOrderHistory/list']>
+                    <a href="tradeOrderHistory/list.html?orderId=${a.id}" class="btnText" target="navTab" rel="tradeOrderHistory/list"><@t.page 'order.history'/></a>
+                </#if>
+                </td>
+            </tr>
+            </#list>
+        </tbody>
+    </table>
+    <#include "../include_page/page.html"/>
+</div>
+</@trade.orderList>
